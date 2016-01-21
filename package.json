@@ -1,0 +1,33 @@
+{
+  "name": "simple-stackcore",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.coffee",
+  "scripts": {
+    "start": "node-dev app.coffee",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "coffee-script": "^1.8.0",
+    "grunt-contrib-coffee": "^0.13.0",
+    "grunt-contrib-concat": "^0.5.1",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-newer": "^1.1.1",
+    "stylus": "^0.49.3"
+  },
+  "dependencies": {
+    "body-parser": "^1.13.1",
+    "coffee-script": "^1.9.3",
+    "express": "^4.13.0",
+    "fibrous": "^0.4.0",
+    "grunt": "^0.4.5",
+    "grunt-contrib-concat": "^0.5.1",
+    "mongoose": "^4.0.6",
+    "node-dev": "^2.6.0",
+    "node-static": "^0.7.6",
+    "path": "^0.11.14",
+    "xml2js": "^0.4.15"
+  }
+}
