@@ -1,7 +1,8 @@
 angular.module('myApp')
-.controller 'MainCtrl', ($http) ->
+.controller 'MainCtrl', ($http, $state) ->
+  $state.go("dashboard")
   defaults =
-    minYear : 3000
+    minYear : 2000
     maxYear : 2015
     colors  :
       case_counts       : 'rgba(0, 117, 255, 1)'
