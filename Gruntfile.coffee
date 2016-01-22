@@ -8,7 +8,7 @@ module.exports = (grunt) ->
     coffee:
       compile:
         files:
-          'public/js/app.js': 'app/web/src/**/*.coffee'
+          'public/js/src/src-app.js': ['app/web/src/**/*.coffee']
 
     watch:
       coffeescript:
@@ -22,18 +22,34 @@ module.exports = (grunt) ->
         options: { livereload: true }
 
       compile:
-        files: 'app/web/src/**/*.coffee'
-        tasks: ["newer:coffee", "concat"]
+        files: ['app/web/src/**/*.coffee', 'app/web/templates/*.tpl.jade']
+        tasks: ["newer:coffee", "concat", "html2js"]
+
       options:
         livereload: true
+
+    html2js:
+      options:
+        jade:
+          doctype: 'html'
+      main:
+        options:
+          base: 'app/web/src/templates'
+        src: ['app/web/templates/*.tpl.jade']
+        dest: 'public/js/src/templates.js'
 
     concat:
       options:
         separator: ';'
 
-      dist:
+      vendor:
         src: ['public/vendor/src/*.js'],
         dest: 'public/vendor/js/app-vendor.js'
+
+      js:
+        src:  ['public/js/src/src-app.js', 'public/js/src/templates.js']
+        dest: 'public/js/app.js'
+
 
     stylus:
       compile:
@@ -44,14 +60,14 @@ module.exports = (grunt) ->
           'public/css/styles.css': 'app/web/styles/*.styl'
 
 
-
-  #Load Tasks
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-concat'
   grunt.loadNpmTasks 'grunt-newer'
   grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-contrib-stylus'
   grunt.loadNpmTasks 'grunt-autoprefixer'
+  grunt.loadNpmTasks 'grunt-html2js'
 
   grunt.registerTask 'compile', ['coffee']
-  grunt.registerTask 'default', ['coffee', 'stylus', 'concat', 'watch']
+  grunt.registerTask 'html', ['html2js']
+  grunt.registerTask 'default', ['coffee', 'html2js', 'stylus', 'concat', 'watch']
