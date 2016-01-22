@@ -3,9 +3,8 @@ keys.coffee
 node_modules
 bower_components
 
-public/app/*.js
-public/app/*.css
-
 public/assets/ftl_docs
 
+
+public/js/src/*.js
 npm-debug.log

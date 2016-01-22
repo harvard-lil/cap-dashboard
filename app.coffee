@@ -5,11 +5,9 @@ bodyParser = require 'body-parser'
 
 mongoose   = require 'mongoose'
 fibrous    = require 'fibrous'
-Papers     = require './papers'
-api        = require './api'
 config     = require './config'
 keys       = require './keys'
-
+routes     = require './app/api/routes'
 reqeustToken = null
 
 client = null
@@ -28,6 +26,9 @@ app.all '/*', (req, res, next) ->
 app.get '/', (req, res) ->
   res.render 'index.html', { requestToken : request_token }
 
-port = process.env.PORT || 8000
+app.get '/topic/:topic', routes.findByTopic
+app.get '/topics', routes.listTopics
+
+port = process.env.PORT || 8001
 server = app.listen port, ->
   console.log 'Example app listening to port', port
