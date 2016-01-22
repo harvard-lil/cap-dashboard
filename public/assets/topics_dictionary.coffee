@@ -1,4 +1,4 @@
-exports.list = {
+exports.list = 
   contract : 0
   murder : 1
   city : 2
@@ -10,4 +10,3 @@ exports.list = {
   fraud : 8
   custody : 9
   car : 10
-}
