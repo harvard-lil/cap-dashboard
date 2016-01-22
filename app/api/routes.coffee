@@ -1,6 +1,6 @@
 # fs     = require "fs"
-topics_dict = require "../../assets/topics_dictionary"
-topics      = require "../../assets/topic_models_small"
+topics_dict = require "../../public/assets/topics_dictionary"
+topics      = require "../../public/assets/topic_models_small"
 
 
 min_year = 1850
@@ -19,5 +19,5 @@ exports.findByTopic = (req, res) ->
 
 exports.listTopics = (req, res) ->
   topics = Object.keys topics_dict.list
-  # this should probably be ordered somehow 
+  # this should probably be ordered somehow
   res.status(200).json { topics : topics }

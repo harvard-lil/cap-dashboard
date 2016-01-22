@@ -6,30 +6,29 @@ module.exports = (grunt) ->
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json')
     coffee:
-      coffee_to_js:
-        options:
-          bare: true
-          sourceMap: false
-        expand: true
-        flatten: false
-        cwd: "public"
-        src: ["*.coffee"]
-        dest: 'public'
-        ext: ".js"
+      compile:
+        files:
+          'public/js/app.js': 'app/web/src/**/*.coffee'
+        options: {
+          livereload: true,
+        }
     watch:
       coffeescript:
-        files: 'public/*.coffee'
+        files: 'app/**/*.coffee'
         tasks: ["newer:coffee"]
       compile:
-        files: watch_src
+        files: 'app/web/src/**/*.coffee'
         tasks: ["newer:coffee", "concat"]
     concat:
       options:
         separator: ';'
 
       dist:
-        src: ['bower_components/ngDraggable/ngDraggable.js'],
+        src: ['public/vendor/*.js'],
         dest: 'public/app/app-vendor.js'
+      # dist:
+      #   src: ['public/vendor/*.css'],
+      #   dest: 'public/app/app-vendor.css'
   })
 
   #Load Tasks

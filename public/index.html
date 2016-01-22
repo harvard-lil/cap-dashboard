@@ -1,23 +1,22 @@
-<html ng-app="app">
+<html ng-app="myApp">
 <head>
   <title></title>
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.1/moment.min.js"></script>
-  <script src="/vendor/Chart.js-2.0-dev/Chart.js"></script>
-  <script src="/vendor/Chart.js-2.0-dev/src/charts/Chart.Bar.js"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-rc.1/angular.min.js"></script>
-  <script type="text/javascript" src="./index.js"></script>
+  <script data-require="angular-ui-router@*" data-semver="0.2.15" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.js"></script>
+  <script type="text/javascript" src="./js/app.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-
   <link rel="stylesheet" type="text/css" href="./styles.css">
 </head>
 <body>
-  <body ng-controller="MainCtrl">
-  
-  <div style="width:80%">
-		<div>
-			<canvas id="canvas" height="450" width="600"></canvas>
-		</div>
-	</div>
-</body>
+
+  <body>
+    <div ui-view></div>
+    <div ui-view="dashboard"></div>
+    <!-- <div style="width:80%">
+  		<div>
+  			<canvas id="canvas" height="450" width="600"></canvas>
+  		</div>
+  	</div> -->
+  </body>
 </html>

@@ -1,9 +1,7 @@
-# min 1850
-# max 2015
-angular.module('myApp', ['ui.router'])
+angular.module('myApp')
 .controller 'MainCtrl', ($http) ->
   defaults =
-    minYear : 2000
+    minYear : 3000
     maxYear : 2015
     colors  :
       case_counts       : 'rgba(0, 117, 255, 1)'

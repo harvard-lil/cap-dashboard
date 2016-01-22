@@ -1,0 +1,12 @@
+
+ .timeline-container {
+  width: 400px;
+  height: 300px;
+  border: 1px solid lightblue;
+  
+ }
+ .canvas-container{
+   border: 1px solid pink;
+   width: 400px;
+   height: 300px;
+ }

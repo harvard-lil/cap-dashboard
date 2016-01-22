@@ -7,7 +7,7 @@ mongoose   = require 'mongoose'
 fibrous    = require 'fibrous'
 config     = require './config'
 keys       = require './keys'
-routes     = require './public/app/api/routes'
+routes     = require './app/api/routes'
 reqeustToken = null
 
 client = null
