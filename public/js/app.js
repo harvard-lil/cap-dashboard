@@ -1,22 +1,22 @@
 (function() {
   angular.module('myApp', ['ui.router']).config(function($stateProvider, $urlRouterProvider, $httpProvider) {
     console.log("in config, woo");
-    return $stateProvider.state('dashboard', {
-      template: "<div>HELLO</div>",
-      url: "/",
+    $stateProvider.state('dashboard', {
+      template: "      <div>HELLO</div>\n      <div style=\"width:80%\">\n	<div>\n		<canvas id=\"canvas\" height=\"450\" width=\"600\"></canvas>\n	</div>\n</div>",
       controller: function() {
-        return console.log("HELLO dashboard");
+        console.log("HELLO dashboard");
       }
-    }).state('single-topic').state('compare-topics');
+    });
   });
 
 }).call(this);
 
 (function() {
-  angular.module('myApp').controller('MainCtrl', function($http) {
+  angular.module('myApp').controller('MainCtrl', function($http, $state) {
     var defaults;
+    $state.go("dashboard");
     defaults = {
-      minYear: 3000,
+      minYear: 2000,
       maxYear: 2015,
       colors: {
         case_counts: 'rgba(0, 117, 255, 1)',
