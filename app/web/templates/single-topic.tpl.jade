@@ -1,0 +1,24 @@
+.single-topic-container(ng-controller="TopicCtrl as st")
+  form.single-topic-form
+    label FROM
+    input(
+      type="number"
+      min="1850"
+      ng-model="st.minYear"
+      ng-max="st.maxYear"
+      ng-blur="st.parseTopicData()"
+      ng-keyup="$event.keyCode == 13 && st.parseTopicData()") 
+    label TO
+    input(
+      type="number"
+      max="2015" 
+      ng-min="st.minYear"
+      ng-model="st.maxYear"
+      ng-blur="st.parseTopicData()"
+      ng-keyup="$event.keyCode == 13 && st.parseTopicData()") 
+
+  nvd3(
+    options="st.options"
+    data="st.data"
+    config="st.config"
+    api="st.api")

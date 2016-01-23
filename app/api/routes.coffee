@@ -9,8 +9,12 @@ max_year = 2015
 exports.findByTopic = (req, res) ->
   topic    = req.params.topic
   topic_num = "#{topics_dict.list[topic]}"
-  data = {}
+  res.status(200).send(topics.clusters[topic_num].data)
 
+exports.findByTopics = (req, res) ->
+  topics    = req.data.topics
+  topic_num = "#{topics_dict.list[topic]}"
+  data = {}
   res.status(200).send(topics.clusters[topic_num].data)
 
 exports.listTopics = (req, res) ->

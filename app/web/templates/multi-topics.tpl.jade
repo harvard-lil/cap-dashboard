@@ -1,0 +1,11 @@
+.multi-topics-container(ng-controller="MultiTopicCtrl as mt")
+  form.multi-topic-form
+    label FIRST TOPIC
+    input(
+      ng-model="mt.firstTopic")
+    label SECOND TOPIC
+    input(
+      ng-model="mt.secondTopic")
+    button(
+      type="submit"
+      ng-click="mt.renderMultiTopicGraph()") SUBMIT
