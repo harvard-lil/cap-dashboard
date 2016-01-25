@@ -1,5 +1,5 @@
 templates_path = "../../templates/"
-angular.module('myApp', [
+angular.module('ftlTopics', [
   'templates-main'
   'ui.router'
   'nvd3'

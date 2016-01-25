@@ -1,4 +1,4 @@
-angular.module('myApp')
+angular.module('ftlTopics')
 .service "TopicService", ($http) ->
   obj =
     currentTopic : "Water Rights"

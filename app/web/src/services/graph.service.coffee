@@ -1,4 +1,4 @@
-angular.module('myApp')
+angular.module('ftlTopics')
 .service 'GraphService', ->
   colors = ["#0075FF", "#2F2F2F", "#D9D9D9", "#D2E7FF", "#ECA633", "#78B6FF", "#7ED321"]
   obj =
