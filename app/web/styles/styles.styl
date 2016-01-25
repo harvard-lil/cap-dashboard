@@ -39,10 +39,15 @@ $color-third-blue  = #78B6FF
   height         : 35px
   padding        : 0px 14px
 
+.blue-text
+  color : $color-main-blue
 
 .general-link
   border-bottom : 1px solid
   padding-bottom : 5px
+
+.border-gray
+  border-bottom : 1px solid $color-main-gray
 
 /* GENERAL */
 
@@ -51,6 +56,9 @@ body
   font-weight     : 300
   color           : $color-main-black
 
+hr
+  border : 1px solid $color-main-gray
+
 @import 'header'
 @import 'footer'
 
@@ -58,33 +66,42 @@ body
 
 
 .dashboard-title-container
-  position : relative
-  width    : 100%
-  padding-top : 34px
-  h1
-    font          : $text-section-titles, sans-serif
-    font-weight   : $font-bold
-    font-size     : 54px
-    margin-bottom : -10px
-  h4
-    font        : $text-subtitles, sans-serif
-    font-weight : $font-regular
+  position    : relative
+  width       : 100%
+  line-height : 32px
+  text-align  : center
+  padding : 23px
+
   .ftl-logo
-    fill : $color-main-gray
-    height : 74px
-    margin: 0 auto
+    margin            : 0 auto
+    margin-top        : 20px
+    float             : none
+    background-color  : $color-main-blue
+    -webkit-mask-image: url(../assets/img/logo-medium.svg)
+    mask-image        : url(../assets/img/logo-medium.svg)
+    width             : 51px
+    height            : 74px
+  h1
+    font        : $text-section-titles, sans-serif
+    font-weight : $font-bold
+    font-size   : 54px
+    margin      : 12px 0px -10px 0px
+
+  h4
+    font          : $text-subtitles, sans-serif
+    font-weight   : $font-regular
+    margin-bottom : 110px
+    margin-top    : 10px
+
+.mountain-container
+  height        : 150px
+  overflow      : hidden
+  display       : inline
 
 img.mountains
   width : 100%
 
-.dashboard-toc-container
-  background-color : $color-main-black
-  width            : 100%
-  height           : 259px
-  position         : relative
-  top              : -5em
-
-
 @import 'nvd3-custom'
-@import 'single-topic-form'
-@import 'multi-topic-form'
+@import 'topic-toc-container'
+@import 'single-topic-graph'
+@import 'multi-topic-graph'

@@ -1,3 +1,4 @@
+templates_path = "../../templates/"
 angular.module('myApp', [
   'templates-main'
   'ui.router'
@@ -11,9 +12,14 @@ angular.module('myApp', [
       controller: 'DashboardCtrl'
       views:
         '@':
-          templateUrl: '../../templates/dashboard.tpl.jade'
+          templateUrl: "#{templates_path}dashboard.tpl.jade"
+
+        'topic-toc-container@dashboard':
+          templateUrl:  "#{templates_path}topic-toc-container.tpl.jade"
+
         'single-topic@dashboard':
-          templateUrl: '../../templates/single-topic.tpl.jade'
+          templateUrl: "#{templates_path}single-topic.tpl.jade"
+          
         'multi-topics@dashboard':
-          templateUrl: '../../templates/multi-topics.tpl.jade'
+          templateUrl: "#{templates_path}multi-topics.tpl.jade"
   return

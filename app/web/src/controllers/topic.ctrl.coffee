@@ -1,17 +1,24 @@
 angular.module('myApp')
-.controller 'TopicCtrl', ($http, TopicService) ->
-  @minYear = 2005
+.controller 'TopicCtrl', ($scope, TopicService) ->
+  @minYear = 1850
   @maxYear = 2014
 
+  $scope.$watch ->
+    return TopicService.currentTopic
+  , (newval, oldval) =>
+    return if newval == oldval
+    @currentTopic = newval
+    @getTopicData @currentTopic
+
   @getTopicData = (topic) ->
-    topic = topic || 'fraud'
     TopicService.getSingleTopic(topic)
     .then (response) =>
-      @topicData = response.data
+      @topicData = response.data.data
       @parseTopicData()
+      @parseTopicKeywords(response.data.keywords)
     , (response) ->
       console.log "something went wrong"
-  @getTopicData()
+
   defaults =
     minYear: @minYear
     maxYear: @maxYear
@@ -22,7 +29,10 @@ angular.module('myApp')
       dissent_counts: "Local Dissents"
       SC_dissent_counts: "SC Dissents"
 
-  @parseTopicData = (min, max) ->
+  @parseTopicKeywords = (keywords) ->
+    @topicKeywords = keywords
+
+  @parseTopicData = ->
     data = @topicData
 
     allCounts = [

@@ -1,13 +1,20 @@
 header.ftl-header
   height        : 50px
   width         : 100%
-  padding       : 10px
-  border-bottom : 1px solid $color-main-gray
-  img.ftl-logo
+  padding       : 20px 0px
+  .ftl-logo
     fill : $color-main-blue
     height : 32px
+    width : 24px
+    background-color  : $color-main-blue
+    -webkit-mask-image: url(../assets/img/logo-medium.svg)
+    mask-image        : url(../assets/img/logo-medium.svg)
+
   .ftl-text
-    font : $text-section-titles, sans-serif
-    font-weight : $font-bold
-    margin-left : 14px
-    padding-top : 10px
+    font           : $font-name, sans-serif
+    font-weight    : $font-bold
+    font-size      : 18px
+    left           : 32px
+    letter-spacing : 1.5px
+    position       : relative
+    top            : -25px

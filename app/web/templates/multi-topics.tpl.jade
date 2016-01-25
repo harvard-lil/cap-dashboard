@@ -1,11 +1,16 @@
 .multi-topics-container(ng-controller="MultiTopicCtrl as mt")
-  form.multi-topic-form
-    label FIRST TOPIC
-    input(
-      ng-model="mt.firstTopic")
-    label SECOND TOPIC
-    input(
-      ng-model="mt.secondTopic")
-    button(
-      type="submit"
-      ng-click="mt.renderMultiTopicGraph()") SUBMIT
+  .multi-topic-header
+    .title COMPARE TOPICS
+  button.regular-btn.btn.show-menu(
+    ng-click="(mt.showMenu = !mt.showMenu) && mt.setupTopics()"
+  ) ADD OR REMOVE A TOPIC
+  .dropdown-topic-menu(ng-if="mt.showMenu")
+    ul(ng-repeat="(topic,val) in mt.topics")
+      li.single-topic(ng-click='mt.toggleTopic(topic)' ng-class="{'selected':val.selected}")
+        {{ topic }}
+
+  nvd3.multi-topic-graph(
+    options="mt.graph.options"
+    data="mt.graph.data"
+    config="mt.graph.config"
+    api="mt.graph.api")

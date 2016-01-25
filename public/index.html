@@ -12,7 +12,8 @@
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
   <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.1.0/ui-bootstrap.min.js"></script>
   <link href='//fonts.googleapis.com/css?family=Rajdhani:400,300,500,700' rel='stylesheet' type='text/css'>
-  <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.1/nv.d3.min.css"></link> -->
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.1/nv.d3.min.css" type="text/css" rel='stylesheet'></link>
+  <script src="vendor/js/app-vendor.js"></script>
   <link rel="stylesheet" type="text/css" href="./css/styles.css">
 
   <!--  just for local developing ! -->
@@ -21,24 +22,29 @@
 </head>
 <body class="container">
   <header class="ftl-header">
-    <img class="ftl-logo" src="../assets/img/logo-small.svg">
-    <span class="ftl-text"> FREE THE LAW</span>
+    <div class="ftl-header-content">
+      <div class="ftl-logo"></div>
+      <span class="ftl-text"> FREE THE LAW</span>
+    </div>
+  <div class="border-gray"></div>
   </header>
 
-    <div ui-view ng-controller="MainCtrl"></div>
-    <footer class="ftl-footer">
-      <div class="footer-content container-fluid">
-        <div class="ftl-logo img-responsive"></div>
-        <h3 class="text-center">FREE THE LAW</h3>
-        <h4 class="text-center">A product of the
-          <span class="inline-link">
-            <a href="//librarylab.law.harvard.edu/" target="_blank">
-              Library Innovation Lab
-            </a>
-          </span> at Harvard University.
-        </h4>
-        <button class="white-btn btn">RETURN TO TOP</button>
-      </div>
-    </footer>
+
+  <div ui-view ng-controller="MainCtrl"></div>
+
+  <footer class="ftl-footer">
+    <div class="footer-content container-fluid">
+      <div class="ftl-logo img-responsive"></div>
+      <h3 class="text-center">FREE THE LAW</h3>
+      <h4 class="text-center">A product of the
+        <span class="inline-link">
+          <a href="//librarylab.law.harvard.edu/" target="_blank">
+            Library Innovation Lab
+          </a>
+        </span> at Harvard University.
+      </h4>
+      <button class="white-btn btn">RETURN TO TOP</button>
+    </div>
+  </footer>
   </body>
 </html>

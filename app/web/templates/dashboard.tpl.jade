@@ -1,12 +1,13 @@
 .dashboard-container(ng-controller="DashboardCtrl")
   .dashboard-title-container
-    img.ftl-logo.img-responsive(src="../assets/img/logo-medium.svg")
+    .ftl-logo
     h1.text-center CALIFORNIA CASES
     h4.text-center
-      | Explore common case topics
-
-  img.mountains.img-responsive(src="../assets/img/mountains.png")
-  .dashboard-toc-container
-  
+      | Explore common case topics in California
+      br
+      span.blue-text from 1850 – 2014
+  //- .mountain-container
+  //-   img.mountains.img-responsive(src="../assets/img/mountains.png")
+  div(ui-view="topic-toc-container")
   div(ui-view="single-topic")
   div(ui-view="multi-topics")
