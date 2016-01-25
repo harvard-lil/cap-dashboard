@@ -160,40 +160,50 @@
         return console.log("something went wrong");
       });
     };
+    this.currentTopic = TopicService.currentTopic;
+    this.getTopicData(this.currentTopic);
     defaults = {
       keys: {
-        case_counts: "Local Cases",
-        SC_counts: "SC Cases",
-        dissent_counts: "Local Dissents",
-        SC_dissent_counts: "SC Dissents"
+        appeals_counts: "Appeal Court Cases",
+        case_counts: "Total Cases",
+        SC_counts: "Supreme Court Cases",
+        dissent_counts: "Total Dissents",
+        SC_dissent_counts: "Supreme Court Dissents",
+        appeals_dissent_counts: "Appeals Court Dissents"
       }
     };
     this.parseTopicKeywords = function(keywords) {
       return this.topicKeywords = keywords;
     };
     this.parseTopicData = function() {
-      var allCounts, data, i, ref, ref1, ref2, ref3, ref4, ref5, year;
+      var SC_counts, SC_dissent_counts, allCounts, appeals_counts, appeals_dissent_counts, case_counts, data, dissent_counts, i, ref, ref1, ref2, ref3, ref4, ref5, year;
       data = this.topicData;
       allCounts = [
         {
-          key: defaults.keys.case_counts,
+          key: defaults.keys.appeals_counts,
           values: []
         }, {
           key: defaults.keys.SC_counts,
           values: []
         }, {
-          key: defaults.keys.dissent_counts,
+          key: defaults.keys.SC_dissent_counts,
           values: []
         }, {
-          key: defaults.keys.SC_dissent_counts,
+          key: defaults.keys.appeals_dissent_counts,
           values: []
         }
       ];
       for (year = i = ref = this.time.min, ref1 = this.time.max; ref <= ref1 ? i <= ref1 : i >= ref1; year = ref <= ref1 ? ++i : --i) {
-        allCounts[0].values.push([year, ((ref2 = data[year]) != null ? ref2[0] : void 0) || 0]);
-        allCounts[1].values.push([year, ((ref3 = data[year]) != null ? ref3[1] : void 0) || 0]);
-        allCounts[2].values.push([year, -1 * ((ref4 = data[year]) != null ? ref4[2] : void 0) || 0]);
-        allCounts[3].values.push([year, -1 * ((ref5 = data[year]) != null ? ref5[3] : void 0) || 0]);
+        case_counts = ((ref2 = data[year]) != null ? ref2[0] : void 0) || 0;
+        SC_counts = ((ref3 = data[year]) != null ? ref3[1] : void 0) || 0;
+        dissent_counts = ((ref4 = data[year]) != null ? ref4[2] : void 0) || 0;
+        SC_dissent_counts = ((ref5 = data[year]) != null ? ref5[3] : void 0) || 0;
+        appeals_counts = case_counts - SC_counts;
+        appeals_dissent_counts = dissent_counts - SC_dissent_counts;
+        allCounts[0].values.push([year, appeals_counts]);
+        allCounts[1].values.push([year, SC_counts]);
+        allCounts[2].values.push([year, -1 * SC_dissent_counts]);
+        allCounts[3].values.push([year, -1 * appeals_dissent_counts]);
       }
       this.generateBarChart(allCounts);
       return this.graph.api.refresh();
@@ -311,7 +321,7 @@
   angular.module('myApp').service("TopicService", function($http) {
     var obj;
     return obj = {
-      currentTopic: null,
+      currentTopic: "Water Rights",
       topics: [],
       getList: function() {
         return $http({
@@ -377,5 +387,5 @@ angular.module("../../templates/single-topic.tpl.jade", []).run(["$templateCache
 
 angular.module("../../templates/topic-toc-container.tpl.jade", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../../templates/topic-toc-container.tpl.jade",
-    "<div ng-controller=\"TopicTocCtrl as toc\" class=\"toc-container\"><div class=\"toc-hr\"><div class=\"border-gray\"></div><div class=\"section-icon\"></div></div><div class=\"toc-header\"><a name=\"popular\">&nbsp;</a><div class=\"title\">POPULAR TOPICS</div><div class=\"subtitle\">Track keyword hits as our database grows.</div></div><div class=\"row toc-content\"><div class=\"col-sm-12\"><div class=\"col-sm-6\"><ul ng-repeat=\"(topic, total) in toc.list track by $index\"><a href=\"#topic\"><li ng-if=\"$index &lt; 4\" ng-click=\"toc.viewTopicDetails(topic)\"><span class=\"topic-title\">{{topic}} </span><span class=\"pull-right total-count\">{{total[0] + total[1]}}</span></li></a></ul></div><div class=\"col-sm-6\"><ul ng-repeat=\"(topic, total) in toc.list track by $index\"><a href=\"#topic\"><li ng-if=\"$index &gt;= 4 &amp;&amp; $index &lt; 8\" ng-click=\"toc.viewTopicDetails(topic)\"><span class=\"topic-title\">{{topic}} </span><span class=\"pull-right total-count\">{{total[0] + total[1]}}</span></li></a></ul></div></div></div></div>");
+    "<div ng-controller=\"TopicTocCtrl as toc\" class=\"toc-container\"><div class=\"toc-hr\"><div class=\"section-icon\"></div></div><div class=\"toc-header\"><a name=\"popular\">&nbsp;</a><div class=\"title\">POPULAR TOPICS</div><div class=\"subtitle\">Track keyword hits as our database grows.</div></div><div class=\"row toc-content\"><div class=\"col-sm-12\"><div class=\"col-sm-6\"><ul ng-repeat=\"(topic, total) in toc.list track by $index\"><a href=\"#topic\"><li ng-if=\"$index &lt; 4\" ng-click=\"toc.viewTopicDetails(topic)\"><span class=\"topic-title\">{{topic}} </span><span class=\"pull-right total-count\">{{total[0] + total[1]}}</span></li></a></ul></div><div class=\"col-sm-6\"><ul ng-repeat=\"(topic, total) in toc.list track by $index\"><a href=\"#topic\"><li ng-if=\"$index &gt;= 4 &amp;&amp; $index &lt; 8\" ng-click=\"toc.viewTopicDetails(topic)\"><span class=\"topic-title\">{{topic}} </span><span class=\"pull-right total-count\">{{total[0] + total[1]}}</span></li></a></ul></div></div></div></div>");
 }]);
