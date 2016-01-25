@@ -21,6 +21,11 @@ module.exports = (grunt) ->
         tasks: ['stylus:compile']
         options: { livereload: true }
 
+      jade:
+        files: ['app/web/templates/*.tpl.jade'],
+        tasks: ['html2js:main']
+        options: { livereload: true }
+
       compile:
         files: ['app/web/src/**/*.coffee', 'app/web/templates/*.tpl.jade']
         tasks: ["newer:coffee", "concat", "html2js"]

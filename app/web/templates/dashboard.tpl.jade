@@ -1,4 +1,14 @@
-div HELLO
-div(style="width:80%")
-  div
-    canvas#canvas(height="450" width="600")
+.dashboard-container(ng-controller="DashboardCtrl")
+  .dashboard-title-container
+    .ftl-logo
+    h1.text-center CALIFORNIA CASES
+    h4.text-center
+      | Explore common case topics in California
+      br
+      span.blue-text from 1850 – 2014
+  //- .mountain-container
+  //-   img.mountains.img-responsive(src="../assets/img/mountains.png")
+  div.meta-container(ui-view="main-toc")
+  div.meta-container(ui-view="topic-toc-container")
+  div.meta-container(ui-view="single-topic")
+  div.meta-container(ui-view="multi-topics")

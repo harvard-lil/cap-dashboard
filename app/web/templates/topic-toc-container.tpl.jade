@@ -1,0 +1,24 @@
+.toc-container(ng-controller="TopicTocCtrl as toc")
+  .toc-hr
+    .border-gray
+    .section-icon
+  .toc-header
+    a(name="popular") &nbsp;
+    .title POPULAR TOPICS
+    .subtitle Track keyword hits as our database grows.
+  .row.toc-content
+    .col-sm-12
+      .col-sm-6
+        ul(ng-repeat="(topic, total) in toc.list track by $index")
+          a(href="#topic")
+            li(ng-if ="$index < 4" ng-click="toc.viewTopicDetails(topic)")
+              span.topic-title {{topic}} 
+              span.pull-right.total-count {{total[0] + total[1]}}
+      .col-sm-6
+        ul(ng-repeat="(topic, total) in toc.list track by $index")
+          a(href="#topic")
+            li(ng-if ="$index >= 4 && $index < 8" ng-click="toc.viewTopicDetails(topic)")
+              span.topic-title {{topic}} 
+              span.pull-right.total-count {{total[0] + total[1]}}
+      
+  

@@ -27,7 +27,8 @@ app.get '/', (req, res) ->
   res.render 'index.html', { requestToken : request_token }
 
 app.get '/topic/:topic', routes.findByTopic
-app.get '/topics', routes.listTopics
+app.get '/topics/list', routes.listTopics
+app.get '/topics', routes.findByTopics
 
 port = process.env.PORT || 8001
 server = app.listen port, ->

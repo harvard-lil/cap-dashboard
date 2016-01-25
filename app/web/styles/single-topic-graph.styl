@@ -1,0 +1,62 @@
+
+.single-topic-container
+  .section-icon
+    margin : 0 auto
+    position: relative
+    top: -23px
+    width      : 46px
+    height     : 46px
+    background : url(../assets/img/icon-bar-chart.png) no-repeat
+
+  .single-topic-header
+    display : block
+    text-align : center
+    margin     : 14px 0 52px 0
+
+    .title
+      font-size  : 24px
+      font-weight    : $font-bold
+      letter-spacing : 2px
+      padding-bottom : 10px
+      text-transform : uppercase
+    .subtitle
+      display     : inline-block
+      font-size   : 14px
+      font-weight : $font-regular
+      color       : $color-main-black
+      width       : 100%
+      span.keyword
+        line-height : 5px
+        float : left
+        text-transform : capitalize
+        margin : 10px 2px
+      .bullet-point
+        color       : $color-second-blue
+        font-family : 'Arial', sans-serif
+        font-size   : 17px
+        margin      : 8px 6px 0px 5px
+  .nv-group.nv-series-0
+    rect.nv-bar
+      fill: $color-main-black !important
+      stroke-width: 0px
+      fill-opacity: 1
+  .nv-group.nv-series-1
+    rect.nv-bar
+      fill: $color-main-blue !important
+      stroke-width: 0px
+      fill-opacity: 1
+
+  .nv-group.nv-series-2
+    rect.nv-bar
+      fill: $color-second-blue !important
+      stroke-width: 0px
+      fill-opacity: 1
+
+  .nv-group.nv-series-3
+    rect.nv-bar
+      fill: $color-main-green !important
+      stroke-width: 0px
+      fill-opacity: 1
+
+  .nv-controlsWrap.nvd3-svg
+    display: none

@@ -1,2 +1,112 @@
-*, *:before, *:after
-  box-sizing: border-box;
+/* CSS DIRECTORY
+	1. =VARIABLES
+  2. =GENERAL
+	2. =DASHBOARD
+	3. =HEADER
+	4. =SIDEBAR
+	5. =FOOTER
+*/
+
+@import reset
+/* VARIABLES */
+
+$font-name = 'Rajdhani'
+
+$font-light   = 300
+$font-regular = 400
+$font-medium  = 500
+$font-bold    = 700
+
+$text-main           = 15px $font-name
+$text-section-titles = 24px $font-name
+$text-subtitles      = 24px $font-name
+
+$color-main-blue   = #0075FF
+$color-main-green  = #7ED321
+$color-main-black  = #2F2F2F
+$color-main-gray   = #D9D9D9
+
+$color-second-blue = #D2E7FF
+$color-third-blue  = #78B6FF
+
+.inverse-btn
+  font           : 14px $font-name
+  font-weight    : $font-bold
+  color          : white
+  letter-spacing : 2px
+  background     : transparent
+  border         : 1px solid white
+  height         : 35px
+  padding        : 0px 14px
+
+.blue-text
+  color : $color-main-blue
+
+.general-link
+  border-bottom : 1px solid
+  padding-bottom : 5px
+
+.border-gray
+  border-bottom : 1px solid $color-main-gray
+
+/* GENERAL */
+
+body
+  font-family: 'Rajdhani', sans-serif
+  font-weight     : 300
+  color           : $color-main-black
+
+hr
+  border : 1px solid $color-main-gray
+
+.meta-container
+  min-height : 350px
+
+@import 'header'
+@import 'footer'
+
+/* DASHBOARD */
+
+
+.dashboard-title-container
+  position    : relative
+  width       : 100%
+  line-height : 32px
+  text-align  : center
+  padding : 23px
+
+  .ftl-logo
+    margin            : 0 auto
+    margin-top        : 20px
+    float             : none
+    background-color  : $color-main-blue
+    -webkit-mask-image: url(../assets/img/logo-medium.svg)
+    mask-image        : url(../assets/img/logo-medium.svg)
+    width             : 51px
+    height            : 74px
+  h1
+    font        : $text-section-titles, sans-serif
+    font-weight : $font-bold
+    font-size   : 54px
+    margin      : 12px 0px -10px 0px
+
+  h4
+    font          : $text-subtitles, sans-serif
+    font-weight   : $font-regular
+    margin-bottom : 30px
+    margin-top    : 10px
+
+.mountain-container
+  height        : 150px
+  overflow      : hidden
+  display       : inline
+
+img.mountains
+  width : 100%
+
+@import 'nvd3-custom'
+@import 'topic-toc-container'
+@import 'single-topic-graph'
+@import 'multi-topic-graph'
+@import 'main-toc'
+@import 'date-form'
