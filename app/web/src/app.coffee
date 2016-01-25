@@ -14,6 +14,9 @@ angular.module('myApp', [
         '@':
           templateUrl: "#{templates_path}dashboard.tpl.jade"
 
+        'main-toc@dashboard':
+          templateUrl: "#{templates_path}main-toc.tpl.jade"
+
         'topic-toc-container@dashboard':
           templateUrl:  "#{templates_path}topic-toc-container.tpl.jade"
 

@@ -8,6 +8,7 @@
       span.blue-text from 1850 – 2014
   //- .mountain-container
   //-   img.mountains.img-responsive(src="../assets/img/mountains.png")
-  div(ui-view="topic-toc-container")
-  div(ui-view="single-topic")
-  div(ui-view="multi-topics")
+  div.meta-container(ui-view="main-toc")
+  div.meta-container(ui-view="topic-toc-container")
+  div.meta-container(ui-view="single-topic")
+  div.meta-container(ui-view="multi-topics")

@@ -1,6 +1,25 @@
 .multi-topics-container(ng-controller="MultiTopicCtrl as mt")
   .multi-topic-header
     .title COMPARE TOPICS
+  br
+  form.date-form(ng-if="mt.currentTopics.length")
+    label Showing data from 
+    input(
+      type="number"
+      min="1850"
+      ng-model="mt.time.min"
+      ng-max="mt.time.max"
+      ng-blur="mt.parseTopicData()"
+      ng-keyup="$event.keyCode == 13 && mt.parseTopicData()") 
+    label to
+    input(
+      type="number"
+      max="2015" 
+      ng-min="mt.time.min"
+      ng-model="mt.time.max"
+      ng-blur="mt.parseTopicData()"
+      ng-keyup="$event.keyCode == 13 && mt.parseTopicData()") 
+
   button.regular-btn.btn.show-menu(
     ng-click="(mt.showMenu = !mt.showMenu) && mt.setupTopics()"
   ) ADD OR REMOVE A TOPIC
@@ -8,8 +27,9 @@
     ul(ng-repeat="(topic,val) in mt.topics")
       li.single-topic(ng-click='mt.toggleTopic(topic)' ng-class="{'selected':val.selected}")
         {{ topic }}
-
+  a(name="multitopics")
   nvd3.multi-topic-graph(
+    ng-if="mt.currentTopics.length"
     options="mt.graph.options"
     data="mt.graph.data"
     config="mt.graph.config"

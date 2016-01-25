@@ -1,7 +1,8 @@
 
 .single-topic-container(ng-controller="TopicCtrl as st")
-  .border-gray
-  .section-icon
+  .section-divider
+    .border-gray
+    .section-icon
   .row
     .col-sm-12
       .single-topic-header(ng-if="st.topicKeywords")
@@ -13,26 +14,26 @@
           .keyword-container(ng-repeat="keyword in st.topicKeywords track by $index")
             span.keyword {{keyword}}
   br
-  form.single-topic-form
-    label FROM
+  form.date-form(ng-if="st.currentTopic")
+    label Showing data from 
     input(
       type="number"
       min="1850"
-      ng-model="st.minYear"
-      ng-max="st.maxYear"
+      ng-model="st.time.min"
+      ng-max="st.time.max"
       ng-blur="st.parseTopicData()"
       ng-keyup="$event.keyCode == 13 && st.parseTopicData()") 
-    label TO
+    label to
     input(
       type="number"
       max="2015" 
-      ng-min="st.minYear"
-      ng-model="st.maxYear"
+      ng-min="st.time.min"
+      ng-model="st.time.max"
       ng-blur="st.parseTopicData()"
       ng-keyup="$event.keyCode == 13 && st.parseTopicData()") 
-  a(name="topic") &nbsp;
+  a(name="singletopic") &nbsp;
   nvd3(
-    options="st.options"
-    data="st.data"
-    config="st.config"
-    api="st.api")
+    options="st.graph.options"
+    data="st.graph.data"
+    config="st.graph.config"
+    api="st.graph.api")

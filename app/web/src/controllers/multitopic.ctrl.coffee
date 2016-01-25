@@ -1,10 +1,13 @@
 angular.module('myApp')
-.controller 'MultiTopicCtrl', (TopicService, GraphService) ->
+.controller 'MultiTopicCtrl', ($window, TopicService, GraphService) ->
   @topics        = {}
   @currentTopics = []
   topicsExist    = false
+
   @graph         = GraphService.lineGraph
   defaults       = GraphService.defaults
+  @time          = angular.copy GraphService.defaults.time
+
 
   @setupTopics = ->
     return if topicsExist
@@ -38,12 +41,12 @@ angular.module('myApp')
       singleTopicData =
         values      : []
         key         : topicName
-        color       : GraphService.defaults.colors[c]
+        color       : defaults.colors[c]
         area        : false
         strokeWidth : 1
         classed     : 'line-graph'
 
-      for year in [GraphService.defaults.minYear..GraphService.defaults.maxYear]
+      for year in [@time.min..@time.max]
         singleTopicData.values.push {x:year, y:val[year]?[0] || 0}
 
       allTopics.push singleTopicData
@@ -54,6 +57,5 @@ angular.module('myApp')
 
   @generateBarChart = (data) =>
     @graph.data = data
-    @graph.options = GraphService.lineGraph.options
 
   return
