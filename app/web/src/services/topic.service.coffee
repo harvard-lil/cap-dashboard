@@ -1,7 +1,7 @@
 angular.module('myApp')
 .service "TopicService", ($http) ->
   obj =
-    currentTopic : null
+    currentTopic : "Water Rights"
     topics : []
 
     getList: ->
