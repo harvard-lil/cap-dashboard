@@ -34,6 +34,7 @@ angular.module('ftlTopics')
 
   @parseTopicKeywords = (keywords) ->
     @topicKeywords = keywords
+    @topicKeywords
 
   @parseTopicData = ->
     data = @topicData

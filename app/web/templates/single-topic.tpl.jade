@@ -1,4 +1,3 @@
-
 .single-topic-container(ng-controller="TopicCtrl as st")
   .section-divider
     .border-gray
@@ -9,11 +8,7 @@
         .title
           span {{st.currentTopic}} 
           span.blue-text DETAILS
-        h4 KEYWORDS
-        .subtitle
-          .keyword-container(ng-repeat="keyword in st.topicKeywords track by $index")
-            span.keyword {{keyword}}
-  br
+
   form.date-form(ng-if="st.currentTopic")
     label Showing data from 
     input(
@@ -57,3 +52,7 @@
         span.item-title Appeals Court dissents
       .col-xs-1
     
+  .col-sm-12.keyword-list
+    | Keywords: {{st.topicKeywords.join(', ')}}
+
+.col-sm-12
