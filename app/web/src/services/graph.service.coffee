@@ -1,6 +1,6 @@
 angular.module('myApp')
 .service 'GraphService', ->
-  colors = ["#0075FF", "#2F2F2F", "#D9D9D9", "#D2E7FF", "#78B6FF", "#7ED321"]
+  colors = ["#0075FF", "#2F2F2F", "#D9D9D9", "#D2E7FF", "#ECA633", "#78B6FF", "#7ED321"]
   obj =
     defaults :
       minYear : 1850

@@ -1,9 +1,10 @@
 angular.module('myApp')
 .controller 'MultiTopicCtrl', (TopicService, GraphService) ->
-  @graph         = {}
   @topics        = {}
   @currentTopics = []
   topicsExist    = false
+  @graph         = GraphService.lineGraph
+  defaults       = GraphService.defaults
 
   @setupTopics = ->
     return if topicsExist
@@ -11,16 +12,12 @@ angular.module('myApp')
       @topics[t] = { selected : false }
       topicsExist = true
 
-  defaults = GraphService.defaults
-
-  @renderMultiTopicGraph = ->
-    topics = @topics
-    _.mapObject topics, (val, key) =>
-      if @currentTopics.indexOf(key) < 0
-        @currentTopics.push key if val.selected
-      else
-        index = @currentTopics.indexOf(key)
-        @currentTopics.splice(index, 1)
+  @renderMultiTopicGraph = (topic) ->
+    index = @currentTopics.indexOf(topic)
+    if @topics[topic].selected && index < 0
+      @currentTopics.push topic
+    else if not @topics[topic].selected && index > -1
+      @currentTopics.splice(index, 1)
 
     TopicService
       .getSeveralTopics(@currentTopics)
@@ -30,7 +27,7 @@ angular.module('myApp')
 
   @toggleTopic = (topic) ->
     @topics[topic].selected = !@topics[topic].selected
-    @renderMultiTopicGraph()
+    @renderMultiTopicGraph(topic)
 
   @parseTopicData = ->
     data      = @topicsData
@@ -51,6 +48,7 @@ angular.module('myApp')
 
       allTopics.push singleTopicData
       c++
+
     @generateBarChart(allTopics)
     @graph.api.refresh()
 
