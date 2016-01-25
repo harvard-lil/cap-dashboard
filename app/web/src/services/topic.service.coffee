@@ -11,7 +11,6 @@ angular.module('myApp')
         })
       .then (response) =>
         @topics = response.data
-        console.log "setting topics:", @topics
         response
 
     getSingleTopic: (topic) ->
