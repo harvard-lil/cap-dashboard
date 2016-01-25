@@ -3,7 +3,7 @@ path       = require 'path'
 app        = express()
 bodyParser = require 'body-parser'
 
-mongoose   = require 'mongoose'
+# mongoose   = require 'mongoose'
 fibrous    = require 'fibrous'
 config     = require './config'
 keys       = require './keys'
@@ -12,7 +12,7 @@ reqeustToken = null
 
 client = null
 
-mongoose.connect config.keys.MONGO_URL
+# mongoose.connect config.keys.MONGO_URL
 app.use express.static(path.join(__dirname, 'public'))
 app.use fibrous.middleware
 
