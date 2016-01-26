@@ -8,7 +8,31 @@
       span.blue-text from 1850 – 2014
   //- .mountain-container
   //-   img.mountains.img-responsive(src="../assets/img/mountains.png")
-  div.meta-container(ui-view="main-toc")
-  div.meta-container(ui-view="topic-toc-container")
-  div.meta-container(ui-view="single-topic")
-  div.meta-container(ui-view="multi-topics")
+  
+  .section-divider
+    .border-gray
+    .section-divider.icon-main-toc
+    
+  .meta-container
+    include ./main-toc.tpl.jade
+  
+  .section-divider
+    .border-gray
+    .section-divider.icon-topics
+  
+  .meta-container
+    include ./topic-toc-container.tpl.jade
+  
+  .section-divider
+    .border-gray
+    .section-divider.icon-bar-chart
+  
+  .meta-container
+    include ./single-topic.tpl.jade  
+  
+  .section-divider
+    .border-gray
+    .section-divider.icon-line-chart
+  
+  .meta-container
+    include ./multi-topics.tpl.jade
