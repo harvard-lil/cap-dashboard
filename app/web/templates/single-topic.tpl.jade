@@ -2,7 +2,7 @@
 .single-topic-container(ng-controller="TopicCtrl as st")
   .section-divider
     .border-gray
-    .section-icon
+    .section-icon.icon-bar-chart
   .row
     .col-sm-12
       .single-topic-header(ng-if="st.topicKeywords")
@@ -56,4 +56,7 @@
   .col-sm-12.keyword-list
     | Keywords: {{st.topicKeywords.join(', ')}}
 
-.col-sm-12
+
+.col-sm-12.section-divider
+  .border-gray
+  .section-icon.icon-line-chart
