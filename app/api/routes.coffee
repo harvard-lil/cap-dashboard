@@ -4,9 +4,6 @@ topics       = require "../../public/assets/topic_models_small"
 topic_totals = require "../../public/assets/data-totals-per-year"
 
 
-min_year = 1850
-max_year = 2015
-
 exports.findByTopic = (req, res) ->
   try
     topic      = req.params.topic
@@ -21,10 +18,8 @@ exports.findByTopics = (req, res) ->
   data = {}
   try
     for topic in t
-      console.log "getting topic?", topic
       topic_num = "#{topics_dict.list[topic]}"
       topic_data = topics.clusters[topic_num]
-      console.log "getting num?", topic_num
       data[topic] = topic_data.data
     res.status(200).send data
   catch e

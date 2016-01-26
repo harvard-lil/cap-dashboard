@@ -3,7 +3,6 @@ import json
 from pprint import pprint
 
 curpath = os.path.abspath(os.curdir)
-print curpath
 
 filepath = os.path.join(curpath, '../../../public/assets/topic_models_small.json')
 newfilepath = os.path.join(curpath, '../../../public/assets/data-totals-per-year.json')
@@ -31,4 +30,3 @@ try:
 
 except IOError:
     print('error')
-    print IOError
