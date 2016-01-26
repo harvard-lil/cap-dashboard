@@ -1,3 +1,4 @@
+//- multi-topics.tpl.jade
 .multi-topics-container(ng-controller="MultiTopicCtrl as mt")
   .multi-topic-header
     .title COMPARE TOPICS
@@ -26,7 +27,7 @@
   .dropdown-topic-menu(ng-if="mt.showMenu")
     ul(ng-repeat="(topic,val) in mt.topics")
       li.single-topic(ng-click='mt.toggleTopic(topic)' ng-class="{'selected':val.selected}")
-        {{ topic }}
+        | {{ topic }}
   a(name="multitopics")
   nvd3.multi-topic-graph(
     ng-if="mt.currentTopics.length"

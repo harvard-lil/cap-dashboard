@@ -1,4 +1,4 @@
-angular.module('myApp')
+angular.module('ftlTopics')
 .controller 'TopicCtrl', ($scope, TopicService, GraphService) ->
   @time  = angular.copy GraphService.defaults.time
   @graph = GraphService.multiBarChart
@@ -34,6 +34,7 @@ angular.module('myApp')
 
   @parseTopicKeywords = (keywords) ->
     @topicKeywords = keywords
+    @topicKeywords
 
   @parseTopicData = ->
     data = @topicData

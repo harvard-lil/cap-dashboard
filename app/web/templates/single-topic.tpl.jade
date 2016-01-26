@@ -1,19 +1,15 @@
-
+//- single-topic.tpl.jade
 .single-topic-container(ng-controller="TopicCtrl as st")
   .section-divider
     .border-gray
-    .section-icon
+    .section-icon.icon-bar-chart
   .row
     .col-sm-12
       .single-topic-header(ng-if="st.topicKeywords")
         .title
           span {{st.currentTopic}} 
           span.blue-text DETAILS
-        h4 KEYWORDS
-        .subtitle
-          .keyword-container(ng-repeat="keyword in st.topicKeywords track by $index")
-            span.keyword {{keyword}}
-  br
+
   form.date-form(ng-if="st.currentTopic")
     label Showing data from 
     input(
@@ -32,8 +28,35 @@
       ng-blur="st.parseTopicData()"
       ng-keyup="$event.keyCode == 13 && st.parseTopicData()") 
   a(name="singletopic") &nbsp;
+  
+  //- GRAPH
   nvd3(
     options="st.graph.options"
     data="st.graph.data"
     config="st.graph.config"
     api="st.graph.api")
+
+  .topic-legend-container.container
+    .row.topic-legend-content
+      .col-xs-1
+      .col-xs-2.legend-item
+        .color-spot.case-one
+        span.item-title Supreme Court cases
+      .col-xs-2.legend-item
+        .color-spot.case-two
+        span.item-title Appeals Court cases
+      .col-xs-2.legend-item
+        .color-spot.dissent-one
+        span.item-title Supreme Court dissents
+      .col-xs-2.legend-item
+        .color-spot.dissent-two
+        span.item-title Appeals Court dissents
+      .col-xs-1
+    
+  .col-sm-12.keyword-list
+    | Keywords: {{st.topicKeywords.join(', ')}}
+
+
+.col-sm-12.section-divider
+  .border-gray
+  .section-icon.icon-line-chart

@@ -1,13 +1,5 @@
 
 .single-topic-container
-  .section-icon
-    margin : 0 auto
-    position: relative
-    top: -23px
-    width      : 46px
-    height     : 46px
-    background : url(../assets/img/icon-bar-chart.png) no-repeat
-
   .single-topic-header
     display : block
     text-align : center
@@ -35,6 +27,37 @@
         font-family : 'Arial', sans-serif
         font-size   : 17px
         margin      : 8px 6px 0px 5px
+
+  .topic-legend-container
+    .topic-legend-content
+      font-weight : $font-bold
+      font-size : 12px
+      text-transform : uppercase
+
+      .color-spot
+        width         : 13px
+        height        : 13px
+        border-radius : 7px
+        border        : 0px
+        float         : left
+        margin-right  : 5px
+        &.case-one
+          background-color: $color-main-blue
+        &.case-two
+          background-color: $color-main-black
+        &.dissent-one
+          background-color: $color-third-blue
+        &.dissent-two
+          background-color: $color-main-green
+      .item-title
+        float : left
+        margin-top : 2px
+
+  .keyword-list
+    margin : 20px 0px
+    font-size : 12px
+    font-weight : $font-bold
+    text-transform : capitalize
   .nv-group.nv-series-0
     rect.nv-bar
       fill: $color-main-black !important

@@ -1,4 +1,4 @@
-angular.module('myApp')
+angular.module('ftlTopics')
 .controller 'DashboardCtrl', ($http) ->
 
   defaults =

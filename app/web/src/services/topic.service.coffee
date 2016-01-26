@@ -1,4 +1,4 @@
-angular.module('myApp')
+angular.module('ftlTopics')
 .service "TopicService", ($http) ->
   obj =
     currentTopic : "Water Rights"
@@ -11,7 +11,6 @@ angular.module('myApp')
         })
       .then (response) =>
         @topics = response.data
-        console.log "setting topics:", @topics
         response
 
     getSingleTopic: (topic) ->

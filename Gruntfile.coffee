@@ -46,15 +46,30 @@ module.exports = (grunt) ->
     concat:
       options:
         separator: ';'
+      process: (src, filepath) ->
+         return '//####' + filepath + '\n' + src;
 
       vendor:
-        src: ['public/vendor/src/*.js'],
-        dest: 'public/vendor/js/app-vendor.js'
+        src: [
+           'bower_components/underscore/underscore-min.js',
+           'bower_components/jquery/dist/jquery.min.js',
+           'bower_components/angular/angular.min.js',
+           'bower_components/bootstrap/dist/js/bootstrap.min.js',
+           'bower_components/angular-ui-router/release/angular-ui-router.min.js',
+           'bower_components/d3/d3.min.js',
+           'bower_components/nvd3/build/nv.d3.min.js'
+           ]
+        dest:'public/vendor/js/app-vendor.js'
+      css:
+        src: [
+          'bower_components/nvd3/build/nv.d3.min.css'
+          'bower_components/bootstrap/dist/css/bootstrap.min.css'
+        ]
+        dest: 'public/vendor/css/app-vendor.css'
 
       js:
         src:  ['public/js/src/src-app.js', 'public/js/src/templates.js']
         dest: 'public/js/app.js'
-
 
     stylus:
       compile:
@@ -73,6 +88,8 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-autoprefixer'
   grunt.loadNpmTasks 'grunt-html2js'
 
+  grunt.registerTask 'vendor', ['concat:vendor']
+  grunt.registerTask 'css', ['concat:css']
   grunt.registerTask 'compile', ['coffee']
   grunt.registerTask 'html', ['html2js']
-  grunt.registerTask 'default', ['coffee', 'html2js', 'stylus', 'concat', 'watch']
+  grunt.registerTask 'default', ['coffee', 'html2js', 'stylus', 'concat:js', 'watch']

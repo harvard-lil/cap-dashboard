@@ -46,9 +46,28 @@ $color-third-blue  = #78B6FF
   border-bottom : 1px solid
   padding-bottom : 5px
 
+
 .border-gray
   border-bottom : 1px solid $color-main-gray
 
+.section-divider
+  .section-icon
+    margin  : 0 auto
+    position: relative
+    top     : -23px
+    width   : 46px
+    height  : 46px
+    background-size: 46px !important
+    &.icon-main-toc
+      background: url(../assets/img/icon-main-toc.png) no-repeat
+    &.icon-topics
+      background: url(../assets/img/icon-topics.png) no-repeat
+    &.icon-line-chart
+      background: url(../assets/img/icon-line-chart.png) no-repeat
+    &.icon-bar-chart
+      background: url(../assets/img/icon-bar-chart.png) no-repeat
+
+      // background : url(../assets/img/icon-bar-chart.png) no-repeat
 /* GENERAL */
 
 body
@@ -61,6 +80,7 @@ hr
 
 .meta-container
   min-height : 350px
+  clear      : both
 
 @import 'header'
 @import 'footer'

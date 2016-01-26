@@ -1,4 +1,4 @@
-angular.module('myApp')
+angular.module('ftlTopics')
 .controller 'MultiTopicCtrl', ($window, TopicService, GraphService) ->
   @topics        = {}
   @currentTopics = []
