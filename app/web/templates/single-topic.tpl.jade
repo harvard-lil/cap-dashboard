@@ -1,20 +1,17 @@
 //- single-topic.tpl.jade
 .single-topic-container(ng-controller="TopicCtrl as st")
-  .section-divider
-    .border-gray
-    .section-icon.icon-bar-chart
   .row
     .col-sm-12
       .single-topic-header(ng-if="st.topicKeywords")
         .title
           span {{st.currentTopic}} 
-          span.blue-text DETAILS
+          span.blue-text IN DETAIL
 
   form.date-form(ng-if="st.currentTopic")
     label Showing data from 
     input(
       type="number"
-      min="1850"
+      min="1800"
       ng-model="st.time.min"
       ng-max="st.time.max"
       ng-blur="st.parseTopicData()"
@@ -55,8 +52,3 @@
     
   .col-sm-12.keyword-list
     | Keywords: {{st.topicKeywords.join(', ')}}
-
-
-.col-sm-12.section-divider
-  .border-gray
-  .section-icon.icon-line-chart
