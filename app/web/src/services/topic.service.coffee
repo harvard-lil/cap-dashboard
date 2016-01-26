@@ -37,15 +37,9 @@ angular.module('ftlTopics')
         })
 
     getTotals: ->
-      # if @totals
-      #   deferred = $q.defer()
-      #   promise = deferred.promise
-      #   return deferred.resolve @totals
-      # else
       $http({
         method: 'GET'
         url: "/topics/totals"
         }).then (response) =>
           @totals = response.data
-          console.log "getting totals?", @totals
           @totals

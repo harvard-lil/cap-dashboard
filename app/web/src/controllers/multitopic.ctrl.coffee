@@ -29,7 +29,7 @@ angular.module('ftlTopics')
     TopicService
       .getSingleTopic(topic)
       .then (response) =>
-        console.log "getting response?", response
+
         if topic is 'Totals'
           data = {"#{topic}":response}
         else
@@ -57,8 +57,6 @@ angular.module('ftlTopics')
     @parseSelectedTopicData('Totals')
 
   init()
-
-
 
   @toggleTopic = (topic) ->
     @topics[topic].selected = !@topics[topic].selected
