@@ -13,9 +13,9 @@ angular.module('ftlTopics')
   @getTopicData = (topic) ->
     TopicService.getSingleTopic(topic)
     .then (response) =>
-      @topicData = response.data.data
+      @topicData = response.data
       @parseTopicData()
-      @parseTopicKeywords(response.data.keywords)
+      @parseTopicKeywords(response.keywords)
     , (response) ->
       console.log "something went wrong"
 

@@ -4,7 +4,7 @@ angular.module('ftlTopics')
   TopicService
     .getList()
     .then (response) =>
-      @list = response.data
+      @list = response
     , ->
       console.log "uh oh!"
 
