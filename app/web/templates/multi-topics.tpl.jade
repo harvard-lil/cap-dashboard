@@ -7,7 +7,7 @@
     label Showing data from 
     input(
       type="number"
-      min="1850"
+      min="1800"
       ng-model="mt.time.min"
       ng-max="mt.time.max"
       ng-blur="mt.parseTopicData()"
@@ -22,14 +22,10 @@
       ng-keyup="$event.keyCode == 13 && mt.parseTopicData()") 
 
   button.regular-btn.btn.show-menu.dropdown-topic-list(
-    ng-click="(mt.showMenu = !mt.showMenu) && mt.setupTopics()"
+    ng-click="(mt.showMenu = !mt.showMenu)"
   ) ADD OR REMOVE A TOPIC
   .dropdown-topic-menu.dropdown-topic-list(
     click-off show="mt.showMenu" excluding='dropdown-topic-list' ng-if="mt.showMenu")
-    ul
-      li.single-topic(
-        ng-click='mt.toggleTopic("totals")'
-        ng-class="{'selected':val.selected}") Totals
     ul(ng-repeat="(topic,val) in mt.topics" data-show='show')
       li.single-topic(ng-click='mt.toggleTopic(topic)' ng-class="{'selected':val.selected}")
         | {{ topic }}
