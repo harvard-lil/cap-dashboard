@@ -26,6 +26,7 @@ app.get '/', (req, res) ->
 
 app.get '/topic/:topic', routes.findByTopic
 app.get '/topics/list', routes.listTopics
+app.get '/topics/totals', routes.getTotals
 app.get '/topics', routes.findByTopics
 
 port = process.env.PORT || 8001

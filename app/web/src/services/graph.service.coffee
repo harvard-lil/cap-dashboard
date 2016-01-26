@@ -7,6 +7,7 @@ angular.module('ftlTopics')
         min : 1850
         max : 2000
       colors  : colors
+
     lineGraph :
       data : {}
       options :
@@ -59,3 +60,19 @@ angular.module('ftlTopics')
         deepWatchData: true
         deepWatchDataDepth: 1
         debounce: 10
+
+    parseLineChartData: (data, timeRange) ->
+      console.log "getting data?", data
+
+      for topicName,val of data
+        singleTopicData =
+          values      : []
+          key         : topicName
+          area        : false
+          strokeWidth : 1
+          classed     : 'line-graph'
+
+        for year in [timeRange.min..timeRange.max]
+          singleTopicData.values.push {x:year, y: parseInt(val[year]) ||  0}
+
+      singleTopicData

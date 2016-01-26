@@ -1,8 +1,10 @@
 angular.module('ftlTopics')
-.service "TopicService", ($http) ->
+.service "TopicService", ($http, $q) ->
   obj =
     currentTopic : "Water Rights"
     topics : []
+    init : ->
+      @getList()
 
     getList: ->
       $http({
@@ -11,13 +13,19 @@ angular.module('ftlTopics')
         })
       .then (response) =>
         @topics = response.data
-        response
+        response.data
 
     getSingleTopic: (topic) ->
-      $http({
-        method: 'GET',
-        url: "/topic/#{topic}"
-      })
+      if topic is 'Totals'
+        @getTotals()
+          .then (response) ->
+            return response
+      else
+        $http({
+          method: 'GET',
+          url: "/topic/#{topic}"
+        }).then (response) ->
+          return response.data
 
     getSeveralTopics: (topics) ->
       jsonTopic = JSON.stringify topics
@@ -27,3 +35,17 @@ angular.module('ftlTopics')
         params:
           topics: jsonTopic
         })
+
+    getTotals: ->
+      # if @totals
+      #   deferred = $q.defer()
+      #   promise = deferred.promise
+      #   return deferred.resolve @totals
+      # else
+      $http({
+        method: 'GET'
+        url: "/topics/totals"
+        }).then (response) =>
+          @totals = response.data
+          console.log "getting totals?", @totals
+          @totals
