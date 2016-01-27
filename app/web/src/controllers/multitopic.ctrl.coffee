@@ -13,6 +13,7 @@ angular.module('ftlTopics')
   @time          = angular.copy GraphService.defaults.time
 
   lineChartData = []
+
   @parseSelectedTopicData = (topic) ->
     # check for
     index = @currentTopics.indexOf(topic)
@@ -24,6 +25,20 @@ angular.module('ftlTopics')
     else if not @topics[topic].selected && index > -1
       @currentTopics.splice(index, 1)
       removeTopic(topic)
+
+  @reloadTopicData = ->
+    data = []
+    lineChartData = []
+    TopicService
+      .getManyTopics(@currentTopics)
+      .then (response) =>
+        for topicName, val of response
+          data = {"#{topicName}":val}
+
+          singletopic = GraphService.parseLineChartData(data, @time)
+          singletopic.color = GraphService.defaults.colors[lineChartData.length - 1]
+          lineChartData.push singletopic
+        @generateChart lineChartData
 
   addTopic = (topic) =>
     TopicService
@@ -38,14 +53,14 @@ angular.module('ftlTopics')
         singletopic.color = GraphService.defaults.colors[lineChartData.length - 1]
 
         lineChartData.push singletopic
-        @generateBarChart lineChartData
+        @generateChart lineChartData
 
   removeTopic = (topic) =>
     for key,data of lineChartData
       if data.key is topic
         lineChartData.splice(key, 1)
 
-    @generateBarChart lineChartData
+    @generateChart lineChartData
 
   init = =>
     return if topicsExist
@@ -62,7 +77,7 @@ angular.module('ftlTopics')
     @topics[topic].selected = !@topics[topic].selected
     @parseSelectedTopicData(topic)
 
-  @generateBarChart = (data) =>
+  @generateChart = (data) =>
     @graph.data = data
     @graph.api.refresh()
 

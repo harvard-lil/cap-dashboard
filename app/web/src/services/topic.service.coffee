@@ -27,7 +27,7 @@ angular.module('ftlTopics')
         }).then (response) ->
           return response.data
 
-    getSeveralTopics: (topics) ->
+    getManyTopics: (topics) ->
       jsonTopic = JSON.stringify topics
       $http({
         method: 'GET'
@@ -35,6 +35,8 @@ angular.module('ftlTopics')
         params:
           topics: jsonTopic
         })
+      .then (response) ->
+        return response.data
 
     getTotals: ->
       $http({

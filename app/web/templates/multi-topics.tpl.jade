@@ -10,16 +10,16 @@
       min="1800"
       ng-model="mt.time.min"
       ng-max="mt.time.max"
-      ng-blur="mt.parseTopicData()"
-      ng-keyup="$event.keyCode == 13 && mt.parseTopicData()") 
+      ng-blur="mt.reloadTopicData()"
+      ng-keyup="$event.keyCode == 13 && mt.reloadTopicData()") 
     label to
     input(
       type="number"
       max="2015" 
       ng-min="mt.time.min"
       ng-model="mt.time.max"
-      ng-blur="mt.parseTopicData()"
-      ng-keyup="$event.keyCode == 13 && mt.parseTopicData()") 
+      ng-blur="mt.reloadTopicData()"
+      ng-keyup="$event.keyCode == 13 && mt.reloadTopicData()") 
 
   button.regular-btn.btn.show-menu.dropdown-topic-list(
     ng-click="(mt.showMenu = !mt.showMenu)"

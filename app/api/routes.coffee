@@ -18,9 +18,13 @@ exports.findByTopics = (req, res) ->
   data = {}
   try
     for topic in t
-      topic_num = "#{topics_dict.list[topic]}"
-      topic_data = topics.clusters[topic_num]
-      data[topic] = topic_data.data
+      if topic != "Totals"
+
+        topic_num = "#{topics_dict.list[topic]}"
+        topic_data = topics.clusters[topic_num]
+        data[topic] = topic_data.data
+      else
+        data['Totals'] = topic_totals
     res.status(200).send data
   catch e
     res.status(500).send e
