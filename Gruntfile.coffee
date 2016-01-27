@@ -46,7 +46,7 @@ module.exports = (grunt) ->
     concat:
       options:
         separator: ';'
-        
+
       vendor:
         src: [
            'bower_components/underscore/underscore-min.js',
@@ -90,4 +90,4 @@ module.exports = (grunt) ->
   grunt.registerTask 'css', ['concat:css']
   grunt.registerTask 'compile', ['coffee']
   grunt.registerTask 'html', ['html2js']
-  grunt.registerTask 'default', ['coffee', 'html2js', 'stylus', 'concat:js', 'watch']
+  grunt.registerTask 'default', ['coffee', 'html2js', 'stylus', 'concat', 'watch']
