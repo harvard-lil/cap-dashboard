@@ -16,3 +16,10 @@ In a different tab, run grunt:
 ```
 grunt
 ```
+
+This site is still work in progress.
+
+
+![Top view](https://s3.amazonaws.com/uploads.hipchat.com/26114/809789/IEUyX3kdfpZTVSe/Screen%20Shot%202016-01-27%20at%201.01.06%20PM.png)
+
+![Bottom view](https://s3.amazonaws.com/uploads.hipchat.com/26114/809789/LzqZduvZtDSR9jf/Screen%20Shot%202016-01-27%20at%201.01.28%20PM.png)
