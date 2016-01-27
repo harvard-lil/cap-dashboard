@@ -25,16 +25,31 @@
       ng-blur="st.parseTopicData()"
       ng-keyup="$event.keyCode == 13 && st.parseTopicData()") 
   
-  button.regular-btn.btn.show-menu.dropdown-topic-list(
-    ng-click="(st.showMenu = !st.showMenu)"
-  ) ADD OR REMOVE A TOPIC
-  .dropdown-topic-menu.dropdown-topic-list(
-    click-off show="st.showMenu" excluding='dropdown-topic-list' ng-if="st.showMenu")
-    ul(ng-repeat="(topic,val) in st.topics" data-show='show')
-      li.single-topic(ng-click='st.changeCurrentTopic(topic)' ng-class="{'selected':val.selected}")
-        | {{ topic }}
-  
-  
+  .graph-top-container.col-sm-12
+    button.regular-btn.btn.show-menu.dropdown-topic-list(
+      ng-click="(st.showMenu = !st.showMenu)"
+    ) PICK A DIFFERENT TOPIC
+    .dropdown-topic-menu.dropdown-topic-list(
+      click-off show="st.showMenu" excluding='dropdown-topic-list' ng-if="st.showMenu")
+      ul(ng-repeat="(topic,val) in st.topics" data-show='show')
+        li.single-topic(ng-click='st.changeCurrentTopic(topic)' ng-class="{'selected':val.selected}")
+          | {{ topic }}
+        
+    .topic-legend-container.col-sm-8.pull-right
+      .topic-legend-content
+        .legend-item
+          .color-spot.case-one
+          span.item-title Supreme Court cases
+        .legend-item
+          .color-spot.case-two
+          span.item-title Appeals Court cases
+        .legend-item
+          .color-spot.dissent-one
+          span.item-title Supreme Court dissents
+        .legend-item
+          .color-spot.dissent-two
+          span.item-title Appeals Court dissents
+
   a(name="singletopic") &nbsp;
   
   //- GRAPH
@@ -43,23 +58,6 @@
     data="st.graph.data"
     config="st.graph.config"
     api="st.graph.api")
-
-  .topic-legend-container.container
-    .row.topic-legend-content
-      .col-xs-1
-      .col-xs-2.legend-item
-        .color-spot.case-one
-        span.item-title Supreme Court cases
-      .col-xs-2.legend-item
-        .color-spot.case-two
-        span.item-title Appeals Court cases
-      .col-xs-2.legend-item
-        .color-spot.dissent-one
-        span.item-title Supreme Court dissents
-      .col-xs-2.legend-item
-        .color-spot.dissent-two
-        span.item-title Appeals Court dissents
-      .col-xs-1
     
   .col-sm-12.keyword-list
     | Keywords: {{st.topicKeywords.join(', ')}}
