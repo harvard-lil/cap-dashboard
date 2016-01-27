@@ -10,41 +10,6 @@
   g.line-graph.nv-group
     fill-opacity : 0 !important
 
-  .regular-btn
-    margin-bottom: 6px
-    font           : 14px $font-name
-    font-weight    : $font-bold
-    color          : $color-main-blue
-    letter-spacing : 2px
-    background     : transparent
-    border         : 1px solid $color-main-blue
-    height         : 35px
-    padding        : 0px 14px
-    &:active, &:focus
-      outline : none
-
-  .single-topic
-    padding : 10px 0px
-    &.selected
-      color : red
-
-  .dropdown-topic-menu
-    overflow-y       : scroll
-    width            : 209px
-    height           : 266px
-    position         : absolute
-    background-color : #F6F6F1
-    color            : $color-main-blue
-    font             : 14px $font-name
-    font-weight      : $font-bold
-    padding          : 0 14px
-    li.single-topic
-      border-bottom : 1px solid $color-main-blue
-      cursor        : pointer
-      &:hover, &.selected
-        color : $color-main-black
-
-
 .multi-topic-graph
   font-family: $font-name !important
   .nv-y
@@ -57,3 +22,9 @@
   .legend-color-guide
     border: 0px
     border-radius: 8px
+
+.nv-legend-text
+  font-family : $font-name !important
+  font-weight : $font-bold !important
+  font-size : 12px
+  text-transform : uppercase

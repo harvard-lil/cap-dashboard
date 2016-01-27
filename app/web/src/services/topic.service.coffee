@@ -27,7 +27,7 @@ angular.module('ftlTopics')
         }).then (response) ->
           return response.data
 
-    getSeveralTopics: (topics) ->
+    getManyTopics: (topics) ->
       jsonTopic = JSON.stringify topics
       $http({
         method: 'GET'
@@ -35,17 +35,13 @@ angular.module('ftlTopics')
         params:
           topics: jsonTopic
         })
+      .then (response) ->
+        return response.data
 
     getTotals: ->
-      # if @totals
-      #   deferred = $q.defer()
-      #   promise = deferred.promise
-      #   return deferred.resolve @totals
-      # else
       $http({
         method: 'GET'
         url: "/topics/totals"
         }).then (response) =>
           @totals = response.data
-          console.log "getting totals?", @totals
           @totals

@@ -2,7 +2,7 @@ angular.module('ftlTopics')
 .controller 'TopicCtrl', ($scope, TopicService, GraphService) ->
   @time  = angular.copy GraphService.defaults.time
   @graph = GraphService.multiBarChart
-
+  @topics = TopicService.topics
   $scope.$watch ->
     return TopicService.currentTopic
   , (newval, oldval) =>
@@ -18,6 +18,9 @@ angular.module('ftlTopics')
       @parseTopicKeywords(response.keywords)
     , (response) ->
       console.log "something went wrong"
+
+  @changeCurrentTopic = (topic) ->
+    TopicService.currentTopic = topic
 
   @currentTopic = TopicService.currentTopic
   @getTopicData @currentTopic

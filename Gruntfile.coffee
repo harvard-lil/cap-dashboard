@@ -46,9 +46,7 @@ module.exports = (grunt) ->
     concat:
       options:
         separator: ';'
-      process: (src, filepath) ->
-         return '//####' + filepath + '\n' + src;
-
+        
       vendor:
         src: [
            'bower_components/underscore/underscore-min.js',
