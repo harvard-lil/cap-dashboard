@@ -24,6 +24,17 @@
       ng-model="st.time.max"
       ng-blur="st.parseTopicData()"
       ng-keyup="$event.keyCode == 13 && st.parseTopicData()") 
+  
+  button.regular-btn.btn.show-menu.dropdown-topic-list(
+    ng-click="(st.showMenu = !st.showMenu)"
+  ) ADD OR REMOVE A TOPIC
+  .dropdown-topic-menu.dropdown-topic-list(
+    click-off show="st.showMenu" excluding='dropdown-topic-list' ng-if="st.showMenu")
+    ul(ng-repeat="(topic,val) in st.topics" data-show='show')
+      li.single-topic(ng-click='st.changeCurrentTopic(topic)' ng-class="{'selected':val.selected}")
+        | {{ topic }}
+  
+  
   a(name="singletopic") &nbsp;
   
   //- GRAPH

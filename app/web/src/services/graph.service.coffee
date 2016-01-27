@@ -15,7 +15,7 @@ angular.module('ftlTopics')
         chart :
           useInteractiveGuideline: true
           lineChartWithFocus : true
-          showLegend: false
+          showLegend: true
           type: 'lineChart',
           height: 450,
           margin:
