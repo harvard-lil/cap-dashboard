@@ -68,6 +68,42 @@ $color-third-blue  = #78B6FF
 .section-icon.icon-bar-chart
   background: url('../assets/img/icon-bar-chart.png') no-repeat
 
+
+.regular-btn
+  margin-bottom: 6px
+  font           : 14px $font-name
+  font-weight    : $font-bold
+  color          : $color-main-blue
+  letter-spacing : 2px
+  background     : transparent
+  border         : 1px solid $color-main-blue
+  height         : 35px
+  padding        : 0px 14px
+  &:active, &:focus
+    outline : none
+  &:hover, &:active
+    color : $color-main-blue
+    background-color : #E5F1FF
+
+.dropdown-topic-menu
+  overflow-y       : scroll
+  width            : 209px
+  height           : 266px
+  position         : absolute
+  background-color : #F6F6F1
+  color            : $color-main-blue
+  font             : 14px $font-name
+  font-weight      : $font-bold
+  padding          : 0 14px
+  li.single-topic
+    padding : 10px 0px
+    border-bottom : 1px solid $color-main-blue
+    cursor        : pointer
+    &:hover, &.selected
+      color : $color-main-black
+
+
+
 /* GENERAL */
 
 body
