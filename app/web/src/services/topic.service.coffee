@@ -5,6 +5,14 @@ angular.module('ftlTopics')
     topics : []
     init : ->
       @getList()
+        .then (list) =>
+          # sort most popular topics
+          sorted = Object.keys(list).sort (a, b) ->
+            return list[b][0] - list[a][0]
+          topTopics = []
+          topTopics.push([s, list[s]]) for s in sorted
+          @topTopics = topTopics
+
 
     getList: ->
       $http({

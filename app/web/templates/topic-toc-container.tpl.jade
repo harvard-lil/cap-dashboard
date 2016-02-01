@@ -7,32 +7,17 @@
   .row.toc-content
     .col-sm-12
       .col-sm-6
-        ul(ng-repeat="(topic, total) in toc.list track by $index")
-          a(href="#topic")
-            li(ng-if ="$index < 4" ng-click="toc.viewTopicDetails(topic)")
-              span.topic-title {{topic}} 
-              span.pull-right.total-count {{total[0]}}
+        ul(ng-repeat="topicArray in toc.list track by $index")
+          a(href="#singletopic" target="_self")
+            li(ng-if ="$index < 4" ng-click="toc.viewTopicDetails(topicArray[0])")
+              span.topic-title {{topicArray[0]}} 
+              span.pull-right.total-count {{topicArray[1][0]}}
       .col-sm-6
-        ul(ng-repeat="(topic, total) in toc.list track by $index")
-          a(href="#topic")
-            li(ng-if ="$index >= 4 && $index < 8" ng-click="toc.viewTopicDetails(topic)")
-              span.topic-title {{topic}} 
-              span.pull-right.total-count {{total[0] + total[1]}}
+        ul(ng-repeat="topicArray in toc.list track by $index")
+          a(href="#singletopic" target="_self")
+            li(ng-if ="$index >= 4 && $index < 8" ng-click="toc.viewTopicDetails(topicArray[0])")
+              span.topic-title {{topicArray[0]}} 
+              span.pull-right.total-count {{topicArray[1][0]}}
       
-  #viewdetails.row.toc-content-expanded.collapse
-    .col-sm-12.collapse-group
-      .col-sm-6
-        ul(ng-repeat="(topic, total) in toc.list track by $index")
-          a(href="#topic")
-            li(ng-if ="$index > 8" ng-click="toc.viewTopicDetails(topic)")
-              span.topic-title {{topic}} 
-              span.pull-right.total-count {{total[0]}}
-      .col-sm-6
-        ul(ng-repeat="(topic, total) in toc.list track by $index")
-          a(href="#topic")
-            li(ng-if ="$index >= 8 " ng-click="toc.viewTopicDetails(topic)")
-              span.topic-title {{topic}} 
-              span.pull-right.total-count {{total[0] + total[1]}}
-
   //- a.btn(data-toggle="collapse" data-target="#viewdetails") View details &raquo;
   

@@ -1,12 +1,7 @@
 angular.module('ftlTopics')
 .controller 'TopicTocCtrl', (TopicService) ->
 
-  TopicService
-    .getList()
-    .then (response) =>
-      @list = response
-    , ->
-      console.log "uh oh!"
+  @list = TopicService.topTopics
 
   @viewTopicDetails = (topic) ->
     TopicService.currentTopic = topic
