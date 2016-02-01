@@ -15,9 +15,9 @@ angular.module('ftlTopics')
         chart :
           useInteractiveGuideline: true
           lineChartWithFocus : true
-          showLegend: true
-          type: 'lineChart',
-          height: 450,
+          showLegend: false
+          type: 'lineChart'
+          height: 450
           margin:
             top   : 20
             right : 20
@@ -48,7 +48,6 @@ angular.module('ftlTopics')
 
           transitionDuration: 500
           yAxis:
-            axisLabel: 'counts',
             tickFormat:
               d3.format ',.0f'
       config :
