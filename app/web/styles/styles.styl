@@ -161,6 +161,33 @@ hr
 img.mountains
   width : 100%
 
+
+
+.topic-legend-container
+  .topic-legend-content
+    font-weight : $font-bold
+    font-size : 12px
+    text-transform : uppercase
+    .color-spot
+      width         : 13px
+      height        : 13px
+      border-radius : 7px
+      border        : 0px
+      float         : left
+      margin-right  : 5px
+      &.case-one
+        background-color: $color-main-blue
+      &.case-two
+        background-color: $color-main-black
+      &.dissent-one
+        background-color: $color-third-blue
+      &.dissent-two
+        background-color: $color-main-green
+    .item-title
+      float : left
+      margin-top : 2px
+      margin-right : 10px
+
 @import 'nvd3-custom'
 @import 'topic-toc-container'
 @import 'single-topic-graph'

@@ -2,6 +2,7 @@
 .multi-topics-container(ng-controller="MultiTopicCtrl as mt")
   .multi-topic-header
     .title COMPARE TOPICS
+    a(name="multitopics")
   br
   form.date-form(ng-if="mt.currentTopics.length")
     label Showing data from 
@@ -30,11 +31,12 @@
       li.single-topic(ng-click='mt.toggleTopic(topic)' ng-class="{'selected':val.selected}")
         | {{ topic }}
   
-  a(name="multitopics")
-  
   nvd3.multi-topic-graph(
     ng-if="mt.currentTopics.length"
     options="mt.graph.options"
     data="mt.graph.data"
     config="mt.graph.config"
     api="mt.graph.api")
+
+  .topic-legend-container.multi-topic-legend.col-sm-12
+    .topic-legend-content.text-center

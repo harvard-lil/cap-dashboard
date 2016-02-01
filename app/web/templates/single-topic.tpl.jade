@@ -4,9 +4,9 @@
     .col-sm-12
       .single-topic-header(ng-if="st.topicKeywords")
         .title
-          span {{st.currentTopic}} 
+          span {{st.currentTopic}}
+          a(name="singletopic") &nbsp;
           span.blue-text IN DETAIL
-
   form.date-form(ng-if="st.currentTopic")
     label Showing data from 
     input(
@@ -34,30 +34,29 @@
       ul(ng-repeat="(topic,val) in st.topics" data-show='show')
         li.single-topic(ng-click='st.changeCurrentTopic(topic)' ng-class="{'selected':val.selected}")
           | {{ topic }}
-        
-    .topic-legend-container.col-sm-8.pull-right
-      .topic-legend-content
-        .legend-item
-          .color-spot.case-one
-          span.item-title Supreme Court cases
-        .legend-item
-          .color-spot.case-two
-          span.item-title Appeals Court cases
-        .legend-item
-          .color-spot.dissent-one
-          span.item-title Supreme Court dissents
-        .legend-item
-          .color-spot.dissent-two
-          span.item-title Appeals Court dissents
-
-  a(name="singletopic") &nbsp;
-  
+          
   //- GRAPH
   nvd3(
     options="st.graph.options"
     data="st.graph.data"
     config="st.graph.config"
     api="st.graph.api")
+  
+  .topic-legend-container.col-sm-12
+    .topic-legend-content.text-center
+      .legend-item
+        .color-spot.case-one
+        span.item-title Supreme Court cases
+      .legend-item
+        .color-spot.case-two
+        span.item-title Appeals Court cases
+      .legend-item
+        .color-spot.dissent-one
+        span.item-title Supreme Court dissents
+      .legend-item
+        .color-spot.dissent-two
+        span.item-title Appeals Court dissents
+
     
   .col-sm-12.keyword-list
     | Keywords: {{st.topicKeywords.join(', ')}}

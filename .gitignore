@@ -4,7 +4,7 @@ node_modules
 bower_components
 
 public/assets/ftl_docs
-
+public/assets/original-files/*
 
 public/js/src/*.js
 npm-debug.log

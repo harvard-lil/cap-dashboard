@@ -15,9 +15,8 @@ angular.module('ftlTopics')
   lineChartData = []
 
   @parseSelectedTopicData = (topic) ->
-    # check for
     index = @currentTopics.indexOf(topic)
-    # if topic == 'totals'
+
     if @topics[topic].selected && index < 0
       @currentTopics.push topic
       addTopic topic
@@ -40,6 +39,23 @@ angular.module('ftlTopics')
           lineChartData.push singletopic
         @generateChart lineChartData
 
+  addLegendItem = (topic, color) ->
+    underscored_topic = topic.split(' ').join('_')
+    legendItem = """
+      <div class="legend-item #{underscored_topic}">
+        <div class="color-spot" style='background-color:#{color}'></div>
+        <span class="item-title">
+          #{topic}
+        </span>
+
+      </div>
+    """
+    $('.multi-topic-legend > .topic-legend-content').append legendItem
+
+  removeLegendItem = (topic) ->
+    underscored_topic = topic.split(' ').join('_')
+    $('.multi-topic-legend > .topic-legend-content').find(".#{underscored_topic}").remove()
+
   addTopic = (topic) =>
     TopicService
       .getSingleTopic(topic)
@@ -50,9 +66,9 @@ angular.module('ftlTopics')
         else
           data = {"#{topic}":response.data}
         singletopic = GraphService.parseLineChartData(data, @time)
-        singletopic.color = GraphService.defaults.colors[lineChartData.length - 1]
-
         lineChartData.push singletopic
+        singletopic.color = GraphService.defaults.colors[lineChartData.length - 1]
+        addLegendItem(topic, singletopic.color)
         @generateChart lineChartData
 
   removeTopic = (topic) =>
@@ -60,6 +76,11 @@ angular.module('ftlTopics')
       if data.key is topic
         lineChartData.splice(key, 1)
 
+        oldcolor = GraphService.defaults.colors.splice(key, 1)
+        GraphService.defaults.colors.push oldcolor
+        break
+
+    removeLegendItem(topic)
     @generateChart lineChartData
 
   init = =>
@@ -68,7 +89,6 @@ angular.module('ftlTopics')
     for t,val of TopicService.topics
       @topics[t] = { selected : false }
       topicsExist = true
-
     @parseSelectedTopicData('Totals')
 
   init()
