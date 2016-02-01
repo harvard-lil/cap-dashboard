@@ -61,8 +61,6 @@ angular.module('ftlTopics')
         debounce: 10
 
     parseLineChartData: (data, timeRange) ->
-      console.log "getting data?", data
-
       for topicName,val of data
         singleTopicData =
           values      : []
