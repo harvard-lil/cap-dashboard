@@ -23,12 +23,10 @@
   },
   "dependencies": {
     "body-parser": "^1.13.1",
-    "chart.js": "git://github.com/nnnick/Chart.js.git#v2.0-dev",
     "coffee-script": "^1.9.3",
     "express": "^4.13.0",
     "fibrous": "^0.4.0",
     "grunt": "^0.4.5",
-    "grunt-contrib-concat": "^0.5.1",
     "mongoose": "^4.0.6",
     "node-dev": "^2.6.0",
     "node-static": "^0.7.6",
