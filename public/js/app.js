@@ -43,7 +43,7 @@
 
 (function() {
   angular.module('ftlTopics').controller('MultiTopicCtrl', function($window, TopicService, GraphService) {
-    var addTopic, defaults, init, lineChartData, removeTopic, topicsExist;
+    var addLegendItem, addTopic, defaults, init, lineChartData, removeLegendItem, removeTopic, topicsExist;
     this.topics = {};
     this.currentTopics = [];
     topicsExist = false;
@@ -84,6 +84,17 @@
         };
       })(this));
     };
+    addLegendItem = function(topic, color) {
+      var legendItem, underscored_topic;
+      underscored_topic = topic.split(' ').join('_');
+      legendItem = "<div class=\"legend-item " + underscored_topic + "\">\n  <div class=\"color-spot\" style='background-color:" + color + "'></div>\n  <span class=\"item-title\">\n    " + topic + "\n  </span>\n\n</div>";
+      return $('.multi-topic-legend > .topic-legend-content').append(legendItem);
+    };
+    removeLegendItem = function(topic) {
+      var underscored_topic;
+      underscored_topic = topic.split(' ').join('_');
+      return $('.multi-topic-legend > .topic-legend-content').find("." + underscored_topic).remove();
+    };
     addTopic = (function(_this) {
       return function(topic) {
         return TopicService.getSingleTopic(topic).then(function(response) {
@@ -102,21 +113,26 @@
             );
           }
           singletopic = GraphService.parseLineChartData(data, _this.time);
-          singletopic.color = GraphService.defaults.colors[lineChartData.length - 1];
           lineChartData.push(singletopic);
+          singletopic.color = GraphService.defaults.colors[lineChartData.length - 1];
+          addLegendItem(topic, singletopic.color);
           return _this.generateChart(lineChartData);
         });
       };
     })(this);
     removeTopic = (function(_this) {
       return function(topic) {
-        var data, key;
+        var data, key, oldcolor;
         for (key in lineChartData) {
           data = lineChartData[key];
           if (data.key === topic) {
             lineChartData.splice(key, 1);
+            oldcolor = GraphService.defaults.colors.splice(key, 1);
+            GraphService.defaults.colors.push(oldcolor);
+            break;
           }
         }
+        removeLegendItem(topic);
         return _this.generateChart(lineChartData);
       };
     })(this);
@@ -246,13 +262,7 @@
 
 (function() {
   angular.module('ftlTopics').controller('TopicTocCtrl', function(TopicService) {
-    TopicService.getList().then((function(_this) {
-      return function(response) {
-        return _this.list = response;
-      };
-    })(this), function() {
-      return console.log("uh oh!");
-    });
+    this.list = TopicService.topTopics;
     this.viewTopicDetails = function(topic) {
       return TopicService.currentTopic = topic;
     };
@@ -310,7 +320,7 @@
           chart: {
             useInteractiveGuideline: true,
             lineChartWithFocus: true,
-            showLegend: true,
+            showLegend: false,
             type: 'lineChart',
             height: 450,
             margin: {
@@ -354,7 +364,6 @@
             },
             transitionDuration: 500,
             yAxis: {
-              axisLabel: 'counts',
               tickFormat: d3.format(',.0f')
             }
           }
@@ -372,7 +381,6 @@
       },
       parseLineChartData: function(data, timeRange) {
         var i, ref, ref1, singleTopicData, topicName, val, year;
-        console.log("getting data?", data);
         for (topicName in data) {
           val = data[topicName];
           singleTopicData = {
@@ -403,7 +411,20 @@
       currentTopic: "Water Rights",
       topics: [],
       init: function() {
-        return this.getList();
+        return this.getList().then((function(_this) {
+          return function(list) {
+            var i, len, s, sorted, topTopics;
+            sorted = Object.keys(list).sort(function(a, b) {
+              return list[b][0] - list[a][0];
+            });
+            topTopics = [];
+            for (i = 0, len = sorted.length; i < len; i++) {
+              s = sorted[i];
+              topTopics.push([s, list[s]]);
+            }
+            return _this.topTopics = topTopics;
+          };
+        })(this));
       },
       getList: function() {
         return $http({
@@ -462,39 +483,39 @@
 
 angular.module("../../templates/dashboard.tpl.jade", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../../templates/dashboard.tpl.jade",
-    "<div ng-controller=\"DashboardCtrl\" class=\"dashboard-container\"><div class=\"dashboard-title-container\"><div class=\"ftl-logo\"></div><h1 class=\"text-center\">CALIFORNIA CASES</h1><h4 class=\"text-center\">Explore common case topics in California<br><span class=\"blue-text\">from 1850 – 2014</span></h4></div><div class=\"meta-container col-sm-12\"><div class=\"main-toc-container\"><div class=\"section-icon\"></div><div class=\"row\"><div class=\"col-sm-12 text-center\"><div class=\"col-sm-4 section-content\"><div class=\"title\">POPULAR TOPICS</div><div class=\"description\">TOP CASE TOPICS IN LOCAL\n" +
+    "<div ng-controller=\"DashboardCtrl\" class=\"dashboard-container\"><div class=\"dashboard-title-container\"><div class=\"ftl-logo\"></div><h1 class=\"text-center\">CALIFORNIA CASES</h1><h4 class=\"text-center\">Explore common case topics in California<br><span class=\"blue-text\">from 1850 – 2014</span></h4></div><div class=\"meta-container col-sm-12\"><div class=\"main-toc-container\"><div class=\"section-icon\"></div><div class=\"row\"><div style=\"height: 200px\" class=\"col-sm-12 text-center\"><a href=\"#popular\" target=\"_self\"><div class=\"col-sm-2 col-sm-offset-2 section-content\"><div class=\"title\">POPULAR TOPICS</div><div class=\"description\">TOP CASE TOPICS IN LOCAL\n" +
     "AND STATE COURTS\n" +
-    "FROM 1850 TO 2014</div><a href=\"#popular\" target=\"_self\"><div class=\"arrow-icon\"></div></a></div><div class=\"col-sm-4 section-content\"><div class=\"title\">TOPIC IN DETAIL</div><div class=\"description\">EXPLORE A SINGLE TOPIC\n" +
+    "FROM 1850 TO 2014</div></div></a><div class=\"divider col-sm-1\">&nbsp;</div><a href=\"#singletopic\" target=\"_self\"><div class=\"col-sm-2 section-content\"><div class=\"title\">TOPIC IN DETAIL</div><div class=\"description\">EXPLORE A SINGLE TOPIC\n" +
     "IN DETAIL OVER TIME. SEE\n" +
     "DISSENT VOTES IN \n" +
-    "LOCAL AND STATE COURTS</div><a href=\"#singletopic\" target=\"_self\"><div class=\"arrow-icon\"></div></a></div><div class=\"col-sm-4 section-content\"><div class=\"title\">COMPARE TOPICS</div><div class=\"description\">COMPARE DIFFERENT \n" +
+    "LOCAL AND STATE COURTS</div></div></a><div class=\"divider col-sm-1\">&nbsp;</div><a href=\"#multitopics\" target=\"_self\"><div class=\"col-sm-2 section-content\"><div class=\"title\">COMPARE TOPICS</div><div class=\"description\">COMPARE DIFFERENT \n" +
     "TOPICS OVER TIME\n" +
-    "SOMETHING ELSE</div><a href=\"#multitopics\" target=\"_self\"><div class=\"arrow-icon\"></div></a></div></div></div></div></div><div class=\"section-divider col-sm-12\"><div class=\"section-divider icon-topics\"></div></div><div class=\"meta-container col-sm-12\"><div ng-controller=\"TopicTocCtrl as toc\" class=\"toc-container\"><div class=\"toc-header\"><a name=\"popular\">&nbsp;</a><div class=\"title\">POPULAR TOPICS</div><div class=\"subtitle\">Track keyword hits as our database grows.</div></div><div class=\"row toc-content\"><div class=\"col-sm-12\"><div class=\"col-sm-6\"><ul ng-repeat=\"(topic, total) in toc.list track by $index\"><a href=\"#topic\"><li ng-if=\"$index &lt; 4\" ng-click=\"toc.viewTopicDetails(topic)\"><span class=\"topic-title\">{{topic}} </span><span class=\"pull-right total-count\">{{total[0]}}</span></li></a></ul></div><div class=\"col-sm-6\"><ul ng-repeat=\"(topic, total) in toc.list track by $index\"><a href=\"#topic\"><li ng-if=\"$index &gt;= 4 &amp;&amp; $index &lt; 8\" ng-click=\"toc.viewTopicDetails(topic)\"><span class=\"topic-title\">{{topic}} </span><span class=\"pull-right total-count\">{{total[0] + total[1]}}</span></li></a></ul></div></div></div><div id=\"viewdetails\" class=\"row toc-content-expanded collapse\"><div class=\"col-sm-12 collapse-group\"><div class=\"col-sm-6\"><ul ng-repeat=\"(topic, total) in toc.list track by $index\"><a href=\"#topic\"><li ng-if=\"$index &gt; 8\" ng-click=\"toc.viewTopicDetails(topic)\"><span class=\"topic-title\">{{topic}} </span><span class=\"pull-right total-count\">{{total[0]}}</span></li></a></ul></div><div class=\"col-sm-6\"><ul ng-repeat=\"(topic, total) in toc.list track by $index\"><a href=\"#topic\"><li ng-if=\"$index &gt;= 8 \" ng-click=\"toc.viewTopicDetails(topic)\"><span class=\"topic-title\">{{topic}} </span><span class=\"pull-right total-count\">{{total[0] + total[1]}}</span></li></a></ul></div></div></div></div></div><div class=\"section-divider col-sm-12\"><div class=\"border-gray\"></div><div class=\"section-divider icon-bar-chart\"></div></div><div class=\"meta-container col-sm-12\"><div ng-controller=\"TopicCtrl as st\" class=\"single-topic-container\"><div class=\"row\"><div class=\"col-sm-12\"><div ng-if=\"st.topicKeywords\" class=\"single-topic-header\"><div class=\"title\"><span>{{st.currentTopic}} </span><span class=\"blue-text\">IN DETAIL</span></div></div></div></div><form ng-if=\"st.currentTopic\" class=\"date-form\"><label>Showing data from </label><input type=\"number\" min=\"1800\" ng-model=\"st.time.min\" ng-max=\"st.time.max\" ng-blur=\"st.parseTopicData()\" ng-keyup=\"$event.keyCode == 13 &amp;&amp; st.parseTopicData()\"><label>to</label><input type=\"number\" max=\"2015\" ng-min=\"st.time.min\" ng-model=\"st.time.max\" ng-blur=\"st.parseTopicData()\" ng-keyup=\"$event.keyCode == 13 &amp;&amp; st.parseTopicData()\"></form><div class=\"graph-top-container col-sm-12\"><button ng-click=\"(st.showMenu = !st.showMenu)\" class=\"regular-btn btn show-menu dropdown-topic-list\">PICK A DIFFERENT TOPIC</button><div click-off show=\"st.showMenu\" excluding=\"dropdown-topic-list\" ng-if=\"st.showMenu\" class=\"dropdown-topic-menu dropdown-topic-list\"><ul ng-repeat=\"(topic,val) in st.topics\" data-show=\"show\"><li ng-click=\"st.changeCurrentTopic(topic)\" ng-class=\"{'selected':val.selected}\" class=\"single-topic\">{{ topic }}</li></ul></div><div class=\"topic-legend-container col-sm-8 pull-right\"><div class=\"topic-legend-content\"><div class=\"legend-item\"><div class=\"color-spot case-one\"></div><span class=\"item-title\">Supreme Court cases</span></div><div class=\"legend-item\"><div class=\"color-spot case-two\"></div><span class=\"item-title\">Appeals Court cases</span></div><div class=\"legend-item\"><div class=\"color-spot dissent-one\"></div><span class=\"item-title\">Supreme Court dissents</span></div><div class=\"legend-item\"><div class=\"color-spot dissent-two\"></div><span class=\"item-title\">Appeals Court dissents</span></div></div></div></div><a name=\"singletopic\">&nbsp;</a><nvd3 options=\"st.graph.options\" data=\"st.graph.data\" config=\"st.graph.config\" api=\"st.graph.api\"></nvd3><div class=\"col-sm-12 keyword-list\">Keywords: {{st.topicKeywords.join(', ')}}</div></div></div><div class=\"section-divider col-sm-12\"><div class=\"border-gray\"></div><div class=\"section-divider icon-line-chart\"></div></div><div class=\"meta-container col-sm-12\"><div ng-controller=\"MultiTopicCtrl as mt\" class=\"multi-topics-container\"><div class=\"multi-topic-header\"><div class=\"title\">COMPARE TOPICS</div></div><br><form ng-if=\"mt.currentTopics.length\" class=\"date-form\"><label>Showing data from </label><input type=\"number\" min=\"1800\" ng-model=\"mt.time.min\" ng-max=\"mt.time.max\" ng-blur=\"mt.reloadTopicData()\" ng-keyup=\"$event.keyCode == 13 &amp;&amp; mt.reloadTopicData()\"><label>to</label><input type=\"number\" max=\"2015\" ng-min=\"mt.time.min\" ng-model=\"mt.time.max\" ng-blur=\"mt.reloadTopicData()\" ng-keyup=\"$event.keyCode == 13 &amp;&amp; mt.reloadTopicData()\"></form><button ng-click=\"(mt.showMenu = !mt.showMenu)\" class=\"regular-btn btn show-menu dropdown-topic-list\">ADD OR REMOVE A TOPIC</button><div click-off show=\"mt.showMenu\" excluding=\"dropdown-topic-list\" ng-if=\"mt.showMenu\" class=\"dropdown-topic-menu dropdown-topic-list\"><ul ng-repeat=\"(topic,val) in mt.topics\" data-show=\"show\"><li ng-click=\"mt.toggleTopic(topic)\" ng-class=\"{'selected':val.selected}\" class=\"single-topic\">{{ topic }}</li></ul></div><a name=\"multitopics\"></a><nvd3 ng-if=\"mt.currentTopics.length\" options=\"mt.graph.options\" data=\"mt.graph.data\" config=\"mt.graph.config\" api=\"mt.graph.api\" class=\"multi-topic-graph\"></nvd3></div></div></div>");
+    "SOMETHING ELSE</div></div></a><div class=\"col-sm-1\"></div><div class=\"col-sm-2\"></div></div><div class=\"col-sm-12 text-center\"><a href=\"#popular\" target=\"_self\"><div class=\"col-sm-3\"><div class=\"arrow-icon\"></div></div></a><div class=\"col-sm-1\"></div><a href=\"#singletopic\" target=\"_self\"><div class=\"col-sm-3\"><div class=\"arrow-icon\"></div></div></a><div class=\"col-sm-1\"></div><a href=\"#multitopics\" target=\"_self\"><div class=\"col-sm-3\"><div class=\"arrow-icon\"></div></div></a></div></div></div></div><div class=\"section-divider col-sm-12\"><div class=\"section-divider icon-topics\"></div></div><div class=\"meta-container col-sm-12\"><div ng-controller=\"TopicTocCtrl as toc\" class=\"toc-container\"><div class=\"toc-header\"><a name=\"popular\">&nbsp;</a><div class=\"title\">POPULAR TOPICS</div><div class=\"subtitle\">Click on a topic for more details</div></div><div class=\"row toc-content\"><div class=\"col-sm-12\"><div class=\"col-sm-6\"><ul ng-repeat=\"topicArray in toc.list track by $index\"><a href=\"#singletopic\" target=\"_self\"><li ng-if=\"$index &lt; 4\" ng-click=\"toc.viewTopicDetails(topicArray[0])\"><span class=\"topic-title\">{{topicArray[0]}} </span><span class=\"pull-right total-count\">{{topicArray[1][0]}}</span></li></a></ul></div><div class=\"col-sm-6\"><ul ng-repeat=\"topicArray in toc.list track by $index\"><a href=\"#singletopic\" target=\"_self\"><li ng-if=\"$index &gt;= 4 &amp;&amp; $index &lt; 8\" ng-click=\"toc.viewTopicDetails(topicArray[0])\"><span class=\"topic-title\">{{topicArray[0]}} </span><span class=\"pull-right total-count\">{{topicArray[1][0]}}</span></li></a></ul></div></div></div></div></div><div class=\"section-divider col-sm-12\"><div class=\"border-gray\"></div><div class=\"section-divider icon-bar-chart\"></div></div><div class=\"meta-container col-sm-12\"><div ng-controller=\"TopicCtrl as st\" class=\"single-topic-container\"><div class=\"row\"><div class=\"col-sm-12\"><div ng-if=\"st.topicKeywords\" class=\"single-topic-header\"><div class=\"title\"><span>{{st.currentTopic}}</span><a name=\"singletopic\">&nbsp;</a><span class=\"blue-text\">IN DETAIL</span></div></div></div></div><form ng-if=\"st.currentTopic\" class=\"date-form\"><label>Showing data from </label><input type=\"number\" min=\"1800\" ng-model=\"st.time.min\" ng-max=\"st.time.max\" ng-blur=\"st.parseTopicData()\" ng-keyup=\"$event.keyCode == 13 &amp;&amp; st.parseTopicData()\"><label>to</label><input type=\"number\" max=\"2015\" ng-min=\"st.time.min\" ng-model=\"st.time.max\" ng-blur=\"st.parseTopicData()\" ng-keyup=\"$event.keyCode == 13 &amp;&amp; st.parseTopicData()\"></form><div class=\"graph-top-container col-sm-12\"><button ng-click=\"(st.showMenu = !st.showMenu)\" class=\"regular-btn btn show-menu dropdown-topic-list\">PICK A DIFFERENT TOPIC</button><div click-off show=\"st.showMenu\" excluding=\"dropdown-topic-list\" ng-if=\"st.showMenu\" class=\"dropdown-topic-menu dropdown-topic-list\"><ul ng-repeat=\"(topic,val) in st.topics\" data-show=\"show\"><li ng-click=\"st.changeCurrentTopic(topic)\" ng-class=\"{'selected':val.selected}\" class=\"single-topic\">{{ topic }}</li></ul></div></div><nvd3 options=\"st.graph.options\" data=\"st.graph.data\" config=\"st.graph.config\" api=\"st.graph.api\"></nvd3><div class=\"topic-legend-container col-sm-12\"><div class=\"topic-legend-content text-center\"><div class=\"legend-item\"><div class=\"color-spot case-one\"></div><span class=\"item-title\">Supreme Court cases</span></div><div class=\"legend-item\"><div class=\"color-spot case-two\"></div><span class=\"item-title\">Appeals Court cases</span></div><div class=\"legend-item\"><div class=\"color-spot dissent-one\"></div><span class=\"item-title\">Supreme Court dissents</span></div><div class=\"legend-item\"><div class=\"color-spot dissent-two\"></div><span class=\"item-title\">Appeals Court dissents</span></div></div></div><div class=\"col-sm-12 keyword-list\">Keywords: {{st.topicKeywords.join(', ')}}</div></div></div><div class=\"section-divider col-sm-12\"><div class=\"border-gray\"></div><div class=\"section-divider icon-line-chart\"></div></div><div class=\"meta-container col-sm-12\"><div ng-controller=\"MultiTopicCtrl as mt\" class=\"multi-topics-container\"><div class=\"multi-topic-header\"><div class=\"title\">COMPARE TOPICS</div><a name=\"multitopics\"></a></div><br><form ng-if=\"mt.currentTopics.length\" class=\"date-form\"><label>Showing data from </label><input type=\"number\" min=\"1800\" ng-model=\"mt.time.min\" ng-max=\"mt.time.max\" ng-blur=\"mt.reloadTopicData()\" ng-keyup=\"$event.keyCode == 13 &amp;&amp; mt.reloadTopicData()\"><label>to</label><input type=\"number\" max=\"2015\" ng-min=\"mt.time.min\" ng-model=\"mt.time.max\" ng-blur=\"mt.reloadTopicData()\" ng-keyup=\"$event.keyCode == 13 &amp;&amp; mt.reloadTopicData()\"></form><button ng-click=\"(mt.showMenu = !mt.showMenu)\" class=\"regular-btn btn show-menu dropdown-topic-list\">ADD OR REMOVE A TOPIC</button><div click-off show=\"mt.showMenu\" excluding=\"dropdown-topic-list\" ng-if=\"mt.showMenu\" class=\"dropdown-topic-menu dropdown-topic-list\"><ul ng-repeat=\"(topic,val) in mt.topics\" data-show=\"show\"><li ng-click=\"mt.toggleTopic(topic)\" ng-class=\"{'selected':val.selected}\" class=\"single-topic\">{{ topic }}</li></ul></div><nvd3 ng-if=\"mt.currentTopics.length\" options=\"mt.graph.options\" data=\"mt.graph.data\" config=\"mt.graph.config\" api=\"mt.graph.api\" class=\"multi-topic-graph\"></nvd3><div class=\"topic-legend-container multi-topic-legend col-sm-12\"><div class=\"topic-legend-content text-center\"></div></div></div></div></div>");
 }]);
 
 angular.module("../../templates/main-toc.tpl.jade", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../../templates/main-toc.tpl.jade",
-    "<div class=\"main-toc-container\"><div class=\"section-icon\"></div><div class=\"row\"><div class=\"col-sm-12 text-center\"><div class=\"col-sm-4 section-content\"><div class=\"title\">POPULAR TOPICS</div><div class=\"description\">TOP CASE TOPICS IN LOCAL\n" +
+    "<div class=\"main-toc-container\"><div class=\"section-icon\"></div><div class=\"row\"><div style=\"height: 200px\" class=\"col-sm-12 text-center\"><a href=\"#popular\" target=\"_self\"><div class=\"col-sm-2 col-sm-offset-2 section-content\"><div class=\"title\">POPULAR TOPICS</div><div class=\"description\">TOP CASE TOPICS IN LOCAL\n" +
     "AND STATE COURTS\n" +
-    "FROM 1850 TO 2014</div><a href=\"#popular\" target=\"_self\"><div class=\"arrow-icon\"></div></a></div><div class=\"col-sm-4 section-content\"><div class=\"title\">TOPIC IN DETAIL</div><div class=\"description\">EXPLORE A SINGLE TOPIC\n" +
+    "FROM 1850 TO 2014</div></div></a><div class=\"divider col-sm-1\">&nbsp;</div><a href=\"#singletopic\" target=\"_self\"><div class=\"col-sm-2 section-content\"><div class=\"title\">TOPIC IN DETAIL</div><div class=\"description\">EXPLORE A SINGLE TOPIC\n" +
     "IN DETAIL OVER TIME. SEE\n" +
     "DISSENT VOTES IN \n" +
-    "LOCAL AND STATE COURTS</div><a href=\"#singletopic\" target=\"_self\"><div class=\"arrow-icon\"></div></a></div><div class=\"col-sm-4 section-content\"><div class=\"title\">COMPARE TOPICS</div><div class=\"description\">COMPARE DIFFERENT \n" +
+    "LOCAL AND STATE COURTS</div></div></a><div class=\"divider col-sm-1\">&nbsp;</div><a href=\"#multitopics\" target=\"_self\"><div class=\"col-sm-2 section-content\"><div class=\"title\">COMPARE TOPICS</div><div class=\"description\">COMPARE DIFFERENT \n" +
     "TOPICS OVER TIME\n" +
-    "SOMETHING ELSE</div><a href=\"#multitopics\" target=\"_self\"><div class=\"arrow-icon\"></div></a></div></div></div></div>");
+    "SOMETHING ELSE</div></div></a><div class=\"col-sm-1\"></div><div class=\"col-sm-2\"></div></div><div class=\"col-sm-12 text-center\"><a href=\"#popular\" target=\"_self\"><div class=\"col-sm-3\"><div class=\"arrow-icon\"></div></div></a><div class=\"col-sm-1\"></div><a href=\"#singletopic\" target=\"_self\"><div class=\"col-sm-3\"><div class=\"arrow-icon\"></div></div></a><div class=\"col-sm-1\"></div><a href=\"#multitopics\" target=\"_self\"><div class=\"col-sm-3\"><div class=\"arrow-icon\"></div></div></a></div></div></div>");
 }]);
 
 angular.module("../../templates/multi-topics.tpl.jade", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../../templates/multi-topics.tpl.jade",
-    "<div ng-controller=\"MultiTopicCtrl as mt\" class=\"multi-topics-container\"><div class=\"multi-topic-header\"><div class=\"title\">COMPARE TOPICS</div></div><br><form ng-if=\"mt.currentTopics.length\" class=\"date-form\"><label>Showing data from </label><input type=\"number\" min=\"1800\" ng-model=\"mt.time.min\" ng-max=\"mt.time.max\" ng-blur=\"mt.reloadTopicData()\" ng-keyup=\"$event.keyCode == 13 &amp;&amp; mt.reloadTopicData()\"><label>to</label><input type=\"number\" max=\"2015\" ng-min=\"mt.time.min\" ng-model=\"mt.time.max\" ng-blur=\"mt.reloadTopicData()\" ng-keyup=\"$event.keyCode == 13 &amp;&amp; mt.reloadTopicData()\"></form><button ng-click=\"(mt.showMenu = !mt.showMenu)\" class=\"regular-btn btn show-menu dropdown-topic-list\">ADD OR REMOVE A TOPIC</button><div click-off show=\"mt.showMenu\" excluding=\"dropdown-topic-list\" ng-if=\"mt.showMenu\" class=\"dropdown-topic-menu dropdown-topic-list\"><ul ng-repeat=\"(topic,val) in mt.topics\" data-show=\"show\"><li ng-click=\"mt.toggleTopic(topic)\" ng-class=\"{'selected':val.selected}\" class=\"single-topic\">{{ topic }}</li></ul></div><a name=\"multitopics\"></a><nvd3 ng-if=\"mt.currentTopics.length\" options=\"mt.graph.options\" data=\"mt.graph.data\" config=\"mt.graph.config\" api=\"mt.graph.api\" class=\"multi-topic-graph\"></nvd3></div>");
+    "<div ng-controller=\"MultiTopicCtrl as mt\" class=\"multi-topics-container\"><div class=\"multi-topic-header\"><div class=\"title\">COMPARE TOPICS</div><a name=\"multitopics\"></a></div><br><form ng-if=\"mt.currentTopics.length\" class=\"date-form\"><label>Showing data from </label><input type=\"number\" min=\"1800\" ng-model=\"mt.time.min\" ng-max=\"mt.time.max\" ng-blur=\"mt.reloadTopicData()\" ng-keyup=\"$event.keyCode == 13 &amp;&amp; mt.reloadTopicData()\"><label>to</label><input type=\"number\" max=\"2015\" ng-min=\"mt.time.min\" ng-model=\"mt.time.max\" ng-blur=\"mt.reloadTopicData()\" ng-keyup=\"$event.keyCode == 13 &amp;&amp; mt.reloadTopicData()\"></form><button ng-click=\"(mt.showMenu = !mt.showMenu)\" class=\"regular-btn btn show-menu dropdown-topic-list\">ADD OR REMOVE A TOPIC</button><div click-off show=\"mt.showMenu\" excluding=\"dropdown-topic-list\" ng-if=\"mt.showMenu\" class=\"dropdown-topic-menu dropdown-topic-list\"><ul ng-repeat=\"(topic,val) in mt.topics\" data-show=\"show\"><li ng-click=\"mt.toggleTopic(topic)\" ng-class=\"{'selected':val.selected}\" class=\"single-topic\">{{ topic }}</li></ul></div><nvd3 ng-if=\"mt.currentTopics.length\" options=\"mt.graph.options\" data=\"mt.graph.data\" config=\"mt.graph.config\" api=\"mt.graph.api\" class=\"multi-topic-graph\"></nvd3><div class=\"topic-legend-container multi-topic-legend col-sm-12\"><div class=\"topic-legend-content text-center\"></div></div></div>");
 }]);
 
 angular.module("../../templates/single-topic.tpl.jade", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../../templates/single-topic.tpl.jade",
-    "<div ng-controller=\"TopicCtrl as st\" class=\"single-topic-container\"><div class=\"row\"><div class=\"col-sm-12\"><div ng-if=\"st.topicKeywords\" class=\"single-topic-header\"><div class=\"title\"><span>{{st.currentTopic}} </span><span class=\"blue-text\">IN DETAIL</span></div></div></div></div><form ng-if=\"st.currentTopic\" class=\"date-form\"><label>Showing data from </label><input type=\"number\" min=\"1800\" ng-model=\"st.time.min\" ng-max=\"st.time.max\" ng-blur=\"st.parseTopicData()\" ng-keyup=\"$event.keyCode == 13 &amp;&amp; st.parseTopicData()\"><label>to</label><input type=\"number\" max=\"2015\" ng-min=\"st.time.min\" ng-model=\"st.time.max\" ng-blur=\"st.parseTopicData()\" ng-keyup=\"$event.keyCode == 13 &amp;&amp; st.parseTopicData()\"></form><div class=\"graph-top-container col-sm-12\"><button ng-click=\"(st.showMenu = !st.showMenu)\" class=\"regular-btn btn show-menu dropdown-topic-list\">PICK A DIFFERENT TOPIC</button><div click-off show=\"st.showMenu\" excluding=\"dropdown-topic-list\" ng-if=\"st.showMenu\" class=\"dropdown-topic-menu dropdown-topic-list\"><ul ng-repeat=\"(topic,val) in st.topics\" data-show=\"show\"><li ng-click=\"st.changeCurrentTopic(topic)\" ng-class=\"{'selected':val.selected}\" class=\"single-topic\">{{ topic }}</li></ul></div><div class=\"topic-legend-container col-sm-8 pull-right\"><div class=\"topic-legend-content\"><div class=\"legend-item\"><div class=\"color-spot case-one\"></div><span class=\"item-title\">Supreme Court cases</span></div><div class=\"legend-item\"><div class=\"color-spot case-two\"></div><span class=\"item-title\">Appeals Court cases</span></div><div class=\"legend-item\"><div class=\"color-spot dissent-one\"></div><span class=\"item-title\">Supreme Court dissents</span></div><div class=\"legend-item\"><div class=\"color-spot dissent-two\"></div><span class=\"item-title\">Appeals Court dissents</span></div></div></div></div><a name=\"singletopic\">&nbsp;</a><nvd3 options=\"st.graph.options\" data=\"st.graph.data\" config=\"st.graph.config\" api=\"st.graph.api\"></nvd3><div class=\"col-sm-12 keyword-list\">Keywords: {{st.topicKeywords.join(', ')}}</div></div>");
+    "<div ng-controller=\"TopicCtrl as st\" class=\"single-topic-container\"><div class=\"row\"><div class=\"col-sm-12\"><div ng-if=\"st.topicKeywords\" class=\"single-topic-header\"><div class=\"title\"><span>{{st.currentTopic}}</span><a name=\"singletopic\">&nbsp;</a><span class=\"blue-text\">IN DETAIL</span></div></div></div></div><form ng-if=\"st.currentTopic\" class=\"date-form\"><label>Showing data from </label><input type=\"number\" min=\"1800\" ng-model=\"st.time.min\" ng-max=\"st.time.max\" ng-blur=\"st.parseTopicData()\" ng-keyup=\"$event.keyCode == 13 &amp;&amp; st.parseTopicData()\"><label>to</label><input type=\"number\" max=\"2015\" ng-min=\"st.time.min\" ng-model=\"st.time.max\" ng-blur=\"st.parseTopicData()\" ng-keyup=\"$event.keyCode == 13 &amp;&amp; st.parseTopicData()\"></form><div class=\"graph-top-container col-sm-12\"><button ng-click=\"(st.showMenu = !st.showMenu)\" class=\"regular-btn btn show-menu dropdown-topic-list\">PICK A DIFFERENT TOPIC</button><div click-off show=\"st.showMenu\" excluding=\"dropdown-topic-list\" ng-if=\"st.showMenu\" class=\"dropdown-topic-menu dropdown-topic-list\"><ul ng-repeat=\"(topic,val) in st.topics\" data-show=\"show\"><li ng-click=\"st.changeCurrentTopic(topic)\" ng-class=\"{'selected':val.selected}\" class=\"single-topic\">{{ topic }}</li></ul></div></div><nvd3 options=\"st.graph.options\" data=\"st.graph.data\" config=\"st.graph.config\" api=\"st.graph.api\"></nvd3><div class=\"topic-legend-container col-sm-12\"><div class=\"topic-legend-content text-center\"><div class=\"legend-item\"><div class=\"color-spot case-one\"></div><span class=\"item-title\">Supreme Court cases</span></div><div class=\"legend-item\"><div class=\"color-spot case-two\"></div><span class=\"item-title\">Appeals Court cases</span></div><div class=\"legend-item\"><div class=\"color-spot dissent-one\"></div><span class=\"item-title\">Supreme Court dissents</span></div><div class=\"legend-item\"><div class=\"color-spot dissent-two\"></div><span class=\"item-title\">Appeals Court dissents</span></div></div></div><div class=\"col-sm-12 keyword-list\">Keywords: {{st.topicKeywords.join(', ')}}</div></div>");
 }]);
 
 angular.module("../../templates/topic-toc-container.tpl.jade", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../../templates/topic-toc-container.tpl.jade",
-    "<div ng-controller=\"TopicTocCtrl as toc\" class=\"toc-container\"><div class=\"toc-header\"><a name=\"popular\">&nbsp;</a><div class=\"title\">POPULAR TOPICS</div><div class=\"subtitle\">Track keyword hits as our database grows.</div></div><div class=\"row toc-content\"><div class=\"col-sm-12\"><div class=\"col-sm-6\"><ul ng-repeat=\"(topic, total) in toc.list track by $index\"><a href=\"#topic\"><li ng-if=\"$index &lt; 4\" ng-click=\"toc.viewTopicDetails(topic)\"><span class=\"topic-title\">{{topic}} </span><span class=\"pull-right total-count\">{{total[0]}}</span></li></a></ul></div><div class=\"col-sm-6\"><ul ng-repeat=\"(topic, total) in toc.list track by $index\"><a href=\"#topic\"><li ng-if=\"$index &gt;= 4 &amp;&amp; $index &lt; 8\" ng-click=\"toc.viewTopicDetails(topic)\"><span class=\"topic-title\">{{topic}} </span><span class=\"pull-right total-count\">{{total[0] + total[1]}}</span></li></a></ul></div></div></div><div id=\"viewdetails\" class=\"row toc-content-expanded collapse\"><div class=\"col-sm-12 collapse-group\"><div class=\"col-sm-6\"><ul ng-repeat=\"(topic, total) in toc.list track by $index\"><a href=\"#topic\"><li ng-if=\"$index &gt; 8\" ng-click=\"toc.viewTopicDetails(topic)\"><span class=\"topic-title\">{{topic}} </span><span class=\"pull-right total-count\">{{total[0]}}</span></li></a></ul></div><div class=\"col-sm-6\"><ul ng-repeat=\"(topic, total) in toc.list track by $index\"><a href=\"#topic\"><li ng-if=\"$index &gt;= 8 \" ng-click=\"toc.viewTopicDetails(topic)\"><span class=\"topic-title\">{{topic}} </span><span class=\"pull-right total-count\">{{total[0] + total[1]}}</span></li></a></ul></div></div></div></div>");
+    "<div ng-controller=\"TopicTocCtrl as toc\" class=\"toc-container\"><div class=\"toc-header\"><a name=\"popular\">&nbsp;</a><div class=\"title\">POPULAR TOPICS</div><div class=\"subtitle\">Click on a topic for more details</div></div><div class=\"row toc-content\"><div class=\"col-sm-12\"><div class=\"col-sm-6\"><ul ng-repeat=\"topicArray in toc.list track by $index\"><a href=\"#singletopic\" target=\"_self\"><li ng-if=\"$index &lt; 4\" ng-click=\"toc.viewTopicDetails(topicArray[0])\"><span class=\"topic-title\">{{topicArray[0]}} </span><span class=\"pull-right total-count\">{{topicArray[1][0]}}</span></li></a></ul></div><div class=\"col-sm-6\"><ul ng-repeat=\"topicArray in toc.list track by $index\"><a href=\"#singletopic\" target=\"_self\"><li ng-if=\"$index &gt;= 4 &amp;&amp; $index &lt; 8\" ng-click=\"toc.viewTopicDetails(topicArray[0])\"><span class=\"topic-title\">{{topicArray[0]}} </span><span class=\"pull-right total-count\">{{topicArray[1][0]}}</span></li></a></ul></div></div></div></div>");
 }]);
