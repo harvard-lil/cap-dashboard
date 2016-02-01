@@ -55,12 +55,12 @@ module.exports = (grunt) ->
            'bower_components/bootstrap/dist/js/bootstrap.min.js',
            'bower_components/angular-ui-router/release/angular-ui-router.min.js',
            'bower_components/d3/d3.min.js',
-           'bower_components/nvd3/build/nv.d3.min.js'
+           'bower_components/nvd3/build/nv.d3.js'
            ]
         dest:'public/vendor/js/app-vendor.js'
       css:
         src: [
-          'bower_components/nvd3/build/nv.d3.min.css'
+          'bower_components/nvd3/build/nv.d3.css'
           'bower_components/bootstrap/dist/css/bootstrap.min.css'
         ]
         dest: 'public/vendor/css/app-vendor.css'
