@@ -5,7 +5,7 @@ angular.module('ftlTopics')
     defaults :
       time :
         min : 1850
-        max : 2000
+        max : 2014
       colors  : colors
 
     lineGraph :
