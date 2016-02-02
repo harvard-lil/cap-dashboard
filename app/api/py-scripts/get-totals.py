@@ -18,12 +18,11 @@ try:
         single_topic = clusters[key]['data']
         for date in single_topic:
             total = single_topic[date][0]
-            if date == 'total':
-                break
-            elif date in date_totals:
-                date_totals[date] += total
-            else:
-                date_totals[date] = total
+            if date != 'total':
+                if date in date_totals:
+                    date_totals[date][0] += total
+                else:
+                    date_totals[date] = [total]
 
     with open(newfilepath, 'w') as outfile:
         json.dump(date_totals, outfile)
