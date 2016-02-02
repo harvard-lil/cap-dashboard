@@ -118,6 +118,7 @@ hr
   min-height : 350px
   clear      : both
   display    : inline-block
+  margin-bottom : 60px
 
 @import 'header'
 @import 'footer'
@@ -136,11 +137,12 @@ hr
     margin            : 0 auto
     margin-top        : 20px
     float             : none
-    background-color  : $color-main-blue
-    -webkit-mask-image: url(../assets/img/logo-medium.svg)
-    mask-image        : url(../assets/img/logo-medium.svg)
     width             : 51px
     height            : 74px
+    fill : $color-main-blue !important
+    .ftl-logo path
+      fill : $color-main-blue !important
+
   h1
     font        : $text-section-titles, sans-serif
     font-weight : $font-bold

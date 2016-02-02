@@ -1,55 +1,86 @@
 //- main-toc.tpl.jade
-.main-toc-container
+.main-toc-container.col-sm-12(align-middle)
   .section-icon
-  .row
-    .col-sm-12.text-center(style="height: 200px")
-      
-      a(href="#popular" target="_self")
-        .col-sm-2.col-sm-offset-2.section-content
-          .title POPULAR TOPICS
-          .description
+  .table-responsive.col-sm-8.col-sm-offset-2
+    table.table
+      thead
+        th.title POPULAR TOPICS
+        th.title TOPIC IN DETAIL
+        th.title COMPARE TOPICS
+      tbody
+        tr
+          td.description
             | TOP CASE TOPICS IN LOCAL
             | AND STATE COURTS
             | FROM 1850 TO 2014
-      
-      .divider.col-sm-1
-        | &nbsp;
-        
-      a(href="#singletopic" target="_self")
-        .col-sm-2.section-content
-          .title TOPIC IN DETAIL
-          .description
+          td.description
             | EXPLORE A SINGLE TOPIC
             | IN DETAIL OVER TIME. SEE
             | DISSENT VOTES IN 
             | LOCAL AND STATE COURTS
-      
-      .divider.col-sm-1
-        | &nbsp;
-
-      a(href="#multitopics" target="_self")
-        .col-sm-2.section-content
-          .title
-            | COMPARE TOPICS
-          .description
+          td.description
             | COMPARE DIFFERENT 
             | TOPICS OVER TIME
             | SOMETHING ELSE
-      .col-sm-1
-      .col-sm-2
-    .col-sm-12.text-center
-      a(href="#popular" target="_self")
-        .col-sm-3
-          .arrow-icon
-      
-      .col-sm-1
+        tr
+          td
+            .arrow-icon
 
-      a(href="#singletopic" target="_self")
-        .col-sm-3
-          .arrow-icon
+          td
+            .arrow-icon
 
-      .col-sm-1
-
-      a(href="#multitopics" target="_self")
-        .col-sm-3
-          .arrow-icon
+          td
+            .arrow-icon
+  //- .row
+  //- 
+  //-   .col-sm-12.text-center(style="height: 200px")
+  //-     
+  //-     a(href="#popular" target="_self")
+  //-       .col-sm-2.col-sm-offset-2.section-content
+  //-         .title POPULAR TOPICS
+  //-         .description
+  //-           | TOP CASE TOPICS IN LOCAL
+  //-           | AND STATE COURTS
+  //-           | FROM 1850 TO 2014
+  //-     
+  //-     .divider.col-sm-1
+  //-       | &nbsp;
+  //-       
+  //-     a(href="#singletopic" target="_self")
+  //-       .col-sm-2.section-content
+  //-         .title TOPIC IN DETAIL
+  //-         .description
+  //-           | EXPLORE A SINGLE TOPIC
+  //-           | IN DETAIL OVER TIME. SEE
+  //-           | DISSENT VOTES IN 
+  //-           | LOCAL AND STATE COURTS
+  //-     
+  //-     .divider.col-sm-1
+  //-       | &nbsp;
+  //- 
+  //-     a(href="#multitopics" target="_self")
+  //-       .col-sm-2.section-content
+  //-         .title
+  //-           | COMPARE TOPICS
+  //-         .description
+  //-           | COMPARE DIFFERENT 
+  //-           | TOPICS OVER TIME
+  //-           | SOMETHING ELSE
+  //-     .col-sm-1
+  //-     .col-sm-2
+  //-   .col-sm-12.text-center
+  //-     a(href="#popular" target="_self")
+  //-       .col-sm-3
+  //-         .arrow-icon
+  //-     
+  //-     .col-sm-1
+  //- 
+  //-     a(href="#singletopic" target="_self")
+  //-       .col-sm-3
+  //-         .arrow-icon
+  //- 
+  //-     .col-sm-1
+  //- 
+  //-     a(href="#multitopics" target="_self")
+  //-       .col-sm-3
+  //-         .arrow-icon
