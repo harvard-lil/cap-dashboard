@@ -34,6 +34,8 @@ footer.ftl-footer h3.project-title{margin-bottom:30px}
 footer.ftl-footer h3,footer.ftl-footer h4,footer.ftl-footer button{margin-top:10px}
 /* line 49 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/footer.styl */
 footer.ftl-footer h3{font-weight:$font-bold;font-size:21px;letter-spacing:3px}
+/* line 53 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/footer.styl */
+footer.meta-container{margin-bottom:0}
 
 /* line 286 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/header.styl */
 
@@ -42,9 +44,11 @@ footer.ftl-footer h3{font-weight:$font-bold;font-size:21px;letter-spacing:3px}
 /* line 1 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/header.styl */
 header.ftl-header{height:50px;width:100%;padding:20px 0;}
 /* line 5 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/header.styl */
-header.ftl-header .ftl-logo{fill:$color-main-blue;height:32px;width:24px;background-color:$color-main-blue;-webkit-mask-image:url("../assets/img/logo-medium.svg");mask-image:url("../assets/img/logo-medium.svg")}
+header.ftl-header .ftl-logo{fill:$color-main-blue;height:32px;width:24px;background-image:url("../assets/img/logo-medium.svg")}
+/* line 10 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/header.styl */
+header.ftl-header .ftl-logo path{fill:$color-main-blue}
 /* line 13 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/header.styl */
-header.ftl-header .ftl-text{font:$font-name,sans-serif;font-weight:$font-bold;font-size:18px;left:32px;letter-spacing:1.5px;position:relative;top:-25px}
+header.ftl-header .ftl-text{font:$font-name,sans-serif;font-weight:$font-bold;font-size:18px;left:32px;letter-spacing:1.5px;position:relative;top:-12px}
 
 /* line 286 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/main-toc.styl */
 
@@ -66,6 +70,10 @@ header.ftl-header .ftl-text{font:$font-name,sans-serif;font-weight:$font-bold;fo
 .main-toc-container .arrow-icon{background-size:15px 12px !important;width:15px;height:12px;background:url("../assets/img/triangle.png") no-repeat;position:relative;margin:0 auto}
 /* line 30 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/main-toc.styl */
 .main-toc-container .divider{height:100%;border-right:2px solid #fff;width:1px}
+/* line 35 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/main-toc.styl */
+.main-toc-container .table th,.main-toc-container .table td{border:none !important;text-align:center}
+/* line 38 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/main-toc.styl */
+.main-toc-container .table-responsive.col-sm-8.col-sm-offset-2{border:0}
 
 /* line 286 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/multi-topic-graph.styl */
 
@@ -240,18 +248,20 @@ body{font-family:'Rajdhani',sans-serif;font-weight:300;color:#2f2f2f}
 /* line 114 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/styles.styl */
 hr{border:1px solid #d9d9d9}
 /* line 117 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/styles.styl */
-.meta-container{min-height:350px;clear:both;display:inline-block}
+.meta-container{min-height:350px;clear:both;display:inline-block;margin-bottom:60px}
 /* line 20 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/reset.styl */
 
-/* line 52 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/header.styl */
+/* line 54 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/header.styl */
 
 /* line 1 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/header.styl */
 header.ftl-header{height:50px;width:100%;padding:20px 0;}
 /* line 5 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/header.styl */
-header.ftl-header .ftl-logo{fill:#0075ff;height:32px;width:24px;background-color:#0075ff;-webkit-mask-image:url("../assets/img/logo-medium.svg");mask-image:url("../assets/img/logo-medium.svg")}
+header.ftl-header .ftl-logo{fill:#0075ff;height:32px;width:24px;background-image:url("../assets/img/logo-medium.svg")}
+/* line 10 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/header.styl */
+header.ftl-header .ftl-logo path{fill:#0075ff}
 /* line 13 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/header.styl */
-header.ftl-header .ftl-text{font:'Rajdhani',sans-serif;font-weight:700;font-size:18px;left:32px;letter-spacing:1.5px;position:relative;top:-25px}
-/* line 52 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/header.styl */
+header.ftl-header .ftl-text{font:'Rajdhani',sans-serif;font-weight:700;font-size:18px;left:32px;letter-spacing:1.5px;position:relative;top:-12px}
+/* line 54 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/header.styl */
 
 /* line 286 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/footer.styl */
 
@@ -275,35 +285,39 @@ footer.ftl-footer h3.project-title{margin-bottom:30px}
 footer.ftl-footer h3,footer.ftl-footer h4,footer.ftl-footer button{margin-top:10px}
 /* line 49 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/footer.styl */
 footer.ftl-footer h3{font-weight:700;font-size:21px;letter-spacing:3px}
-/* line 125 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/styles.styl */
+/* line 53 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/footer.styl */
+footer.meta-container{margin-bottom:0}
+/* line 126 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/styles.styl */
 
-/* line 128 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/styles.styl */
+/* line 129 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/styles.styl */
 .dashboard-title-container{position:relative;width:100%;line-height:32px;text-align:center;padding:23px;}
-/* line 135 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/styles.styl */
-.dashboard-title-container .ftl-logo{margin:0 auto;margin-top:20px;float:none;background-color:#0075ff;-webkit-mask-image:url("../assets/img/logo-medium.svg");mask-image:url("../assets/img/logo-medium.svg");width:51px;height:74px}
-/* line 144 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/styles.styl */
+/* line 136 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/styles.styl */
+.dashboard-title-container .ftl-logo{margin:0 auto;margin-top:20px;float:none;width:51px;height:74px;fill:#0075ff !important;}
+/* line 143 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/styles.styl */
+.dashboard-title-container .ftl-logo .ftl-logo path{fill:#0075ff !important}
+/* line 146 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/styles.styl */
 .dashboard-title-container h1{font:24px 'Rajdhani',sans-serif;font-weight:700;font-size:54px;margin:12px 0 -10px 0}
-/* line 150 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/styles.styl */
+/* line 152 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/styles.styl */
 .dashboard-title-container h4{font:24px 'Rajdhani',sans-serif;font-weight:400;margin-bottom:30px;margin-top:10px}
-/* line 156 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/styles.styl */
+/* line 158 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/styles.styl */
 .mountain-container{height:150px;overflow:hidden;display:inline}
-/* line 161 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/styles.styl */
+/* line 163 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/styles.styl */
 img.mountains{width:100%}
-/* line 166 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/styles.styl */
+/* line 168 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/styles.styl */
 
-/* line 167 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/styles.styl */
+/* line 169 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/styles.styl */
 .topic-legend-container .topic-legend-content{font-weight:700;font-size:12px;text-transform:uppercase;}
-/* line 171 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/styles.styl */
+/* line 173 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/styles.styl */
 .topic-legend-container .topic-legend-content .color-spot{width:13px;height:13px;border-radius:7px;border:0;float:left;margin-right:5px;}
-/* line 178 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/styles.styl */
-.topic-legend-container .topic-legend-content .color-spot.case-one{background-color:#0075ff}
 /* line 180 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/styles.styl */
-.topic-legend-container .topic-legend-content .color-spot.case-two{background-color:#2f2f2f}
+.topic-legend-container .topic-legend-content .color-spot.case-one{background-color:#0075ff}
 /* line 182 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/styles.styl */
-.topic-legend-container .topic-legend-content .color-spot.dissent-one{background-color:#78b6ff}
+.topic-legend-container .topic-legend-content .color-spot.case-two{background-color:#2f2f2f}
 /* line 184 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/styles.styl */
-.topic-legend-container .topic-legend-content .color-spot.dissent-two{background-color:#7ed321}
+.topic-legend-container .topic-legend-content .color-spot.dissent-one{background-color:#78b6ff}
 /* line 186 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/styles.styl */
+.topic-legend-container .topic-legend-content .color-spot.dissent-two{background-color:#7ed321}
+/* line 188 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/styles.styl */
 .topic-legend-container .topic-legend-content .item-title{float:left;margin-top:2px;margin-right:10px}
 /* line 5 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/footer.styl */
 
@@ -313,9 +327,9 @@ img.mountains{width:100%}
 .nvd3 rect[height="1"]{display:none !important}
 /* line 4 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/nvd3-custom.styl */
 .nv-legendWrap{-webkit-transform:translate(10,270);transform:translate(10,270)}
-/* line 196 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/nvd3-custom.styl */
+/* line 198 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/nvd3-custom.styl */
 
-/* line 196 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/topic-toc-container.styl */
+/* line 198 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/topic-toc-container.styl */
 
 /* line 1 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/topic-toc-container.styl */
 .toc-container{background-color:#fff;padding:3px;width:100%;height:259px;}
@@ -383,7 +397,7 @@ img.mountains{width:100%}
 .single-topic-container .nv-controlsWrap.nvd3-svg{display:none}
 /* line 30 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/single-topic-graph.styl */
 
-/* line 33 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/multi-topic-graph.styl */
+/* line 39 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/multi-topic-graph.styl */
 
 /* line 1 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/multi-topic-graph.styl */
 
@@ -405,7 +419,7 @@ img.mountains{width:100%}
 .nvtooltip .legend-color-guide{border:0;border-radius:8px}
 /* line 26 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/multi-topic-graph.styl */
 .nv-legend-text{font-family:'Rajdhani' !important;font-weight:700 !important;font-size:12px;text-transform:uppercase}
-/* line 33 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/multi-topic-graph.styl */
+/* line 39 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/multi-topic-graph.styl */
 
 /* line 20 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/main-toc.styl */
 
@@ -425,6 +439,10 @@ img.mountains{width:100%}
 .main-toc-container .arrow-icon{background-size:15px 12px !important;width:15px;height:12px;background:url("../assets/img/triangle.png") no-repeat;position:relative;margin:0 auto}
 /* line 30 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/main-toc.styl */
 .main-toc-container .divider{height:100%;border-right:2px solid #fff;width:1px}
+/* line 35 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/main-toc.styl */
+.main-toc-container .table th,.main-toc-container .table td{border:none !important;text-align:center}
+/* line 38 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/main-toc.styl */
+.main-toc-container .table-responsive.col-sm-8.col-sm-offset-2{border:0}
 /* line 15 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/main-toc.styl */
 
 /* line 1 : /Users/anastasia/Documents/LIL/FTL/ftl-sandbox/app/web/styles/date-form.styl */
