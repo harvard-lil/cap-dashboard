@@ -3,5 +3,4 @@ angular.module('ftlTopics')
   link: (scope, element, attrs) ->
     table = $(element).closest('.table-responsive')
     tableMarginTop = Math.round( ($(element).height() - $(table).height()) / 2 );
-    console.log "hello", tableMarginTop
     $('table').css('margin-top', tableMarginTop - 70) # with jQuery

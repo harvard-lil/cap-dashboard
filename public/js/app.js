@@ -277,7 +277,6 @@
         var table, tableMarginTop;
         table = $(element).closest('.table-responsive');
         tableMarginTop = Math.round(($(element).height() - $(table).height()) / 2);
-        console.log("hello", tableMarginTop);
         return $('table').css('margin-top', tableMarginTop - 70);
       }
     };
