@@ -1,9 +1,7 @@
 config = {}
 config.keys = {}
 
-if process.env.NODE_ENV is 'production' 
-  config.keys.MONGO_URL = process.env.MONGOLAB_URI
-else
+if process.env.NODE_ENV is 'development'
   keys = require './keys'
   config.keys = keys
 
