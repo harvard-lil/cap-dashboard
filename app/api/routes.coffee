@@ -24,7 +24,7 @@ exports.findByTopics = (req, res) ->
         topic_data = topics.clusters[topic_num]
         data[topic] = topic_data.data
       else
-        data['Totals'] = topic_totals
+        data['Total Count'] = topic_totals
     res.status(200).send data
   catch e
     res.status(500).send e

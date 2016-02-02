@@ -24,7 +24,7 @@ angular.module('ftlTopics')
         response.data
 
     getSingleTopic: (topic) ->
-      if topic is 'Totals'
+      if topic is 'Total Count'
         @getTotals()
           .then (response) ->
             return response

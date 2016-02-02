@@ -61,7 +61,7 @@ angular.module('ftlTopics')
       .getSingleTopic(topic)
       .then (response) =>
 
-        if topic is 'Totals'
+        if topic is 'Total Count'
           data = {"#{topic}":response}
         else
           data = {"#{topic}":response.data}
@@ -85,11 +85,11 @@ angular.module('ftlTopics')
 
   init = =>
     return if topicsExist
-    @topics['Totals'] = { selected : true }
+    @topics['Total Count'] = { selected : true }
     for t,val of TopicService.topics
       @topics[t] = { selected : false }
       topicsExist = true
-    @parseSelectedTopicData('Totals')
+    @parseSelectedTopicData('Total Count')
 
   init()
 
