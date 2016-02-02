@@ -5,7 +5,6 @@ bodyParser = require 'body-parser'
 
 fibrous    = require 'fibrous'
 config     = require './config'
-keys       = require './keys'
 routes     = require './app/api/routes'
 reqeustToken = null
 
