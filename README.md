@@ -19,6 +19,7 @@ grunt
 
 This site is still work in progress.
 
+The work lives here for now: http://ftl-topic-modeling.herokuapp.com/
 
 ![Top view](https://s3.amazonaws.com/uploads.hipchat.com/26114/809789/IEUyX3kdfpZTVSe/Screen%20Shot%202016-01-27%20at%201.01.06%20PM.png)
 
