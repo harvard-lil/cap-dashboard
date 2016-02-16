@@ -49,19 +49,19 @@ module.exports = (grunt) ->
 
       vendor:
         src: [
-           'bower_components/underscore/underscore-min.js',
-           'bower_components/jquery/dist/jquery.min.js',
-           'bower_components/angular/angular.min.js',
-           'bower_components/bootstrap/dist/js/bootstrap.min.js',
-           'bower_components/angular-ui-router/release/angular-ui-router.min.js',
-           'bower_components/d3/d3.min.js',
-           'bower_components/nvd3/build/nv.d3.js'
+           'node_modules/underscore/underscore-min.js',
+           'node_modules/jquery/dist/jquery.min.js',
+           'node_modules/angular/angular.min.js',
+           'node_modules/bootstrap/dist/js/bootstrap.min.js',
+           'node_modules/angular-ui-router/release/angular-ui-router.min.js',
+           'node_modules/d3/d3.min.js',
+           'node_modules/nvd3/build/nv.d3.js'
            ]
         dest:'public/vendor/js/app-vendor.js'
       css:
         src: [
-          'bower_components/nvd3/build/nv.d3.css'
-          'bower_components/bootstrap/dist/css/bootstrap.min.css'
+          'node_modules/nvd3/build/nv.d3.css'
+          'node_modules/bootstrap/dist/css/bootstrap.min.css'
         ]
         dest: 'public/vendor/css/app-vendor.css'
 

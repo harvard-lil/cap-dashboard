@@ -113,7 +113,7 @@
   stroke-width: 2.5px;
 }
 /* bullet */
-.nvd3.nv-bullet { font: 10px 'Rajdhani'; }
+.nvd3.nv-bullet { font: 10px sans-serif; }
 .nvd3.nv-bullet .nv-measure { fill-opacity: .8; }
 .nvd3.nv-bullet .nv-measure:hover { fill-opacity: 1; }
 .nvd3.nv-bullet .nv-marker { stroke: #000; stroke-width: 2px; }
@@ -276,11 +276,11 @@ svg.nvd3-svg {
 
 
 .nvd3 text {
-    font: normal 12px 'Rajdhani';
+    font: normal 12px Arial;
 }
 
 .nvd3 .title {
-    font: bold 14px 'Rajdhani';
+    font: bold 14px Arial;
 }
 
 .nvd3 .nv-background {
@@ -290,7 +290,7 @@ svg.nvd3-svg {
 
 .nvd3.nv-noData {
     font-size: 18px;
-    font-weight: 700;
+    font-weight: bold;
 }
 
 
@@ -363,7 +363,7 @@ svg.nvd3-svg {
     stroke-opacity: .7;
 }
 
-.nvd3 .nv-parallelCoordinates-brush .extent
+.nvd3 .nv-parallelCoordinates-brush .extent 
 {
     fill: #fff;
     fill-opacity: .6;
@@ -382,7 +382,7 @@ svg.nvd3-svg {
   stroke: black;
   stroke-width: 1;
   stroke-opacity: 1;
-  stroke-dasharray: 5, 5;
+  stroke-dasharray: 5, 5; 
 }
 .nvd3.nv-pie path {
     stroke-opacity: 0;
@@ -517,7 +517,7 @@ svg.nvd3-svg {
     z-index: 10000;
     display: block;
 
-    font-family: 'Rajdhani';
+    font-family: Arial;
     font-size: 13px;
     text-align: left;
     pointer-events: none;
@@ -622,7 +622,7 @@ svg.nvd3-svg {
 .nvtooltip table td.legend-color-guide div {
     width: 12px;
     height: 12px;
-    border-radius: 6px;
+    border: 1px solid #999;
 }
 
 .nvtooltip .footer {
