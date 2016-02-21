@@ -1,8 +1,9 @@
 angular.module('ftlTopics')
 .controller 'TopicCtrl', ($scope, TopicService, GraphService) ->
-  @time  = angular.copy GraphService.defaults.time
-  @graph = GraphService.multiBarChart
+  @time   = angular.copy GraphService.defaults.time
+  @graph  = GraphService.multiBarChart
   @topics = TopicService.topics
+
   $scope.$watch ->
     return TopicService.currentTopic
   , (newval, oldval) =>
@@ -13,8 +14,8 @@ angular.module('ftlTopics')
   @getTopicData = (topic) ->
     TopicService.getSingleTopic(topic)
     .then (response) =>
-      @topicData = response.data
-      @parseTopicData()
+      allCounts = GraphService.parseBarChartData(response.data, @time)
+      @generateBarChart allCounts
       @parseTopicKeywords(response.keywords)
     , (response) ->
       console.log "something went wrong"
@@ -24,7 +25,6 @@ angular.module('ftlTopics')
 
   @currentTopic = TopicService.currentTopic
   @getTopicData @currentTopic
-
 
   defaults =
     keys :
@@ -39,33 +39,8 @@ angular.module('ftlTopics')
     @topicKeywords = keywords
     @topicKeywords
 
-  @parseTopicData = ->
-    data = @topicData
-    allCounts = [
-      { key: defaults.keys.appeals_counts, values: [] }
-      { key: defaults.keys.SC_counts, values: [] }
-      { key: defaults.keys.SC_dissent_counts, values: [] }
-      { key: defaults.keys.appeals_dissent_counts, values: [] }
-    ]
-
-    for year in [@time.min..@time.max]
-      case_counts       = data[year]?[0] || 0
-      SC_counts         = data[year]?[1] || 0
-      dissent_counts    = data[year]?[2] || 0
-      SC_dissent_counts = data[year]?[3] || 0
-
-      appeals_counts = case_counts - SC_counts
-      appeals_dissent_counts = dissent_counts - SC_dissent_counts
-
-      allCounts[0].values.push [ year, appeals_counts ]
-      allCounts[1].values.push [ year, SC_counts ]
-      allCounts[2].values.push [ year, -1 * SC_dissent_counts ]
-      allCounts[3].values.push [ year, -1 * appeals_dissent_counts ]
-
-    @generateBarChart(allCounts)
+  @generateBarChart = (allCounts) =>
+    @graph.data = allCounts
     @graph.api.refresh()
-
-  @generateBarChart = (topicData) =>
-    @graph.data = topicData
 
   return
