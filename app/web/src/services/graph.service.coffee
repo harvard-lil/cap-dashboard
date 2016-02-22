@@ -1,5 +1,5 @@
 angular.module('ftlTopics')
-.service 'GraphService', ->
+.service 'GraphService', (TopicService) ->
   colors = ["#0075FF", "#2F2F2F", "#D9D9D9", "#D2E7FF", "#ECA633", "#78B6FF", "#7ED321"]
   obj =
     defaults :
@@ -29,7 +29,7 @@ angular.module('ftlTopics')
           transitionDuration: 500
           yAxis:
             tickFormat:
-              d3.format ',.0f'
+              d3.format ',.2f'
     multiBarChart :
       options :
         color : colors
@@ -70,7 +70,9 @@ angular.module('ftlTopics')
           classed     : 'line-graph'
 
         for year in [timeRange.min..timeRange.max]
-          singleTopicData.values.push {x:year, y: parseInt(val[year]) ||  0}
+          value = parseInt(val[year]) ||  0
+          percent = if value > 0 then parseFloat((value / TopicService.totals[year])*100) else 0
+          singleTopicData.values.push {x:year, y:percent}
 
       singleTopicData
 
