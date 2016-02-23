@@ -1,38 +1,48 @@
 //- multi-topics.tpl.jade
 .multi-topics-container(ng-controller="MultiTopicCtrl as mt")
-  .multi-topic-header
-    .title COMPARE TOPICS
+  .topic-header
     a(name="multitopics")
-  br
-  form.date-form(ng-if="mt.currentTopics.length")
-    label Showing data from 
-    input(
-      type="number"
-      min="1800"
-      ng-model="mt.time.min"
-      ng-max="mt.time.max"
-      ng-blur="mt.reloadTopicData()"
-      ng-keyup="$event.keyCode == 13 && mt.reloadTopicData()") 
-    label to
-    input(
-      type="number"
-      max="2015" 
-      ng-min="mt.time.min"
-      ng-model="mt.time.max"
-      ng-blur="mt.reloadTopicData()"
-      ng-keyup="$event.keyCode == 13 && mt.reloadTopicData()") 
+    .title 
+      span
+        | COMPARE TOPICS 
+      span FROM 
+      span
+        input(
+          type="number"
+          min="1800"
+          ng-model="mt.time.min"
+          ng-max="mt.time.max"
+          ng-blur="mt.reloadTopicData()"
+          ng-keyup="$event.keyCode == 13 && mt.reloadTopicData()") 
+      span TO 
+      span 
+        input(
+          type="number"
+          max="2015" 
+          ng-min="mt.time.min"
+          ng-model="mt.time.max"
+          ng-blur="mt.reloadTopicData()"
+          ng-keyup="$event.keyCode == 13 && mt.reloadTopicData()") 
+      button.subtitle.dropdown-topic-list(ng-click="(mt.showMenu = !mt.showMenu)")
+        | ADD OR REMOVE TOPICS
+      .dropdown-topic-menu.dropdown-topic-list(
+        click-off show="mt.showMenu" excluding='dropdown-topic-list' ng-if="mt.showMenu")
+        ul
+          li.single-topic(
+            ng-click="mt.reset()"
+            ng-disable="mt.topics.length === 0")
+            | RESET
+        ul(ng-repeat="(topic,val) in mt.topics" data-show='show')
+          li.single-topic(ng-click='mt.toggleTopic(topic)' ng-class="{'selected':val.selected}")
+            | {{ topic }}
 
-  button.regular-btn.btn.show-menu.dropdown-topic-list(
-    ng-click="(mt.showMenu = !mt.showMenu)"
-  ) ADD OR REMOVE A TOPIC
-  .dropdown-topic-menu.dropdown-topic-list(
-    click-off show="mt.showMenu" excluding='dropdown-topic-list' ng-if="mt.showMenu")
-    ul(ng-repeat="(topic,val) in mt.topics" data-show='show')
-      li.single-topic(ng-click='mt.toggleTopic(topic)' ng-class="{'selected':val.selected}")
-        | {{ topic }}
+  br
+  //- button.regular-btn.btn.show-menu.dropdown-topic-list(
+  //-   ng-click="(mt.showMenu = !mt.showMenu)"
+  //- ) ADD OR REMOVE A TOPIC
   
-  nvd3.multi-topic-graph(
-    ng-if="mt.currentTopics.length"
+  nvd3.multi-topic-graph( 
+    ng-if="mt.showGraph"
     options="mt.graph.options"
     data="mt.graph.data"
     config="mt.graph.config"

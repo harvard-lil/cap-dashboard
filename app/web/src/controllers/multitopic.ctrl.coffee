@@ -39,6 +39,17 @@ angular.module('ftlTopics')
           lineChartData.push singletopic
         @generateChart lineChartData
 
+  @reset = ->
+    for topic,val of @topics
+      if val.selected
+        removeTopic(topic)
+        val.selected = false
+    @currentTopics = []
+    @graph.api?.refresh()
+    @showGraph = false
+
+    return
+
   addLegendItem = (topic, color) ->
     underscored_topic = topic.split(' ').join('_')
     legendItem = """
