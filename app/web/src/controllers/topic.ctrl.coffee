@@ -8,39 +8,32 @@ angular.module('ftlTopics')
     return TopicService.currentTopic
   , (newval, oldval) =>
     return if newval == oldval
-    @currentTopic = newval
-    @getTopicData @currentTopic
+    @getTopicData newval
 
   @getTopicData = (topic) ->
     TopicService.getSingleTopic(topic)
     .then (response) =>
+      @parseTopicKeywords(response.keywords)
+      @currentTopic = topic
       allCounts = GraphService.parseBarChartData(response.data, @time)
       @generateBarChart allCounts
-      @parseTopicKeywords(response.keywords)
+      return
     , (response) ->
       console.log "something went wrong"
 
   @changeCurrentTopic = (topic) ->
     TopicService.currentTopic = topic
 
-  @currentTopic = TopicService.currentTopic
-  @getTopicData @currentTopic
-
-  defaults =
-    keys :
-      appeals_counts         : "Appeal Court Cases"
-      case_counts            : "Total Cases"
-      SC_counts              : "Supreme Court Cases"
-      dissent_counts         : "Total Dissents"
-      SC_dissent_counts      : "Supreme Court Dissents"
-      appeals_dissent_counts : "Appeals Court Dissents"
+  @getTopicData TopicService.currentTopic
 
   @parseTopicKeywords = (keywords) ->
     @topicKeywords = keywords
     @topicKeywords
 
-  @generateBarChart = (allCounts) =>
+  @generateBarChart = (allCounts) ->
+    return if !allCounts
     @graph.data = allCounts
-    @graph.api.refresh()
+    @graph.api?.refresh()
+    return
 
   return
