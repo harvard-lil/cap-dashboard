@@ -1,68 +1,66 @@
 //- single-topic.tpl.jade
 .single-topic-container(ng-controller="TopicCtrl as st")
-  .row
-    .col-sm-12
-      .topic-header(ng-if="st.currentTopic")
-        a(name="singletopic") &nbsp;
-        .title
+  .col-sm-12
+    .topic-header(ng-if="st.currentTopic")
+      a(name="singletopic") &nbsp;
+      .title
 
-          span
-            a.topic-name.dropdown-topic-list(
-              ng-click="(st.showMenu = !st.showMenu)"
-            ){{st.currentTopic}}
-            .dropdown-topic-menu.dropdown-topic-list(
-              click-off show="st.showMenu" excluding='dropdown-topic-list' ng-if="st.showMenu")
-              ul(ng-repeat="(topic,val) in st.topics" data-show='show')
-                li.single-topic(
-                  ng-click='st.changeCurrentTopic(topic)'
-                  ng-class="{'selected':st.currentTopic == topic}")
-                  | {{ topic }}
-              
+        span {{st.currentTopic}}
+            
 
-          span
-            |  FROM 
-          span
-            input(
-              type="number"
-              min="1800"
-              ng-model="st.time.min"
-              ng-max="st.time.max"
-              ng-blur="st.parseTopicData()"
-              ng-keyup="$event.keyCode == 13 && st.parseTopicData()") 
-          span 
-          |  TO 
-          span
-            input(
-              type="number"
-              max="2015" 
-              ng-min="st.time.min"
-              ng-model="st.time.max"
-              ng-blur="st.parseTopicData()"
-              ng-keyup="$event.keyCode == 13 && st.parseTopicData()") 
-          
-  //- GRAPH
-  nvd3(
-    ng-if="st.graph.data"
-    options="st.graph.options"
-    data="st.graph.data"
-    config="st.graph.config"
-    api="st.graph.api")
-  
-  .topic-legend-container.col-sm-12
-    .topic-legend-content.text-center
-      .legend-item
-        .color-spot.case-one
-        span.item-title Supreme Court cases
-      .legend-item
-        .color-spot.case-two
-        span.item-title Appeals Court cases
-      .legend-item
-        .color-spot.dissent-one
-        span.item-title Supreme Court dissents
-      .legend-item
-        .color-spot.dissent-two
-        span.item-title Appeals Court dissents
+        span
+          |  FROM 
+        span
+          input(
+            type="number"
+            min="1800"
+            ng-model="st.time.min"
+            ng-max="st.time.max"
+            ng-blur="st.parseTopicData()"
+            ng-keyup="$event.keyCode == 13 && st.parseTopicData()") 
+        span 
+        |  TO 
+        span
+          input(
+            type="number"
+            max="2015" 
+            ng-min="st.time.min"
+            ng-model="st.time.max"
+            ng-blur="st.parseTopicData()"
+            ng-keyup="$event.keyCode == 13 && st.parseTopicData()") 
+        
+
+  .col-sm-2.topic-menu
+      ul
+        li.single-topic(
+          ng-repeat="(topic,val) in st.topics"
+          ng-click='st.changeCurrentTopic(topic)'
+          ng-class="{'selected':st.currentTopic == topic}")
+          | {{ topic }}
+  .col-sm-10
+    //- GRAPH
+    nvd3.single-topic-graph(
+      ng-if="st.graph.data"
+      options="st.graph.options"
+      data="st.graph.data"
+      config="st.graph.config"
+      api="st.graph.api")
+    
+    .topic-legend-container
+      .topic-legend-content
+        .legend-item
+          .color-spot.case-one
+          span.item-title Supreme Court cases
+        .legend-item
+          .color-spot.case-two
+          span.item-title Appeals Court cases
+        .legend-item
+          .color-spot.dissent-one
+          span.item-title Supreme Court dissents
+        .legend-item
+          .color-spot.dissent-two
+          span.item-title Appeals Court dissents
 
     
-  .col-sm-12.keyword-list
-    | Keywords: {{st.topicKeywords.join(', ')}}
+    .keyword-list
+      | Keywords: {{st.topicKeywords.join(', ')}}

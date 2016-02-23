@@ -1,7 +1,7 @@
 angular.module('ftlTopics')
 .service "TopicService", ($http, $q) ->
   obj =
-    currentTopic : "Water Rights"
+    currentTopic : "Breach of Contract"
     topics : []
     init : ->
       @getList()

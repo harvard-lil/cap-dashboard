@@ -29,6 +29,8 @@ $color-main-gray   = #D9D9D9
 $color-second-blue = #D2E7FF
 $color-third-blue  = #78B6FF
 
+$color-light-gray  = #D9D9D9
+
 .inverse-btn
   font           : 14px $font-name
   font-weight    : $font-bold
@@ -89,9 +91,11 @@ input[type=number]::-webkit-outer-spin-button {
       color       : $color-main-black
       width       : 100%
 
-  .title > a
-      cursor : pointer
-      text-decoration : none
+    a
+      cursor:            pointer
+      text-decoration:   none
+      padding-bottom:    1px
+      border-bottom:     2px solid $color-main-black
   .title > a.topic-name:hover,
   .title > a.topic-name:active
       color : $color-main-blue
@@ -100,12 +104,12 @@ input[type=number]::-webkit-outer-spin-button {
   .title > span > input
       border: 0px
       border-bottom : 2px solid $color-main-black
-      padding: 0px
-  .title > a:hover,
-  .title > a:active,
+  a:hover,
+  a:active,
   .title > span > input:hover
       border-bottom: 2px solid $color-main-blue
       color : $color-main-blue
+      text-decoration: none !important
   .title > span > input
       padding-right : 0px
       width: 65px
@@ -130,26 +134,35 @@ input[type=number]::-webkit-outer-spin-button {
     color : $color-main-blue
     background-color : #E5F1FF
 
+
+.topic-menu,
 .dropdown-topic-menu
   overflow-y       : scroll
-  width            : 209px
-  height           : 266px
-  position         : absolute
   background-color : #FFF
   color            : $color-main-black
   font             : 14px $font-name
   font-weight      : $font-bold
   padding          : 0 14px
-  border           : 1px solid $color-main-black
   text-align       : left
   li.single-topic
-    padding : 7px 0px
-    border-bottom : 1px solid $color-main-black
-    cursor        : pointer
-    &:hover, &.selected
-      color : $color-main-blue
+    padding:       7px 0px
+    border-bottom: 1px solid $color-main-black
+    cursor:        pointer
+    &:hover,
+    &.selected
+      color:         $color-main-blue
 
-
+.topic-menu
+  margin-left : 0px
+  height      : 450px
+  li.single-topic
+    padding: 12px 0px
+    border-bottom : 1px solid $color-light-gray
+.dropdown-topic-menu
+  height           : 266px
+  width            : 209px
+  position         : absolute
+  border           : 1px solid $color-main-black
 
 /* GENERAL */
 
@@ -214,6 +227,7 @@ img.mountains
 
 
 .topic-legend-container
+  margin : 10px 0px
   .topic-legend-content
     font-weight : $font-bold
     font-size : 12px
