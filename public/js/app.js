@@ -205,6 +205,7 @@
           var allCounts;
           _this.parseTopicKeywords(response.keywords);
           _this.currentTopic = topic;
+          _this.data = response.data;
           allCounts = GraphService.parseBarChartData(response.data, _this.time);
           _this.generateBarChart(allCounts);
         };
@@ -216,6 +217,13 @@
       return TopicService.currentTopic = topic;
     };
     this.getTopicData(TopicService.currentTopic);
+    this.parseTopicData = (function(_this) {
+      return function() {
+        var counts;
+        counts = GraphService.parseBarChartData(_this.data, _this.time);
+        return _this.generateBarChart(counts);
+      };
+    })(this);
     this.parseTopicKeywords = function(keywords) {
       this.topicKeywords = keywords;
       return this.topicKeywords;

@@ -15,6 +15,7 @@ angular.module('ftlTopics')
     .then (response) =>
       @parseTopicKeywords(response.keywords)
       @currentTopic = topic
+      @data = response.data
       allCounts = GraphService.parseBarChartData(response.data, @time)
       @generateBarChart allCounts
       return
@@ -25,6 +26,10 @@ angular.module('ftlTopics')
     TopicService.currentTopic = topic
 
   @getTopicData TopicService.currentTopic
+
+  @parseTopicData = =>
+    counts = GraphService.parseBarChartData(@data, @time)
+    @generateBarChart counts
 
   @parseTopicKeywords = (keywords) ->
     @topicKeywords = keywords
