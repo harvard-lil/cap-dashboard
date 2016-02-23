@@ -2,41 +2,47 @@
 .single-topic-container(ng-controller="TopicCtrl as st")
   .row
     .col-sm-12
-      .single-topic-header(ng-if="st.topicKeywords")
+      .topic-header(ng-if="st.currentTopic")
+        a(name="singletopic") &nbsp;
         .title
-          span {{st.currentTopic}}
-          a(name="singletopic") &nbsp;
-          span.blue-text IN DETAIL
-  form.date-form(ng-if="st.currentTopic")
-    label Showing data from 
-    input(
-      type="number"
-      min="1800"
-      ng-model="st.time.min"
-      ng-max="st.time.max"
-      ng-blur="st.parseTopicData()"
-      ng-keyup="$event.keyCode == 13 && st.parseTopicData()") 
-    label to
-    input(
-      type="number"
-      max="2015" 
-      ng-min="st.time.min"
-      ng-model="st.time.max"
-      ng-blur="st.parseTopicData()"
-      ng-keyup="$event.keyCode == 13 && st.parseTopicData()") 
-  
-  .graph-top-container.col-sm-12
-    button.regular-btn.btn.show-menu.dropdown-topic-list(
-      ng-click="(st.showMenu = !st.showMenu)"
-    ) PICK A DIFFERENT TOPIC
-    .dropdown-topic-menu.dropdown-topic-list(
-      click-off show="st.showMenu" excluding='dropdown-topic-list' ng-if="st.showMenu")
-      ul(ng-repeat="(topic,val) in st.topics" data-show='show')
-        li.single-topic(ng-click='st.changeCurrentTopic(topic)' ng-class="{'selected':val.selected}")
-          | {{ topic }}
+
+          span
+            a.topic-name.dropdown-topic-list(
+              ng-click="(st.showMenu = !st.showMenu)"
+            ){{st.currentTopic}}
+            .dropdown-topic-menu.dropdown-topic-list(
+              click-off show="st.showMenu" excluding='dropdown-topic-list' ng-if="st.showMenu")
+              ul(ng-repeat="(topic,val) in st.topics" data-show='show')
+                li.single-topic(
+                  ng-click='st.changeCurrentTopic(topic)'
+                  ng-class="{'selected':st.currentTopic == topic}")
+                  | {{ topic }}
+              
+
+          span
+            |  FROM 
+          span
+            input(
+              type="number"
+              min="1800"
+              ng-model="st.time.min"
+              ng-max="st.time.max"
+              ng-blur="st.parseTopicData()"
+              ng-keyup="$event.keyCode == 13 && st.parseTopicData()") 
+          span 
+          |  TO 
+          span
+            input(
+              type="number"
+              max="2015" 
+              ng-min="st.time.min"
+              ng-model="st.time.max"
+              ng-blur="st.parseTopicData()"
+              ng-keyup="$event.keyCode == 13 && st.parseTopicData()") 
           
   //- GRAPH
   nvd3(
+    ng-if="st.graph.data"
     options="st.graph.options"
     data="st.graph.data"
     config="st.graph.config"
