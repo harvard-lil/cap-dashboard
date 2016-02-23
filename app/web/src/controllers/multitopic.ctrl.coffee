@@ -61,7 +61,7 @@ angular.module('ftlTopics')
 
       </div>
     """
-    $('.multi-topics-container > .multi-topic-legend > .topic-legend-content').append legendItem
+    $('.multi-topics-container').find('.topic-legend-content').append legendItem
 
   removeLegendItem = (topic) ->
     underscored_topic = topic.split(' ').join('_')

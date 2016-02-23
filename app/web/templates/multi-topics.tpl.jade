@@ -24,19 +24,18 @@
             ng-model="mt.time.max"
             ng-blur="mt.reloadTopicData()"
             ng-keyup="$event.keyCode == 13 && mt.reloadTopicData()") 
-  .col-sm-2
-    .topic-menu
-      ul
-        li.single-topic(
-          ng-click="mt.reset()"
-          ng-disable="mt.topics.length === 0")
-          | RESET
-        li.single-topic(
-          ng-click='mt.toggleTopic(topic)'
-          ng-class="{'selected':val.selected}"
-          ng-repeat="(topic,val) in mt.topics"
-          data-show='show')
-          | {{ topic }}
+  .col-sm-2.topic-menu
+    ul
+      li.single-topic(
+        ng-click="mt.reset()"
+        ng-disable="mt.topics.length === 0")
+        | RESET
+      li.single-topic(
+        ng-click='mt.toggleTopic(topic)'
+        ng-class="{'selected':val.selected}"
+        ng-repeat="(topic,val) in mt.topics"
+        data-show='show')
+        | {{ topic }}
 
   
   .col-sm-10
@@ -47,10 +46,4 @@
       api="mt.graph.api")
 
     .topic-legend-container.multi-topic-legend.col-sm-12
-      .topic-legend-content.text-center
-
-  br
-  //- button.regular-btn.btn.show-menu.dropdown-topic-list(
-  //-   ng-click="(mt.showMenu = !mt.showMenu)"
-  //- ) ADD OR REMOVE A TOPIC
-  
+      .topic-legend-content
