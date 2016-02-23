@@ -1,17 +1,14 @@
 angular.module('ftlTopics')
-.service 'GraphService', (TopicService) ->
-  colors = ["#0075FF", "#2F2F2F", "#D9D9D9", "#D2E7FF", "#ECA633", "#78B6FF", "#7ED321"]
+.service 'GraphService', (TopicService, DefaultsService) ->
   obj =
     defaults :
-      time :
-        min : 1850
-        max : 2014
-      colors  : colors
+      time : DefaultsService.time
+      colors: DefaultsService.colors
 
     lineGraph :
-      data : {}
+      data : []
       options :
-        color : colors
+        color : DefaultsService.colors
         chart :
           useInteractiveGuideline: true
           lineChartWithFocus : true
@@ -32,7 +29,7 @@ angular.module('ftlTopics')
               d3.format ',.2f'
     multiBarChart :
       options :
-        color : colors
+        color : DefaultsService.colors
         chart:
           showLegend: false
           stacked:true
@@ -98,11 +95,12 @@ angular.module('ftlTopics')
         dissent_counts    = data[year]?[2] || 0
         SC_dissent_counts = data[year]?[3] || 0
 
-        appeals_counts = case_counts - SC_counts
+        appeals_counts         = case_counts - SC_counts
         appeals_dissent_counts = dissent_counts - SC_dissent_counts
 
         allCounts[0].values.push [ year, appeals_counts ]
         allCounts[1].values.push [ year, SC_counts ]
         allCounts[2].values.push [ year, -1 * SC_dissent_counts ]
         allCounts[3].values.push [ year, -1 * appeals_dissent_counts ]
+
       return allCounts
