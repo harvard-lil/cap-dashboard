@@ -1,10 +1,10 @@
 /* CSS DIRECTORY
-	1. =VARIABLES
+  1. =VARIABLES
   2. =GENERAL
-	2. =DASHBOARD
-	3. =HEADER
-	4. =SIDEBAR
-	5. =FOOTER
+  2. =DASHBOARD
+  3. =HEADER
+  4. =SIDEBAR
+  5. =FOOTER
 */
 
 @import reset
@@ -28,6 +28,8 @@ $color-main-gray   = #D9D9D9
 
 $color-second-blue = #D2E7FF
 $color-third-blue  = #78B6FF
+
+$color-light-gray  = #D9D9D9
 
 .inverse-btn
   font           : 14px $font-name
@@ -59,15 +61,62 @@ $color-third-blue  = #78B6FF
     width   : 46px
     height  : 46px
     background-size: 46px !important
-.section-icon.icon-main-toc
-  background: url('../assets/img/icon-main-toc.png') no-repeat
-.section-icon.icon-topics
-  background: url('../assets/img/icon-topics.png') no-repeat
-.section-icon.icon-line-chart
-  background: url('../assets/img/icon-line-chart.png') no-repeat
-.section-icon.icon-bar-chart
-  background: url('../assets/img/icon-bar-chart.png') no-repeat
+  .icon-main-toc
+    background: url('../assets/img/icon-main-toc.png') no-repeat
+  .icon-topics
+    background: url('../assets/img/icon-topics.png') no-repeat
+  .icon-line-chart
+    background: url('../assets/img/icon-line-chart.png') no-repeat
+  .icon-bar-chart
+    background: url('../assets/img/icon-bar-chart.png') no-repeat
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.topic-header
+  display : block
+  text-align : center
+  margin     : 14px 0 20px 0
+  .title
+    font-size  : 24px
+    font-weight    : $font-bold
+    letter-spacing : 2px
+    padding-bottom : 10px
+    text-transform : uppercase
+    .subtitle
+      display     : inline-block
+      font-size   : 14px
+      font-weight : $font-regular
+      color       : $color-main-black
+      width       : 100%
 
+    a
+      cursor:            pointer
+      text-decoration:   none
+      padding-bottom:    1px
+      border-bottom:     2px solid $color-main-black
+  .title > a.topic-name:hover,
+  .title > a.topic-name:active
+      color : $color-main-blue
+      text-decoration : none
+  .title > a,
+  .title > span > input
+      border: 0px
+      border-bottom : 2px solid $color-main-black
+  a:hover,
+  a:active,
+  .title > span > input:hover
+      border-bottom: 2px solid $color-main-blue
+      color : $color-main-blue
+      text-decoration: none !important
+  .title > span > input
+      padding-right : 0px
+      width: 65px
+      text-align: center
+  .title > .subtitle
+    border-bottom : 1px solid $color-main-black
+    padding-bottom : 10px
 
 .regular-btn
   margin-bottom: 6px
@@ -85,24 +134,35 @@ $color-third-blue  = #78B6FF
     color : $color-main-blue
     background-color : #E5F1FF
 
+
+.topic-menu,
 .dropdown-topic-menu
   overflow-y       : scroll
-  width            : 209px
-  height           : 266px
-  position         : absolute
-  background-color : #F6F6F1
-  color            : $color-main-blue
+  background-color : #FFF
+  color            : $color-main-black
   font             : 14px $font-name
   font-weight      : $font-bold
   padding          : 0 14px
+  text-align       : left
   li.single-topic
-    padding : 10px 0px
-    border-bottom : 1px solid $color-main-blue
-    cursor        : pointer
-    &:hover, &.selected
-      color : $color-main-black
+    padding:       7px 0px
+    border-bottom: 1px solid $color-main-black
+    cursor:        pointer
+    &:hover,
+    &.selected
+      color:         $color-main-blue
 
-
+.topic-menu
+  margin-left : 0px
+  height      : 450px
+  li.single-topic
+    padding: 12px 0px
+    border-bottom : 1px solid $color-light-gray
+.dropdown-topic-menu
+  height           : 266px
+  width            : 209px
+  position         : absolute
+  border           : 1px solid $color-main-black
 
 /* GENERAL */
 
@@ -119,6 +179,7 @@ hr
   clear      : both
   display    : inline-block
   margin-bottom : 60px
+  width : 100%
 
 @import 'header'
 @import 'footer'
@@ -151,7 +212,7 @@ hr
 
   h4
     font          : $text-subtitles, sans-serif
-    font-weight   : $font-regular
+    font-weight   : $font-light
     margin-bottom : 30px
     margin-top    : 10px
 
@@ -166,6 +227,8 @@ img.mountains
 
 
 .topic-legend-container
+  margin : 10px 0px
+  padding: 0px
   .topic-legend-content
     font-weight : $font-bold
     font-size : 12px

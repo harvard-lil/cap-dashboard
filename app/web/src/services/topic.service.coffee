@@ -1,7 +1,7 @@
 angular.module('ftlTopics')
 .service "TopicService", ($http, $q) ->
   obj =
-    currentTopic : "Water Rights"
+    currentTopic : "Breach of Contract"
     topics : []
     init : ->
       @getList()
@@ -12,6 +12,7 @@ angular.module('ftlTopics')
           topTopics = []
           topTopics.push([s, list[s]]) for s in sorted
           @topTopics = topTopics
+          @getTotals()
 
 
     getList: ->

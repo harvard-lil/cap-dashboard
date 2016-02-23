@@ -1,33 +1,40 @@
 .dashboard-container(ng-controller="DashboardCtrl")
   .dashboard-title-container
-    img.ftl-logo(src="./assets/img/logo-medium.svg")
-    h1.text-center CALIFORNIA CASES
+    img.ftl-logo(src="./assets/img/logo-medium-blue.svg")
+    h1.text-center 
+      span.blue-text FTL 
+      span TOPIC EXPLORER
     h4.text-center
-      | Explore common case topics in California
+      | Explore topics and trends in California law
       br
-      span.blue-text from 1850 – 2014
+      span.blue-text read more...
   //- .mountain-container
   //-   img.mountains.img-responsive(src="../assets/img/mountains.png")
       
-  .meta-container.col-sm-12
-    include ./main-toc.tpl.jade
+  //- .meta-container.col-sm-12
+  //-   include ./main-toc.tpl.jade
   
-  .section-divider.col-sm-12
-    .section-divider.icon-topics
-  
+  //- .section-divider.col-sm-12
+  //-   .section-divider.icon-topics
+  //- 
   .meta-container.col-sm-12
     include ./topic-toc-container.tpl.jade
   
-  .section-divider.col-sm-12
-    .border-gray
-    .section-divider.icon-bar-chart
-  
+  //- .section-divider.col-sm-12
+  //-   .border-gray
+  //-   .section-divider.icon-bar-chart
+  //- 
   .meta-container.col-sm-12
     include ./single-topic.tpl.jade  
   
   .section-divider.col-sm-12
     .border-gray
-    .section-divider.icon-line-chart
+    .section-icon.icon-line-chart
   
   .meta-container.col-sm-12
     include ./multi-topics.tpl.jade
+
+
+  .section-divider.col-sm-12
+    .border-gray
+    .section-icon.icon-line-chart

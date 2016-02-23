@@ -39,6 +39,17 @@ angular.module('ftlTopics')
           lineChartData.push singletopic
         @generateChart lineChartData
 
+  @reset = ->
+    for topic,val of @topics
+      if val.selected
+        removeTopic(topic)
+        val.selected = false
+    @currentTopics = []
+    @graph.api?.refresh()
+    @showGraph = false
+
+    return
+
   addLegendItem = (topic, color) ->
     underscored_topic = topic.split(' ').join('_')
     legendItem = """
@@ -50,7 +61,7 @@ angular.module('ftlTopics')
 
       </div>
     """
-    $('.multi-topic-legend > .topic-legend-content').append legendItem
+    $('.multi-topics-container').find('.topic-legend-content').append legendItem
 
   removeLegendItem = (topic) ->
     underscored_topic = topic.split(' ').join('_')
@@ -60,11 +71,7 @@ angular.module('ftlTopics')
     TopicService
       .getSingleTopic(topic)
       .then (response) =>
-
-        if topic is 'Total Count'
-          data = {"#{topic}":response}
-        else
-          data = {"#{topic}":response.data}
+        data = {"#{topic}":response.data}
         singletopic = GraphService.parseLineChartData(data, @time)
         lineChartData.push singletopic
         singletopic.color = GraphService.defaults.colors[lineChartData.length - 1]
@@ -85,20 +92,21 @@ angular.module('ftlTopics')
 
   init = =>
     return if topicsExist
-    @topics['Total Count'] = { selected : true }
     for t,val of TopicService.topics
       @topics[t] = { selected : false }
       topicsExist = true
-    @parseSelectedTopicData('Total Count')
 
   init()
 
   @toggleTopic = (topic) ->
     @topics[topic].selected = !@topics[topic].selected
-    @parseSelectedTopicData(topic)
+    @parseSelectedTopicData topic
 
   @generateChart = (data) =>
+    return if !data
     @graph.data = data
-    @graph.api.refresh()
+    @graph.api?.refresh()
+    @showGraph = true
+    return
 
   return

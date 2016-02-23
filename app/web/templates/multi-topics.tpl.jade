@@ -1,42 +1,49 @@
 //- multi-topics.tpl.jade
 .multi-topics-container(ng-controller="MultiTopicCtrl as mt")
-  .multi-topic-header
-    .title COMPARE TOPICS
-    a(name="multitopics")
-  br
-  form.date-form(ng-if="mt.currentTopics.length")
-    label Showing data from 
-    input(
-      type="number"
-      min="1800"
-      ng-model="mt.time.min"
-      ng-max="mt.time.max"
-      ng-blur="mt.reloadTopicData()"
-      ng-keyup="$event.keyCode == 13 && mt.reloadTopicData()") 
-    label to
-    input(
-      type="number"
-      max="2015" 
-      ng-min="mt.time.min"
-      ng-model="mt.time.max"
-      ng-blur="mt.reloadTopicData()"
-      ng-keyup="$event.keyCode == 13 && mt.reloadTopicData()") 
-
-  button.regular-btn.btn.show-menu.dropdown-topic-list(
-    ng-click="(mt.showMenu = !mt.showMenu)"
-  ) ADD OR REMOVE A TOPIC
-  .dropdown-topic-menu.dropdown-topic-list(
-    click-off show="mt.showMenu" excluding='dropdown-topic-list' ng-if="mt.showMenu")
-    ul(ng-repeat="(topic,val) in mt.topics" data-show='show')
-      li.single-topic(ng-click='mt.toggleTopic(topic)' ng-class="{'selected':val.selected}")
+  .col-sm-12
+    .topic-header
+      a(name="multitopics")
+      .title 
+        span
+          | COMPARE TOPICS 
+        span FROM 
+        span
+          input(
+            type="number"
+            min="1800"
+            ng-model="mt.time.min"
+            ng-max="mt.time.max"
+            ng-blur="mt.reloadTopicData()"
+            ng-keyup="$event.keyCode == 13 && mt.reloadTopicData()") 
+        span TO 
+        span 
+          input(
+            type="number"
+            max="2015" 
+            ng-min="mt.time.min"
+            ng-model="mt.time.max"
+            ng-blur="mt.reloadTopicData()"
+            ng-keyup="$event.keyCode == 13 && mt.reloadTopicData()") 
+  .col-sm-2.topic-menu
+    ul
+      li.single-topic(
+        ng-click="mt.reset()"
+        ng-disable="mt.topics.length === 0")
+        | RESET
+      li.single-topic(
+        ng-click='mt.toggleTopic(topic)'
+        ng-class="{'selected':val.selected}"
+        ng-repeat="(topic,val) in mt.topics"
+        data-show='show')
         | {{ topic }}
-  
-  nvd3.multi-topic-graph(
-    ng-if="mt.currentTopics.length"
-    options="mt.graph.options"
-    data="mt.graph.data"
-    config="mt.graph.config"
-    api="mt.graph.api")
 
-  .topic-legend-container.multi-topic-legend.col-sm-12
-    .topic-legend-content.text-center
+  
+  .col-sm-10
+    nvd3.multi-topic-graph( 
+      options="mt.graph.options"
+      data="mt.graph.data"
+      config="mt.graph.config"
+      api="mt.graph.api")
+
+    .topic-legend-container.multi-topic-legend.col-sm-12
+      .topic-legend-content
