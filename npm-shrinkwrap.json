@@ -2302,11 +2302,6 @@
       "from": "number-is-nan@>=1.0.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/number-is-nan/-/number-is-nan-1.0.0.tgz"
     },
-    "nvd3": {
-      "version": "1.8.2-dev",
-      "from": "git+ssh://git@github.com/anastasia/nvd3.git#ftl-changes",
-      "resolved": "git+ssh://git@github.com/anastasia/nvd3.git#f299791604ab9df41cbbbad542730cb4f2cd955a"
-    },
     "oauth-sign": {
       "version": "0.8.1",
       "from": "oauth-sign@>=0.8.0 <0.9.0",
