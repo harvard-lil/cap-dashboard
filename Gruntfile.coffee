@@ -62,7 +62,6 @@ module.exports = (grunt) ->
         src: [
           'node_modules/nvd3/build/nv.d3.css'
           'public/vendor/css/assets/bootstrap.css'
-          # 'node_modules/bootstrap/dist/css/bootstrap.min.css'
         ]
         dest: 'public/vendor/css/app-vendor.css'
 
