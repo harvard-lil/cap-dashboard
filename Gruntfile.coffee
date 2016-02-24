@@ -73,7 +73,7 @@ module.exports = (grunt) ->
       compile:
         options:
           use: [ 'nib', ()  -> return require('autoprefixer-stylus')('last 2 versions', 'ie 8') ]
-          linenos: true
+          # linenos: true
         files:
           'public/css/styles.css': 'app/web/styles/*.styl'
 
