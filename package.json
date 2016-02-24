@@ -1,6 +1,6 @@
 {
-  "name": "ftl-topic-modeling",
-  "version": "0.0.0",
+  "name": "ftl-topic-mapping",
+  "version": "0.0.1",
   "description": "",
   "main": "index.coffee",
   "scripts": {
