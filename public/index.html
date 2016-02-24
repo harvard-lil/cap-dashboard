@@ -43,8 +43,13 @@
           </a>
         </span> at Harvard University.
       </h4>
-      <button class="white-btn btn">RETURN TO TOP</button>
+      <button class="return-to-top white-btn btn">RETURN TO TOP</button>
     </div>
   </footer>
+  <script>
+    $('.return-to-top').click(function(){
+      $('html, body').animate({ scrollTop: 0 }, 'slow');
+    });
+  </script>
   </body>
 </html>
