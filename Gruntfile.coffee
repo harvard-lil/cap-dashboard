@@ -75,7 +75,7 @@ module.exports = (grunt) ->
           use: [ 'nib', ()  -> return require('autoprefixer-stylus')('last 2 versions', 'ie 8') ]
           # linenos: true
         files:
-          'public/css/styles.css': 'app/web/styles/*.styl'
+          'public/css/styles.css': 'app/web/styles/styles.styl'
 
 
   grunt.loadNpmTasks 'grunt-contrib-coffee'
