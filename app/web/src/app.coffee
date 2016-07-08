@@ -10,6 +10,10 @@ angular.module('ftlTopics', [
     .state 'dashboard',
       controller: 'DashboardCtrl'
       templateUrl: "#{templates_path}dashboard.tpl.jade"
+    .state 'topics',
+      url: '/state/:stateName'
+      controller: 'TopicDashboardCtrl'
+      templateUrl: "#{templates_path}topic.dashboard.tpl.jade"
       resolve:
         setupTopics: (TopicService) ->
           TopicService.init()

@@ -1,0 +1,38 @@
+.progress-numbers-container.container-generic(ng-controller="ProgressNumbersCtrl as pnc")
+  .header
+    a(name="popular") &nbsp;
+    .title PROJECT PROGRESS
+    .subtitle Watch the numbers go up and up
+  .col-sm-12
+    .col-sm-4
+      .subtitle
+        | PERCENT COMPLETE
+      .number.blue-text
+        {{ pnc.numbers.percent }}
+    .col-sm-4
+      .subtitle
+        | ESTIMATED DATE OF COMPLETION
+      .number.blue-text
+        {{ pnc.numbers.date }}
+    .col-sm-4
+      .subtitle
+        | NUMBER OF RECORDS PROCESSED
+      .number.blue-text
+        {{ pnc.numbers.records }}
+
+  .col-sm-12
+    .col-sm-4
+      .subtitle
+        | TOTAL PAGES PROCESSED
+      .number.blue-text
+        {{ pnc.numbers.pages }}
+    .col-sm-4
+      .subtitle
+        | TOTAL VOLUMES PROCESSED
+      .number.blue-text
+        {{ pnc.numbers.volumes }}
+    .col-sm-4
+      .subtitle
+        | TOTAL CASES PROCESSED
+      .number.blue-text
+        {{ pnc.numbers.cases }}

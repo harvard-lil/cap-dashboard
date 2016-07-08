@@ -1,9 +1,14 @@
 angular.module('ftlTopics')
-.service "TopicService", ($http, $q) ->
+.service "TopicService", ($http, $q, $stateParams, $scope) ->
   obj =
     currentTopic : "Breach of Contract"
     topics : []
+    state : 'United States'
     init : ->
+      # $scope.$watch '$stateParams.stateName', (newValue, oldValue) ->
+      #   @stateName = $stateParams.stateName
+      #   console.log "=========state==========",@stateName
+
       @getList()
         .then (list) =>
           # sort most popular topics

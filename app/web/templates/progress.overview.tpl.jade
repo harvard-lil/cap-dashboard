@@ -1,0 +1,29 @@
+//- topic-toc-container.tpl.jade
+.toc-container.col-sm-12(ng-controller="ProgressOverviewCtrl as overview")
+  .toc-header
+    a(name="popular") &nbsp;
+    .title AT A GLANCE
+  .col-sm-12
+    .col-sm-6
+      ul
+        li
+          div.progressbar.col-sm-12
+            span.progressbar-active(width='{{overview.complete.percent}}%')
+            span.progressbar-inactive(width='{{100-overview.complete.percent}}%')
+          .overview-subtitle PERCENT COMPLETE
+            span.pull-right.percent-num {{overview.complete.percent}}%
+        li
+          uib-progressbar(class="progress-striped active" ng-value='overview.complete.states')
+          .overview-subtitle STATES COMPLETE
+            span.pull-right.percent-num {{overview.complete.states}}%
+
+    .col-sm-6
+      ul
+        li
+          uib-progressbar(class="progress-striped active" ng-value='overview.complete.regions')
+          .overview-subtitle REGIONS COMPLETE
+            span.pull-right.percent-num {{overview.complete.regions}}%
+        li
+          uib-progressbar(class="progress-striped active" ng-value='overview.complete.metadata')
+          .overview-subtitle METADATA COMPLETE
+            span.pull-right.percent-num {{overview.complete.metadata}}%

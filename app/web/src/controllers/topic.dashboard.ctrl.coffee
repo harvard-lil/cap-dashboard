@@ -1,5 +1,5 @@
 angular.module('ftlTopics')
-.controller 'DashboardCtrl', ($http, $state) ->
+.controller 'TopicDashboardCtrl', ($http, $state) ->
 
   defaults =
     minYear : 2000

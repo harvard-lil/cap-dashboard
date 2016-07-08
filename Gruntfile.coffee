@@ -55,7 +55,8 @@ module.exports = (grunt) ->
            'node_modules/bootstrap/dist/js/bootstrap.min.js',
            'node_modules/angular-ui-router/release/angular-ui-router.min.js',
            'node_modules/d3/d3.min.js',
-           'node_modules/nvd3/build/nv.d3.js'
+           'node_modules/nvd3/build/nv.d3.js',
+           'public/vendor/js/ui-bootstrap-custom-build/ui-bootstrap-custom-1.3.3.min.js',
            ]
         dest:'public/vendor/js/app-vendor.js'
       css:

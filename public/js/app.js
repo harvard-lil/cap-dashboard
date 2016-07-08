@@ -6,7 +6,11 @@
   angular.module('ftlTopics', ['templates-main', 'ui.router', 'nvd3']).config(function($stateProvider, $urlRouterProvider, $httpProvider) {
     $stateProvider.state('dashboard', {
       controller: 'DashboardCtrl',
-      templateUrl: templates_path + "dashboard.tpl.jade",
+      templateUrl: templates_path + "dashboard.tpl.jade"
+    }).state('topics', {
+      url: '/state/:stateName',
+      controller: 'TopicDashboardCtrl',
+      templateUrl: templates_path + "topic.dashboard.tpl.jade",
       resolve: {
         setupTopics: function(TopicService) {
           return TopicService.init();
@@ -18,7 +22,7 @@
 }).call(this);
 
 (function() {
-  angular.module('ftlTopics').controller('DashboardCtrl', function($http) {
+  angular.module('ftlTopics').controller('DashboardCtrl', function($http, $state) {
     var defaults;
     defaults = {
       minYear: 2000,
@@ -30,6 +34,7 @@
         SC_dissent_counts: "rgba(255, 240, 0, 1)"
       }
     };
+    console.log($state.params);
   });
 
 }).call(this);
@@ -37,6 +42,16 @@
 (function() {
   angular.module('ftlTopics').controller('MainCtrl', function($state) {
     $state.go("dashboard");
+  });
+
+}).call(this);
+
+(function() {
+  angular.module('ftlTopics').controller('MapCtrl', function($http) {
+    console.log("map controller");
+    this.regionClick = function() {
+      return console.log("clicked!");
+    };
   });
 
 }).call(this);
@@ -185,6 +200,50 @@
 }).call(this);
 
 (function() {
+  angular.module('ftlTopics').controller('ProgressCtrl', function() {
+    var progress_nums;
+    console.log("in progress ctrl");
+    progress_nums = {
+      percent_complete: 40,
+      states_complete: 2,
+      total_number_processed: 78984393,
+      total_pages_processed: 123423,
+      total_volumes_processed: 1243,
+      total_cases_processed: 5434
+    };
+  });
+
+}).call(this);
+
+(function() {
+  angular.module('ftlTopics').controller('ProgressNumbersCtrl', function() {
+    console.log("Progress numbers controller");
+    this.numbers = {
+      percent: 40,
+      date: "10/25/2016",
+      pages: 18865997,
+      records: 772265,
+      volumes: 196825,
+      cases: 20618901
+    };
+  });
+
+}).call(this);
+
+(function() {
+  angular.module('ftlTopics').controller('ProgressOverviewCtrl', function() {
+    console.log("Progress overview controller");
+    this.complete = {
+      percent: 10,
+      states: 17,
+      regions: 13,
+      metadata: 14
+    };
+  });
+
+}).call(this);
+
+(function() {
   angular.module('ftlTopics').controller('TopicCtrl', function($scope, TopicService, GraphService) {
     this.time = angular.copy(GraphService.defaults.time);
     this.graph = GraphService.multiBarChart;
@@ -243,6 +302,24 @@
 }).call(this);
 
 (function() {
+  angular.module('ftlTopics').controller('TopicDashboardCtrl', function($http, $state) {
+    var defaults;
+    defaults = {
+      minYear: 2000,
+      maxYear: 2015,
+      colors: {
+        case_counts: 'rgba(0, 117, 255, 1)',
+        SC_counts: 'rgba(107, 199, 7, 1)',
+        dissent_counts: "rgba(217, 217, 217, 1)",
+        SC_dissent_counts: "rgba(255, 240, 0, 1)"
+      }
+    };
+    console.log($state.params);
+  });
+
+}).call(this);
+
+(function() {
   angular.module('ftlTopics').controller('TopicTocCtrl', function(TopicService) {
     this.list = TopicService.topTopics;
     this.viewTopicDetails = function(topic) {
@@ -292,6 +369,58 @@
           });
         });
       }
+    };
+  });
+
+}).call(this);
+
+(function() {
+  angular.module('ftlTopics').directive('svgMap', function($compile) {
+    return {
+      templateUrl: 'assets/img/usa.svg',
+      restrict: 'A',
+      link: function(scope, element, attrs) {
+        var regions;
+        regions = element[0].querySelectorAll('.state');
+        return angular.forEach(regions, function(path, key) {
+          var regionElement;
+          regionElement = angular.element(path);
+          regionElement.attr("region", "");
+          regionElement.attr("dummy-data", "dummyData");
+          regionElement.attr("hover-region", "hoverRegion");
+          return $compile(regionElement)(scope);
+        });
+      }
+    };
+  }).directive('stateElement', function($compile, $state) {
+    return {
+      restrict: 'A',
+      scope: {
+        hoverRegion: "="
+      },
+      link: function(scope, element, attrs) {
+        scope.regionClick = function() {
+          $state.go('dashboard', {
+            stateName: element.attr('title')
+          });
+          return console.log("clicking region:", element.attr('title'));
+        };
+        element.attr("ng-click", "regionClick()");
+        element.removeAttr("state-element");
+        return $compile(element)(scope);
+      }
+    };
+  });
+
+}).call(this);
+
+(function() {
+  angular.module('ftlTopics').filter('mapcolor', function() {
+    return function(input) {
+      var b, g;
+      b = 255 - Math.floor(input * 255);
+      g = Math.floor(input * 255);
+      return "rgba(255," + g + "," + b + ",1)";
     };
   });
 
@@ -452,11 +581,12 @@
 }).call(this);
 
 (function() {
-  angular.module('ftlTopics').service("TopicService", function($http, $q) {
+  angular.module('ftlTopics').service("TopicService", function($http, $q, $stateParams, $scope) {
     var obj;
     return obj = {
       currentTopic: "Breach of Contract",
       topics: [],
+      state: 'United States',
       init: function() {
         return this.getList().then((function(_this) {
           return function(list) {
@@ -527,11 +657,11 @@
   });
 
 }).call(this);
-;angular.module('templates-main', ['../../templates/dashboard.tpl.jade', '../../templates/main-toc.tpl.jade', '../../templates/multi-topics.tpl.jade', '../../templates/single-topic.tpl.jade', '../../templates/topic-toc-container.tpl.jade']);
+;angular.module('templates-main', ['../../templates/dashboard.tpl.jade', '../../templates/main-toc.tpl.jade', '../../templates/map.tpl.jade', '../../templates/multi-topics.tpl.jade', '../../templates/progress.numbers.tpl.jade', '../../templates/progress.overview.tpl.jade', '../../templates/progress.tpl.jade', '../../templates/single-topic.tpl.jade', '../../templates/topic-toc-container.tpl.jade', '../../templates/topic.dashboard.tpl.jade']);
 
 angular.module("../../templates/dashboard.tpl.jade", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../../templates/dashboard.tpl.jade",
-    "<div ng-controller=\"DashboardCtrl\" class=\"dashboard-container\"><div class=\"dashboard-title-container\"><img src=\"./assets/img/logo-medium-blue.svg\" class=\"ftl-logo\"><h1 class=\"text-center\"> <span class=\"blue-text\">FTL </span><span>TOPIC EXPLORER</span></h1><h4 class=\"text-center\">Explore topics and trends in California law<br><span class=\"blue-text\"> <a href=\"http://librarylab.law.harvard.edu/projects/free-the-law\" target=\"_blank\" class=\"read-more\">read more...</a></span></h4></div><div class=\"meta-container col-sm-12\"><div ng-controller=\"TopicTocCtrl as toc\" class=\"toc-container col-sm-12\"><div class=\"toc-header\"><a name=\"popular\">&nbsp;</a><div class=\"title\">POPULAR TOPICS</div><div class=\"subtitle\">Click on a topic for more details</div></div><div class=\"col-sm-12\"><div class=\"col-sm-6\"><ul ng-repeat=\"topicArray in toc.list track by $index\"><a href=\"#singletopic\" target=\"_self\"><li ng-if=\"$index &lt; 4\" ng-click=\"toc.viewTopicDetails(topicArray[0])\"><span class=\"topic-title\">{{topicArray[0]}} </span><span class=\"pull-right total-count\">{{topicArray[1][0]}}</span></li></a></ul></div><div class=\"col-sm-6\"><ul ng-repeat=\"topicArray in toc.list track by $index\"><a href=\"#singletopic\" target=\"_self\"><li ng-if=\"$index &gt;= 4 &amp;&amp; $index &lt; 8\" ng-click=\"toc.viewTopicDetails(topicArray[0])\"><span class=\"topic-title\">{{topicArray[0]}} </span><span class=\"pull-right total-count\">{{topicArray[1][0]}}</span></li></a></ul></div></div></div></div><div class=\"section-divider col-sm-12\"><div class=\"border-gray\"></div><div class=\"section-icon icon-bar-chart\"></div></div><div class=\"meta-container col-sm-12\"><div ng-controller=\"TopicCtrl as st\" class=\"single-topic-container\"><div class=\"col-sm-12\"><div ng-if=\"st.currentTopic\" class=\"topic-header\"><a name=\"singletopic\">&nbsp;</a><div class=\"title\"><span>{{st.currentTopic}}</span><span> FROM </span><span><input type=\"number\" min=\"1800\" ng-model=\"st.time.min\" ng-max=\"st.time.max\" ng-blur=\"st.parseTopicData()\" ng-keyup=\"$event.keyCode == 13 &amp;&amp; st.parseTopicData()\"></span><span> </span> TO <span><input type=\"number\" max=\"2015\" ng-min=\"st.time.min\" ng-model=\"st.time.max\" ng-blur=\"st.parseTopicData()\" ng-keyup=\"$event.keyCode == 13 &amp;&amp; st.parseTopicData()\"></span></div></div></div><div class=\"col-sm-2 topic-menu\"><ul><li ng-repeat=\"(topic,val) in st.topics\" ng-click=\"st.changeCurrentTopic(topic)\" ng-class=\"{'selected':st.currentTopic == topic}\" class=\"single-topic\">{{ topic }}</li></ul></div><div class=\"col-sm-10\"><nvd3 ng-if=\"st.graph.data\" options=\"st.graph.options\" data=\"st.graph.data\" config=\"st.graph.config\" api=\"st.graph.api\" class=\"single-topic-graph\"></nvd3><div class=\"topic-legend-container\"><div class=\"topic-legend-content\"><div class=\"legend-item\"><div class=\"color-spot case-one\"></div><span class=\"item-title\">Supreme Court cases</span></div><div class=\"legend-item\"><div class=\"color-spot case-two\"></div><span class=\"item-title\">Appeals Court cases</span></div><div class=\"legend-item\"><div class=\"color-spot dissent-one\"></div><span class=\"item-title\">Supreme Court dissents</span></div><div class=\"legend-item\"><div class=\"color-spot dissent-two\"></div><span class=\"item-title\">Appeals Court dissents</span></div></div></div><div class=\"keyword-list\">Keywords: {{st.topicKeywords.join(', ')}}</div></div></div></div><div class=\"section-divider col-sm-12\"><div class=\"border-gray\"></div><div class=\"section-icon icon-line-chart\"></div></div><div class=\"meta-container col-sm-12\"><div ng-controller=\"MultiTopicCtrl as mt\" class=\"multi-topics-container\"><div class=\"col-sm-12\"><div class=\"topic-header\"><a name=\"multitopics\"></a><div class=\"title\"> <span>COMPARE TOPICS </span><span>FROM </span><span><input type=\"number\" min=\"1800\" ng-model=\"mt.time.min\" ng-max=\"mt.time.max\" ng-blur=\"mt.reloadTopicData()\" ng-keyup=\"$event.keyCode == 13 &amp;&amp; mt.reloadTopicData()\"></span><span>TO </span><span> <input type=\"number\" max=\"2015\" ng-min=\"mt.time.min\" ng-model=\"mt.time.max\" ng-blur=\"mt.reloadTopicData()\" ng-keyup=\"$event.keyCode == 13 &amp;&amp; mt.reloadTopicData()\"></span></div></div></div><div class=\"col-sm-2 topic-menu\"><ul><li ng-click=\"mt.reset()\" ng-disable=\"mt.topics.length === 0\" class=\"single-topic\">RESET</li><li ng-click=\"mt.toggleTopic(topic)\" ng-class=\"{'selected':val.selected}\" ng-repeat=\"(topic,val) in mt.topics\" data-show=\"show\" class=\"single-topic\">{{ topic }}</li></ul></div><div class=\"col-sm-10\"><nvd3 options=\"mt.graph.options\" data=\"mt.graph.data\" config=\"mt.graph.config\" api=\"mt.graph.api\" class=\"multi-topic-graph\"></nvd3><div class=\"topic-legend-container multi-topic-legend col-sm-12\"><div class=\"topic-legend-content\"></div></div></div></div></div></div>");
+    "<div ng-controller=\"DashboardCtrl as dashboard\" class=\"dashboard-container\"><div class=\"dashboard-title-container\"><img src=\"./assets/img/logo-medium-blue.svg\" class=\"ftl-logo\"><h1 class=\"text-center\"> <span>CASELAW ACCESS PROJECT </span></h1><h4 class=\"text-center\">Explore topics and trends in <span>{{ dashboard.stateName }}</span><span>law</span><br><span class=\"blue-text\"> <a href=\"http://librarylab.law.harvard.edu/projects/free-the-law\" target=\"_blank\" class=\"read-more\">read more...</a></span></h4></div><div class=\"mountain-container\"><img src=\"../assets/img/mountains.png\" class=\"mountains img-responsive\"></div><div class=\"meta-container col-sm-12\"><div ng-controller=\"ProgressOverviewCtrl as overview\" class=\"toc-container col-sm-12\"><div class=\"toc-header\"><a name=\"popular\">&nbsp;</a><div class=\"title\">AT A GLANCE</div></div><div class=\"col-sm-12\"><div class=\"col-sm-6\"><ul><li><div class=\"progressbar col-sm-12\"><span width=\"{{overview.complete.percent}}%\" class=\"progressbar-active\"></span><span width=\"{{100-overview.complete.percent}}%\" class=\"progressbar-inactive\"></span></div><div class=\"overview-subtitle\">PERCENT COMPLETE<span class=\"pull-right percent-num\">{{overview.complete.percent}}%</span></div></li><li><uib-progressbar ng-value=\"overview.complete.states\" class=\"progress-striped active\"></uib-progressbar><div class=\"overview-subtitle\">STATES COMPLETE<span class=\"pull-right percent-num\">{{overview.complete.states}}%</span></div></li></ul></div><div class=\"col-sm-6\"><ul><li><uib-progressbar ng-value=\"overview.complete.regions\" class=\"progress-striped active\"></uib-progressbar><div class=\"overview-subtitle\">REGIONS COMPLETE<span class=\"pull-right percent-num\">{{overview.complete.regions}}%</span></div></li><li><uib-progressbar ng-value=\"overview.complete.metadata\" class=\"progress-striped active\"></uib-progressbar><div class=\"overview-subtitle\">METADATA COMPLETE<span class=\"pull-right percent-num\">{{overview.complete.metadata}}%</span></div></li></ul></div></div></div></div><div class=\"meta-container col-sm-12\"><div ng-controller=\"ProgressNumbersCtrl as pnc\" class=\"progress-numbers-container container-generic\"><div class=\"header\"><a name=\"popular\">&nbsp;</a><div class=\"title\">PROJECT PROGRESS</div><div class=\"subtitle\">Watch the numbers go up and up</div></div><div class=\"col-sm-12\"><div class=\"col-sm-4\"><div class=\"subtitle\">PERCENT COMPLETE</div><div class=\"number blue-text\">{{ pnc.numbers.percent }}</div></div><div class=\"col-sm-4\"><div class=\"subtitle\">ESTIMATED DATE OF COMPLETION</div><div class=\"number blue-text\">{{ pnc.numbers.date }}</div></div><div class=\"col-sm-4\"><div class=\"subtitle\">NUMBER OF RECORDS PROCESSED</div><div class=\"number blue-text\">{{ pnc.numbers.records }}</div></div></div><div class=\"col-sm-12\"><div class=\"col-sm-4\"><div class=\"subtitle\">TOTAL PAGES PROCESSED</div><div class=\"number blue-text\">{{ pnc.numbers.pages }}</div></div><div class=\"col-sm-4\"><div class=\"subtitle\">TOTAL VOLUMES PROCESSED</div><div class=\"number blue-text\">{{ pnc.numbers.volumes }}</div></div><div class=\"col-sm-4\"><div class=\"subtitle\">TOTAL CASES PROCESSED</div><div class=\"number blue-text\">{{ pnc.numbers.cases }}</div></div></div></div></div><div class=\"meta-container col-sm-12\"><div ng-controller=\"MapCtrl\" class=\"progress-container\"><div class=\"progress-title-container\"><div svg-map></div></div></div></div></div>");
 }]);
 
 angular.module("../../templates/main-toc.tpl.jade", []).run(["$templateCache", function($templateCache) {
@@ -546,9 +676,29 @@ angular.module("../../templates/main-toc.tpl.jade", []).run(["$templateCache", f
     "SOMETHING ELSE</a></td></tr><tr><td><a href=\"#popular\" target=\"_self\"><div class=\"arrow-icon\"></div></a></td><td><a href=\"#singletopic\" target=\"_self\"><div class=\"arrow-icon\"></div></a></td><td><a href=\"#multitopics\" target=\"_self\"><div class=\"arrow-icon\"></div></a></td></tr></tbody></table></div></div>");
 }]);
 
+angular.module("../../templates/map.tpl.jade", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../../templates/map.tpl.jade",
+    "<div ng-controller=\"MapCtrl\" class=\"progress-container\"><div class=\"progress-title-container\"><div svg-map></div></div></div>");
+}]);
+
 angular.module("../../templates/multi-topics.tpl.jade", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../../templates/multi-topics.tpl.jade",
     "<div ng-controller=\"MultiTopicCtrl as mt\" class=\"multi-topics-container\"><div class=\"col-sm-12\"><div class=\"topic-header\"><a name=\"multitopics\"></a><div class=\"title\"> <span>COMPARE TOPICS </span><span>FROM </span><span><input type=\"number\" min=\"1800\" ng-model=\"mt.time.min\" ng-max=\"mt.time.max\" ng-blur=\"mt.reloadTopicData()\" ng-keyup=\"$event.keyCode == 13 &amp;&amp; mt.reloadTopicData()\"></span><span>TO </span><span> <input type=\"number\" max=\"2015\" ng-min=\"mt.time.min\" ng-model=\"mt.time.max\" ng-blur=\"mt.reloadTopicData()\" ng-keyup=\"$event.keyCode == 13 &amp;&amp; mt.reloadTopicData()\"></span></div></div></div><div class=\"col-sm-2 topic-menu\"><ul><li ng-click=\"mt.reset()\" ng-disable=\"mt.topics.length === 0\" class=\"single-topic\">RESET</li><li ng-click=\"mt.toggleTopic(topic)\" ng-class=\"{'selected':val.selected}\" ng-repeat=\"(topic,val) in mt.topics\" data-show=\"show\" class=\"single-topic\">{{ topic }}</li></ul></div><div class=\"col-sm-10\"><nvd3 options=\"mt.graph.options\" data=\"mt.graph.data\" config=\"mt.graph.config\" api=\"mt.graph.api\" class=\"multi-topic-graph\"></nvd3><div class=\"topic-legend-container multi-topic-legend col-sm-12\"><div class=\"topic-legend-content\"></div></div></div></div>");
+}]);
+
+angular.module("../../templates/progress.numbers.tpl.jade", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../../templates/progress.numbers.tpl.jade",
+    "<div ng-controller=\"ProgressNumbersCtrl as pnc\" class=\"progress-numbers-container container-generic\"><div class=\"header\"><a name=\"popular\">&nbsp;</a><div class=\"title\">PROJECT PROGRESS</div><div class=\"subtitle\">Watch the numbers go up and up</div></div><div class=\"col-sm-12\"><div class=\"col-sm-4\"><div class=\"subtitle\">PERCENT COMPLETE</div><div class=\"number blue-text\">{{ pnc.numbers.percent }}</div></div><div class=\"col-sm-4\"><div class=\"subtitle\">ESTIMATED DATE OF COMPLETION</div><div class=\"number blue-text\">{{ pnc.numbers.date }}</div></div><div class=\"col-sm-4\"><div class=\"subtitle\">NUMBER OF RECORDS PROCESSED</div><div class=\"number blue-text\">{{ pnc.numbers.records }}</div></div></div><div class=\"col-sm-12\"><div class=\"col-sm-4\"><div class=\"subtitle\">TOTAL PAGES PROCESSED</div><div class=\"number blue-text\">{{ pnc.numbers.pages }}</div></div><div class=\"col-sm-4\"><div class=\"subtitle\">TOTAL VOLUMES PROCESSED</div><div class=\"number blue-text\">{{ pnc.numbers.volumes }}</div></div><div class=\"col-sm-4\"><div class=\"subtitle\">TOTAL CASES PROCESSED</div><div class=\"number blue-text\">{{ pnc.numbers.cases }}</div></div></div></div>");
+}]);
+
+angular.module("../../templates/progress.overview.tpl.jade", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../../templates/progress.overview.tpl.jade",
+    "<div ng-controller=\"ProgressOverviewCtrl as overview\" class=\"toc-container col-sm-12\"><div class=\"toc-header\"><a name=\"popular\">&nbsp;</a><div class=\"title\">AT A GLANCE</div></div><div class=\"col-sm-12\"><div class=\"col-sm-6\"><ul><li><div class=\"progressbar col-sm-12\"><span width=\"{{overview.complete.percent}}%\" class=\"progressbar-active\"></span><span width=\"{{100-overview.complete.percent}}%\" class=\"progressbar-inactive\"></span></div><div class=\"overview-subtitle\">PERCENT COMPLETE<span class=\"pull-right percent-num\">{{overview.complete.percent}}%</span></div></li><li><uib-progressbar ng-value=\"overview.complete.states\" class=\"progress-striped active\"></uib-progressbar><div class=\"overview-subtitle\">STATES COMPLETE<span class=\"pull-right percent-num\">{{overview.complete.states}}%</span></div></li></ul></div><div class=\"col-sm-6\"><ul><li><uib-progressbar ng-value=\"overview.complete.regions\" class=\"progress-striped active\"></uib-progressbar><div class=\"overview-subtitle\">REGIONS COMPLETE<span class=\"pull-right percent-num\">{{overview.complete.regions}}%</span></div></li><li><uib-progressbar ng-value=\"overview.complete.metadata\" class=\"progress-striped active\"></uib-progressbar><div class=\"overview-subtitle\">METADATA COMPLETE<span class=\"pull-right percent-num\">{{overview.complete.metadata}}%</span></div></li></ul></div></div></div>");
+}]);
+
+angular.module("../../templates/progress.tpl.jade", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../../templates/progress.tpl.jade",
+    "<div ng-controller=\"DashboardCtrl\" class=\"progress-container\"><div class=\"progress-title-container\"><img src=\"./assets/img/logo-medium-blue.svg\" class=\"ftl-logo\"><h1 class=\"text-center\"> <span class=\"blue-text\">FTL </span><span>TOPIC EXPLORER</span></h1><h4 class=\"text-center\">Explore topics and trends in California law<br><span class=\"blue-text\"> <a href=\"http://librarylab.law.harvard.edu/projects/free-the-law\" target=\"_blank\" class=\"read-more\">read more...</a></span></h4></div><div class=\"mountain-container\"><img src=\"../assets/img/mountains.png\" class=\"mountains img-responsive\"></div></div>");
 }]);
 
 angular.module("../../templates/single-topic.tpl.jade", []).run(["$templateCache", function($templateCache) {
@@ -559,4 +709,9 @@ angular.module("../../templates/single-topic.tpl.jade", []).run(["$templateCache
 angular.module("../../templates/topic-toc-container.tpl.jade", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../../templates/topic-toc-container.tpl.jade",
     "<div ng-controller=\"TopicTocCtrl as toc\" class=\"toc-container col-sm-12\"><div class=\"toc-header\"><a name=\"popular\">&nbsp;</a><div class=\"title\">POPULAR TOPICS</div><div class=\"subtitle\">Click on a topic for more details</div></div><div class=\"col-sm-12\"><div class=\"col-sm-6\"><ul ng-repeat=\"topicArray in toc.list track by $index\"><a href=\"#singletopic\" target=\"_self\"><li ng-if=\"$index &lt; 4\" ng-click=\"toc.viewTopicDetails(topicArray[0])\"><span class=\"topic-title\">{{topicArray[0]}} </span><span class=\"pull-right total-count\">{{topicArray[1][0]}}</span></li></a></ul></div><div class=\"col-sm-6\"><ul ng-repeat=\"topicArray in toc.list track by $index\"><a href=\"#singletopic\" target=\"_self\"><li ng-if=\"$index &gt;= 4 &amp;&amp; $index &lt; 8\" ng-click=\"toc.viewTopicDetails(topicArray[0])\"><span class=\"topic-title\">{{topicArray[0]}} </span><span class=\"pull-right total-count\">{{topicArray[1][0]}}</span></li></a></ul></div></div></div>");
+}]);
+
+angular.module("../../templates/topic.dashboard.tpl.jade", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../../templates/topic.dashboard.tpl.jade",
+    "<div ng-controller=\"DashboardCtrl as dashboard\" class=\"dashboard-container\"><div class=\"dashboard-title-container\"><img src=\"./assets/img/logo-medium-blue.svg\" class=\"ftl-logo\"><h1 class=\"text-center\"> <span class=\"blue-text\">FTL </span><span>TOPIC EXPLORER</span></h1><h4 class=\"text-center\">Explore topics and trends in <span>{{ dashboard.stateName }}</span><span>law</span><br><span class=\"blue-text\"> <a href=\"http://librarylab.law.harvard.edu/projects/free-the-law\" target=\"_blank\" class=\"read-more\">read more...</a></span></h4></div><div class=\"meta-container col-sm-12\"><div ng-controller=\"MapCtrl\" class=\"progress-container\"><div class=\"progress-title-container\"><div svg-map></div></div></div></div><div class=\"meta-container col-sm-12\"><div ng-controller=\"TopicTocCtrl as toc\" class=\"toc-container col-sm-12\"><div class=\"toc-header\"><a name=\"popular\">&nbsp;</a><div class=\"title\">POPULAR TOPICS</div><div class=\"subtitle\">Click on a topic for more details</div></div><div class=\"col-sm-12\"><div class=\"col-sm-6\"><ul ng-repeat=\"topicArray in toc.list track by $index\"><a href=\"#singletopic\" target=\"_self\"><li ng-if=\"$index &lt; 4\" ng-click=\"toc.viewTopicDetails(topicArray[0])\"><span class=\"topic-title\">{{topicArray[0]}} </span><span class=\"pull-right total-count\">{{topicArray[1][0]}}</span></li></a></ul></div><div class=\"col-sm-6\"><ul ng-repeat=\"topicArray in toc.list track by $index\"><a href=\"#singletopic\" target=\"_self\"><li ng-if=\"$index &gt;= 4 &amp;&amp; $index &lt; 8\" ng-click=\"toc.viewTopicDetails(topicArray[0])\"><span class=\"topic-title\">{{topicArray[0]}} </span><span class=\"pull-right total-count\">{{topicArray[1][0]}}</span></li></a></ul></div></div></div></div><div class=\"section-divider col-sm-12\"><div class=\"border-gray\"></div><div class=\"section-icon icon-bar-chart\"></div></div><div class=\"meta-container col-sm-12\"><div ng-controller=\"TopicCtrl as st\" class=\"single-topic-container\"><div class=\"col-sm-12\"><div ng-if=\"st.currentTopic\" class=\"topic-header\"><a name=\"singletopic\">&nbsp;</a><div class=\"title\"><span>{{st.currentTopic}}</span><span> FROM </span><span><input type=\"number\" min=\"1800\" ng-model=\"st.time.min\" ng-max=\"st.time.max\" ng-blur=\"st.parseTopicData()\" ng-keyup=\"$event.keyCode == 13 &amp;&amp; st.parseTopicData()\"></span><span> </span> TO <span><input type=\"number\" max=\"2015\" ng-min=\"st.time.min\" ng-model=\"st.time.max\" ng-blur=\"st.parseTopicData()\" ng-keyup=\"$event.keyCode == 13 &amp;&amp; st.parseTopicData()\"></span></div></div></div><div class=\"col-sm-2 topic-menu\"><ul><li ng-repeat=\"(topic,val) in st.topics\" ng-click=\"st.changeCurrentTopic(topic)\" ng-class=\"{'selected':st.currentTopic == topic}\" class=\"single-topic\">{{ topic }}</li></ul></div><div class=\"col-sm-10\"><nvd3 ng-if=\"st.graph.data\" options=\"st.graph.options\" data=\"st.graph.data\" config=\"st.graph.config\" api=\"st.graph.api\" class=\"single-topic-graph\"></nvd3><div class=\"topic-legend-container\"><div class=\"topic-legend-content\"><div class=\"legend-item\"><div class=\"color-spot case-one\"></div><span class=\"item-title\">Supreme Court cases</span></div><div class=\"legend-item\"><div class=\"color-spot case-two\"></div><span class=\"item-title\">Appeals Court cases</span></div><div class=\"legend-item\"><div class=\"color-spot dissent-one\"></div><span class=\"item-title\">Supreme Court dissents</span></div><div class=\"legend-item\"><div class=\"color-spot dissent-two\"></div><span class=\"item-title\">Appeals Court dissents</span></div></div></div><div class=\"keyword-list\">Keywords: {{st.topicKeywords.join(', ')}}</div></div></div></div><div class=\"section-divider col-sm-12\"><div class=\"border-gray\"></div><div class=\"section-icon icon-line-chart\"></div></div><div class=\"meta-container col-sm-12\"><div ng-controller=\"MultiTopicCtrl as mt\" class=\"multi-topics-container\"><div class=\"col-sm-12\"><div class=\"topic-header\"><a name=\"multitopics\"></a><div class=\"title\"> <span>COMPARE TOPICS </span><span>FROM </span><span><input type=\"number\" min=\"1800\" ng-model=\"mt.time.min\" ng-max=\"mt.time.max\" ng-blur=\"mt.reloadTopicData()\" ng-keyup=\"$event.keyCode == 13 &amp;&amp; mt.reloadTopicData()\"></span><span>TO </span><span> <input type=\"number\" max=\"2015\" ng-min=\"mt.time.min\" ng-model=\"mt.time.max\" ng-blur=\"mt.reloadTopicData()\" ng-keyup=\"$event.keyCode == 13 &amp;&amp; mt.reloadTopicData()\"></span></div></div></div><div class=\"col-sm-2 topic-menu\"><ul><li ng-click=\"mt.reset()\" ng-disable=\"mt.topics.length === 0\" class=\"single-topic\">RESET</li><li ng-click=\"mt.toggleTopic(topic)\" ng-class=\"{'selected':val.selected}\" ng-repeat=\"(topic,val) in mt.topics\" data-show=\"show\" class=\"single-topic\">{{ topic }}</li></ul></div><div class=\"col-sm-10\"><nvd3 options=\"mt.graph.options\" data=\"mt.graph.data\" config=\"mt.graph.config\" api=\"mt.graph.api\" class=\"multi-topic-graph\"></nvd3><div class=\"topic-legend-container multi-topic-legend col-sm-12\"><div class=\"topic-legend-content\"></div></div></div></div></div></div>");
 }]);
