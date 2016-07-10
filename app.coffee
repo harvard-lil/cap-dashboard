@@ -20,9 +20,6 @@ app.all '/*', (req, res, next) ->
   res.header 'Access-Control-Allow-Headers', 'Content-Type,X-Requested-With'
   next()
 
-app.get '/', (req, res) ->
-  res.render 'index.html', { requestToken : request_token }
-
 app.get '/topic/:topic', routes.findByTopic
 app.get '/topics/list', routes.listTopics
 app.get '/topics/totals', routes.getTotals
