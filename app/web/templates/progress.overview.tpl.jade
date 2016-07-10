@@ -1,6 +1,6 @@
 //- topic-toc-container.tpl.jade
-.toc-container.col-sm-12(ng-controller="ProgressOverviewCtrl as overview")
-  .toc-header
+.container-generic.container-overview.col-sm-12(ng-controller="ProgressOverviewCtrl as overview")
+  .header
     a(name="popular") &nbsp;
     .title AT A GLANCE
   .col-sm-12
@@ -8,8 +8,8 @@
       ul
         li
           div.progressbar.col-sm-12
-            span.progressbar-active(width='{{overview.complete.percent}}%')
-            span.progressbar-inactive(width='{{100-overview.complete.percent}}%')
+            div.progressbar-active(width='{{overview.complete.percent}}px')
+            div.progressbar-inactive(width='{{100-overview.complete.percent}}px')
           .overview-subtitle PERCENT COMPLETE
             span.pull-right.percent-num {{overview.complete.percent}}%
         li
