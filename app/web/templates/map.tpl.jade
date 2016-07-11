@@ -1,3 +1,9 @@
-.progress-container(ng-controller="MapCtrl")
+.progress-container(ng-controller="MapCtrl as mc")
   .progress-title-container
-    div(svg-map)
+    button(ng-click="mc.toggleRegions(false)") EXPLORE BY STATE
+    button(ng-click="mc.toggleRegions(true)") EXPLORE BY REGION
+    div(usamap)
+
+    
+    button(ng-click="mc.calculateStates()") GO
+    button(ng-click="mc.reset()") RESET
