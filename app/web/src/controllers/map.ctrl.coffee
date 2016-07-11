@@ -1,7 +1,6 @@
 angular.module('ftlTopics')
-.controller 'MapCtrl', ($http) ->
-  console.log "map controller"
-  @regionClick = ->
-    console.log "clicked!"
+.controller 'MapCtrl', ($rootScope) ->
+  @toggleRegions = (searchByRegion) ->
+    $rootScope.$broadcast 'map.searchByRegion', searchByRegion
 
   return
