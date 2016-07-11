@@ -1,27 +1,4 @@
-.dashboard-container(ng-controller="DashboardCtrl as dashboard")
-  .dashboard-title-container
-    img.ftl-logo(src="./assets/img/logo-medium-blue.svg")
-    h1.text-center 
-      span.blue-text FTL 
-      span TOPIC EXPLORER
-    h4.text-center
-      | Explore topics and trends in 
-      span {{ dashboard.stateName }}
-      span law
-      br
-      span.blue-text 
-        a.read-more(
-          href="http://librarylab.law.harvard.edu/projects/free-the-law"
-          target="_blank") read more...
-  //- .mountain-container
-  //-   img.mountains.img-responsive(src="../assets/img/mountains.png")
-      
-  //- .meta-container.col-sm-12
-  //-   include ./main-toc.tpl.jade
-  
-  //- .section-divider.col-sm-12
-  //-   .section-divider.icon-topics
-  //- 
+.dashboard-container(ng-controller="TopicDashboardCtrl")
   .meta-container.col-sm-12
     include ./map.tpl.jade
 
