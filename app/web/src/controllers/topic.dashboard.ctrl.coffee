@@ -10,6 +10,5 @@ angular.module('ftlTopics')
       dissent_counts    : "rgba(217, 217, 217, 1)"
       SC_dissent_counts : "rgba(255, 240, 0, 1)"
 
-  console.log $state.params
 
   return
