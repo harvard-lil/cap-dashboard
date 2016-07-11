@@ -1,2 +1,2 @@
-.container
-  a(ui-sref="topics") CLICK HERE FOR TOPICS
+.container(ng-controller="DashboardCtrl as d")
+  a(ng-click="d.gototopics()") CLICK HERE FOR TOPICS
