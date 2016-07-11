@@ -8,13 +8,17 @@ angular.module('ftlTopics')
       scope.searchByRegion = searchByRegion
       scope.toggleRegion = (el) ->
         console.log "toggleRegion directive", el
-        regionService.toggleRegion
+        regionService.toggleRegion(el)
+        el.toggleClass('active')
+
       if searchByRegion
         element.find('.usa-map')
           .addClass('search-by-region')
           .removeClass('search-by-state')
           .find('.region')
           .attr('ng-click', 'toggleRegions()')
+
+        element.find('.state').removeClass('selected')
       else
         element.find('.usa-map')
           .addClass('search-by-state')
@@ -22,42 +26,19 @@ angular.module('ftlTopics')
           .find('.region')
           .removeAttr('ng-click')
 
-    angular.forEach regions, (path, key) ->
-      regionElement = angular.element(path)
-
-      regionElement.attr("search-by-region", "searchByRegion")
-      $compile(regionElement)(scope)
 
 .directive 'stateElement', ($compile, $window) ->
   obj=
     restrict: 'A'
-    scope:
-      searchByRegion: "="
 
     link: (scope, element, attrs) ->
-      scope.$watch 'searchByRegion', ->
-        return
-      , (oldVal, newVal) ->
-        console.log "watching searchByRegion", oldVal, newVal
-      # scope.regionClick()
-      scope.stateClick = ->
-        element.toggleClass('selected')
-        console.log element.attr('title')
-        return
+      mapElement = angular.element('.usa-map')
 
-      scope.stateMouseOver = ->
-        element.addClass('active')
-        return
+      element.on 'click', ->
+        element.toggleClass 'selected'
 
-      scope.stateMouseOff = ->
-        element.removeClass('active')
-        return
-      mapElement = $('usa-map')
-      if mapElement.hasClass 'search-by-state'
-        element.attr("ng-click", "stateClick()")
-        element.attr("ng-mouseover", "stateMouseOver()")
-        element.attr("ng-mouseleave", "stateMouseOff()")
       element.removeAttr("state-element")
+
       $compile(element)(scope)
 
   return obj
