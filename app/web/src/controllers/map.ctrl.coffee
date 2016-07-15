@@ -4,4 +4,6 @@ angular.module('ftlTopics')
     $rootScope.$broadcast 'map.searchByRegion', searchByRegion
   @toggleSelectAll = ->
     $rootScope.$broadcast 'map.toggleSelectAll'
+  @reset = ->
+      $rootScope.$broadcast 'map.clearAll'
   return

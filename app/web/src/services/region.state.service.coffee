@@ -19,10 +19,15 @@ angular.module('ftlTopics')
     selectAll: false
     getListOfStates: ->
       # call this if selectAll is false
+      return if @selectAll
       return @states if @states.length
       statesList = []
       for region,val in @regions
         if @regions[region]
           statesList.push regionDictionaryService.region
       return statesList
-      
+
+    clearAll: ->
+      @clearRegions()
+      @states = []
+      @selectAll = false
