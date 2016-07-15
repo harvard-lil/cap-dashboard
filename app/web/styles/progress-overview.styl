@@ -1,10 +1,21 @@
 .container-overview
-  background-color: black
+  background-color: $color-main-black
   color : white
+  .header
+    margin-bottom: 30px
   li
+    font-size: 13px
+    letter-spacing: 2px
     border: 0px
+    .percent-num
+      @extend .blue-text
+      font-size: 20px
+      font-weight: $font-bold
+      padding-top: -2px
+    .overview-subtitle
+      padding: 10px 0px
   .progressbar
-    height: 4px
+    height: 2px
     background-color: white
     width: 100%
     padding: 0px
