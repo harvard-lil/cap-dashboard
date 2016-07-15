@@ -1,9 +1,8 @@
 angular.module('ftlTopics')
-.controller 'DashboardCtrl', ($http, $state) ->
-  console.log 'dashboardctrl'
-  @gototopics = ->
-    console.log "going to topics"
+.controller 'DashboardCtrl', ($http, $state, progressService) ->
 
-    $state.go('topics')
+  @gototopics = ->
+    $state.go 'topics'
     return
+
   return
