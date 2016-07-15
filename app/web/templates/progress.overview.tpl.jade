@@ -8,22 +8,22 @@
       ul
         li
           div.progressbar.col-sm-12
-            div.progressbar-active(width='{{overview.complete.percent}}px')
-            div.progressbar-inactive(width='{{100-overview.complete.percent}}px')
+            div.progressbar-active(width='{{overview.complete.total_percent}}px')
+            div.progressbar-inactive(width='{{100-overview.complete.total_percent}}px')
           .overview-subtitle PERCENT COMPLETE
-            span.pull-right.percent-num {{overview.complete.percent}}%
+            span.pull-right.percent-num {{overview.complete.total_percent}}%
         li
-          uib-progressbar(class="progress-striped active" ng-value='overview.complete.states')
+          uib-progressbar(class="progress-striped active" ng-value='overview.complete.states_percent')
           .overview-subtitle STATES COMPLETE
-            span.pull-right.percent-num {{overview.complete.states}}%
+            span.pull-right.percent-num {{overview.complete.states_percent}}%
 
     .col-sm-6
       ul
         li
-          uib-progressbar(class="progress-striped active" ng-value='overview.complete.regions')
+          uib-progressbar(class="progress-striped active" ng-value='overview.complete.regions_percent')
           .overview-subtitle REGIONS COMPLETE
-            span.pull-right.percent-num {{overview.complete.regions}}%
+            span.pull-right.percent-num {{overview.complete.regions_percent}}%
         li
-          uib-progressbar(class="progress-striped active" ng-value='overview.complete.metadata')
+          uib-progressbar(class="progress-striped active" ng-value='overview.complete.metadata_percent')
           .overview-subtitle METADATA COMPLETE
-            span.pull-right.percent-num {{overview.complete.metadata}}%
+            span.pull-right.percent-num {{overview.complete.metadata_percent}}%
