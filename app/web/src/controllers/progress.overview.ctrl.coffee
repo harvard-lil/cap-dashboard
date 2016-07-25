@@ -3,7 +3,7 @@ angular.module('ftlTopics')
   self = @
   @complete = {}
   numbersToRequest = [
-    'total_percent', 'states_percent', 'regions_percent', 'metadata_percent' ]
+    'total_percent' ]
 
   getNumbers = ->
     for num in numbersToRequest
@@ -13,7 +13,7 @@ angular.module('ftlTopics')
 
   setInterval ->
     getNumbers()
-  , 5000
+  , 60000
 
   getNumbers()
 

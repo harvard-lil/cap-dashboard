@@ -2,20 +2,29 @@ angular.module('ftlTopics')
 .controller 'ProgressNumbersCtrl', (progressService) ->
   @numbers = {}
   d = new Date('2018')
-  @numbers.date = "#{d.getMonth()}/#{d.getDate()}/#{d.getYear()}"
+  @numbers.date = "01/01/17"
+
   numbersToRequest = [
-    'percent', 'pages', 'records', 'volumes', 'cases' ]
+    'total_percent',
+    'pages',
+    'volumes',
+    'cases',
+    'metadata',
+    'metadata_change'
+    'volumes_change'
+    'pages_change'
+  ]
 
   self = @
   getNumbers = ->
     for num in numbersToRequest
       progressService.getNumber(num)
         .then (res) ->
-          self.numbers[res.name] = parseInt(res.total)
+          self.numbers[res.name] = res.total
 
   setInterval ->
     getNumbers()
-  , 5000
+  , 60000
 
   getNumbers()
 

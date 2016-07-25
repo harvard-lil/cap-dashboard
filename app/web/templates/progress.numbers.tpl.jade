@@ -3,30 +3,71 @@
     a(name="popular") &nbsp;
     .title PROJECT PROGRESS
     .subtitle Watch the numbers go up and up
-  .col-centered.col-sm-9
-    .col-sm-3
-      .small-subtitle
-        | PERCENT COMPLETE
-      .number.big-text {{ pnc.numbers.percent }}%
-    .col-sm-3
-      .small-subtitle
-        | ESTIMATED DATE OF COMPLETION
-      .number {{ pnc.numbers.date }}
-    .col-sm-3
-      .small-subtitle
-        | NUMBER OF RECORDS PROCESSED
-      .number {{ pnc.numbers.records |  number : fractionSize }}
+  .col-centered-small
+    .col-sm-12.col-centered
+      .col-sm-4
+        .col-sm-10.col-centered
+        .small-subtitle
+          | PERCENT COMPLETE
+        .progressdots(ng-show="!pnc.numbers.total_percent")
+          span.dot.dot-one
+          span.dot.dot-two
+          span.dot.dot-three
 
-  .col-centered.col-sm-9
-    .col-sm-3
-      .small-subtitle
-        | TOTAL PAGES PROCESSED
-      .number {{ pnc.numbers.pages | number : fractionSize }}
-    .col-sm-3
-      .small-subtitle
-        | TOTAL VOLUMES PROCESSED
-      .number {{ pnc.numbers.volumes |  number : fractionSize }}
-    .col-sm-3
-      .small-subtitle
-        | TOTAL CASES PROCESSED
-      .number {{ pnc.numbers.cases |  number : fractionSize }}
+        .number.big-text {{ pnc.numbers.total_percent }}%
+      .col-sm-4
+        .col-sm-10.col-centered
+        .small-subtitle
+          | ESTIMATED DATE OF COMPLETION
+        .number {{ pnc.numbers.date }}
+      .col-sm-4
+        .col-sm-10.col-centered
+        .small-subtitle
+          | METADATA COMPLETE
+        .progressdots(ng-show="!pnc.numbers.metadata")
+          span.dot.dot-one
+          span.dot.dot-two
+          span.dot.dot-three
+
+        .number {{ pnc.numbers.metadata |  number : fractionSize }}
+        .small-green-number 
+          span
+            img.up-arrow(ng-show="pnc.numbers.metadata_change")
+          span {{ pnc.numbers.metadata_change | number : fractionSize }}
+
+  .col-centered-small
+    .col-sm-12.col-centered
+      .col-sm-4
+        .col-sm-10.col-centered
+        .small-subtitle
+          | TOTAL PAGES PROCESSED
+        .progressdots(ng-show="!pnc.numbers.pages")
+          span.dot.dot-one
+          span.dot.dot-two
+          span.dot.dot-three
+        .number {{ pnc.numbers.pages | number : fractionSize }}
+        .small-green-number 
+          span
+            img.up-arrow(ng-show="pnc.numbers.pages_change")
+          span {{ pnc.numbers.pages_change | number : fractionSize }}
+
+      .col-sm-4
+        .col-sm-10.col-centered
+        .small-subtitle
+          | TOTAL VOLUMES PROCESSED
+        .progressdots(ng-show="!pnc.numbers.volumes")
+          span.dot.dot-one
+          span.dot.dot-two
+          span.dot.dot-three
+        
+        .number {{ pnc.numbers.volumes |  number : fractionSize }}
+        .small-green-number 
+          span
+            img.up-arrow(ng-show="pnc.numbers.volumes_change")
+          span {{ pnc.numbers.volumes_change | number : fractionSize }}
+
+      .col-sm-4
+        .col-sm-10.col-centered
+        .small-subtitle
+          | TOTAL CASES PROCESSED
+        .number {{ pnc.numbers.cases |  number : fractionSize }}
