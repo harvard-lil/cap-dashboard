@@ -1,4 +1,4 @@
-angular.module('ftlTopics')
+angular.module('CAPmodule')
 .controller 'TopicDashboardCtrl', ($http, $state) ->
 
   defaults =

@@ -1,4 +1,4 @@
-angular.module('ftlTopics')
+angular.module('CAPmodule')
 .controller 'ProgressNumbersCtrl', (progressService) ->
   @numbers = {}
   d = new Date('2018')

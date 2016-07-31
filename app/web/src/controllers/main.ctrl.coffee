@@ -1,3 +1,3 @@
-angular.module('ftlTopics')
+angular.module('CAPmodule')
 .controller 'MainCtrl', ($state) ->
   return

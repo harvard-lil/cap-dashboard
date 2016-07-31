@@ -1,4 +1,4 @@
-angular.module('ftlTopics')
+angular.module('CAPmodule')
 .filter 'mapcolor', ->
   return (input) ->
     b = 255 - Math.floor(input * 255);

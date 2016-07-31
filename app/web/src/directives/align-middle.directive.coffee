@@ -1,4 +1,4 @@
-angular.module('ftlTopics')
+angular.module('CAPmodule')
 .directive 'alignMiddle', ->
   link: (scope, element, attrs) ->
     table = $(element).closest('.table-responsive')

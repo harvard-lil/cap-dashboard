@@ -1,5 +1,5 @@
-angular.module('ftlTopics')
 .service "TopicService", ($http, $stateParams) ->
+angular.module('CAPmodule')
   obj =
     currentTopic : "Breach of Contract"
     topics : []

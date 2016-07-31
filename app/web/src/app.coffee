@@ -1,5 +1,5 @@
 templates_path = "../../templates/"
-angular.module("ftlTopics", [
+angular.module("CAPmodule", [
   "templates-main"
   "ui.router"
   "nvd3"

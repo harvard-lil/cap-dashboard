@@ -1,6 +1,5 @@
-angular.module('ftlTopics')
-.controller 'ProgressCtrl', ->
-  console.log "in progress ctrl"
+angular.module('CAPmodule')
+.controller 'ProgressCtrl', (progressService) ->
   progress_nums =
     percent_complete:        40
     states_complete:         2

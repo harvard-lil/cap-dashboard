@@ -1,5 +1,5 @@
-angular.module('ftlTopics')
-.controller 'MapCtrl', ($rootScope) ->
+angular.module('CAPmodule')
+.controller 'MapCtrl', ($rootScope, TopicService) ->
   @toggleRegions = (searchByRegion) ->
     $rootScope.$broadcast 'map.searchByRegion', searchByRegion
   @toggleSelectAll = ->

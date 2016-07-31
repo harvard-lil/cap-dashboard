@@ -1,4 +1,4 @@
-angular.module('ftlTopics')
+angular.module('CAPmodule')
 .service 'regionAndStateService', (regionDictionaryService) ->
   obj =
     states: []

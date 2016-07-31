@@ -1,4 +1,4 @@
-angular.module('ftlTopics')
+angular.module('CAPmodule')
 .controller 'TopicCtrl', ($scope, TopicService, GraphService) ->
   @time   = angular.copy GraphService.defaults.time
   @graph  = GraphService.multiBarChart

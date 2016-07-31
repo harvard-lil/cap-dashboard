@@ -1,4 +1,4 @@
-angular.module('ftlTopics')
+angular.module('CAPmodule')
 .directive 'usamap', ($compile, $rootScope, regionAndStateService) ->
   templateUrl: 'assets/img/usa-simple.svg'
   restrict: 'A'

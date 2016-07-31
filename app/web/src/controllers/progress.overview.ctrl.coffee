@@ -1,4 +1,4 @@
-angular.module('ftlTopics')
+angular.module('CAPmodule')
 .controller 'ProgressOverviewCtrl', (progressService) ->
   self = @
   @complete = {}

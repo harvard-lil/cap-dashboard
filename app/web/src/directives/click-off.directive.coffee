@@ -1,4 +1,4 @@
-angular.module('ftlTopics')
+angular.module('CAPmodule')
 .directive 'clickOff', ($window) ->
   scope:
     show: '='
