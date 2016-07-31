@@ -1,32 +1,43 @@
-angular.module('ftlTopics')
+angular.module('CAPmodule')
 .service 'GraphService', (TopicService, DefaultsService) ->
+  newLineDataObj = (key) ->
+    values : []
+    key : key
+    area        : false
+    strokeWidth : 1
+    classed     : 'line-graph'
+
+  newLineGraph = ->
+    data : []
+    options :
+      color : DefaultsService.colors
+      chart :
+        useInteractiveGuideline: true
+        lineChartWithFocus : true
+        showLegend: false
+        type: 'lineChart'
+        height: 450
+        margin:
+          top   : 20
+          right : 20
+          bottom: 60
+          left  : 55
+        x: (d) -> return d.x
+        y: (d) -> return d.y
+
+        transitionDuration: 500
+        yAxis:
+          tickFormat:
+            d3.format ',.2f'
+
   obj =
     defaults :
       time : DefaultsService.time
       colors: DefaultsService.colors
 
-    lineGraph :
-      data : []
-      options :
-        color : DefaultsService.colors
-        chart :
-          useInteractiveGuideline: true
-          lineChartWithFocus : true
-          showLegend: false
-          type: 'lineChart'
-          height: 450
-          margin:
-            top   : 20
-            right : 20
-            bottom: 60
-            left  : 55
-          x: (d) -> return d.x
-          y: (d) -> return d.y
+    lineGraph : ->
+      newLineGraph()
 
-          transitionDuration: 500
-          yAxis:
-            tickFormat:
-              d3.format ',.2f'
     multiBarChart :
       options :
         color : DefaultsService.colors
@@ -57,14 +68,32 @@ angular.module('ftlTopics')
         deepWatchDataDepth: 1
         debounce: 10
 
+    parseNgramData: (data) ->
+      # count_per_year is {year:count, year:count...}
+      count_per_year = {}
+      tmp_results = {}
+      all_words = []
+
+      for word,word_val of data
+        for state,state_val of word_val
+          for year,val of state_val
+            year_num = parseInt(year)
+            count_per_year[year_num] = if !count_per_year[year_num] then val else count_per_year[year_num] + val
+
+        tmp_results[word] = count_per_year
+        count_per_year = {}
+
+      for word,word_stats of tmp_results
+        single_word_result = newLineDataObj(word)
+        for year,val of word_stats
+          single_word_result.values.push {x:parseInt(year), y:val}
+        all_words.push single_word_result
+
+      return all_words
+
     parseLineChartData: (data, timeRange) ->
       for topicName,val of data
-        singleTopicData =
-          values      : []
-          key         : topicName
-          area        : false
-          strokeWidth : 1
-          classed     : 'line-graph'
+        singleTopicData = newLineDataObj(topicName)
 
         for year in [timeRange.min..timeRange.max]
           value = parseInt(val[year]) ||  0

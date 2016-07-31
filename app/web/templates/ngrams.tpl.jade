@@ -1,0 +1,15 @@
+.single-topic-container(ng-controller="NgramsCtrl as nc")
+  .wordclouds-title-container
+    input(ng-model="nc.words")
+    button(ng-click="nc.findWords()") SEARCH
+  
+  pre {{nc.data}}
+    
+  .col-sm-10
+    //- GRAPH
+    nvd3.single-topic-graph(
+      ng-if="nc.graph.data"
+      options="nc.graph.options"
+      data="nc.graph.data"
+      config="nc.graph.config"
+      api="nc.graph.api")

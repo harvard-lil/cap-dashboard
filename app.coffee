@@ -2,10 +2,10 @@ express         = require 'express'
 path            = require 'path'
 app             = express()
 bodyParser      = require 'body-parser'
-
 fibrous         = require 'fibrous'
 config          = require './config'
 topic_routes    = require './app/api/topic_routes'
+ngrams          = require './app/api/ngrams_routes'
 progress_routes = require './app/api/progress_routes'
 reqeustToken    = null
 
@@ -29,6 +29,8 @@ app.get '/topics', topic_routes.find_by_topics
 
 app.get '/progress/*', progress_routes.get_numbers
 
+
+app.get '/ngrams', ngrams.get_words
 
 port = process.env.PORT || 8001
 server = app.listen port, ->

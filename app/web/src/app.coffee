@@ -19,3 +19,9 @@ angular.module("ftlTopics", [
     .state "topics.states",
       url: "/topics/:states"
       templateUrl: "#{templates_path}topic.dashboard.tpl.jade"
+    .state "wordclouds",
+      url: "/wordclouds"
+      templateUrl: "#{templates_path}wordclouds.tpl.jade"
+    .state "ngrams",
+      url: "/ngrams"
+      templateUrl: "#{templates_path}ngrams.tpl.jade"
