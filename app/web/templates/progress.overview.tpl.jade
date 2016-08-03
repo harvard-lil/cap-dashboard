@@ -1,0 +1,11 @@
+//- topic-toc-container.tpl.jade
+.container-generic.container-overview.col-sm-12(ng-controller="ProgressOverviewCtrl as overview")
+  .header
+    a(name="popular") &nbsp;
+    .title AT A GLANCE
+  .col-sm-8.col-centered
+    .progressbar.col-sm-12
+      .progressbar-active(ng-style="{'width':overview.complete.percentComplete+ '%'}")
+    
+    .overview-subtitle PERCENT COMPLETE
+      span.pull-right.percent-num {{overview.complete.percentComplete}}%

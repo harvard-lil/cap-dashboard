@@ -1,0 +1,33 @@
+.usa-map
+  &.select-all
+    fill: $color-main-blue
+    stroke: white
+  &.search-by-region
+    .new_england,
+    .mountain,
+    .west_north_central,
+    .east_north_central,
+    .east_south_central,
+    .middle_atlantic,
+    .south_atlantic,
+    .pacific
+      fill: $color-main-black
+      &:hover
+        fill: $color-main-blue
+      &.active
+        fill: $color-main-green
+      .state
+        stroke: white
+  &.search-by-state
+    .state
+      fill: white
+      stroke: $color-main-blue
+
+      &:hover
+        fill: $color-main-green
+      &.selected
+        fill: $color-main-blue
+        stroke: white
+      &.disabled
+        fill: $color-main-black
+        stroke: white

@@ -1,22 +1,23 @@
 //- topic-toc-container.tpl.jade
 .toc-container.col-sm-12(ng-controller="TopicTocCtrl as toc")
-  .toc-header
-    a(name="popular") &nbsp;
-    .title POPULAR TOPICS
-    .subtitle Click on a topic for more details
-  .col-sm-12
-    .col-sm-6
-      ul(ng-repeat="topicArray in toc.list track by $index")
-        a(href="#singletopic" target="_self")
-          li(ng-if ="$index < 4" ng-click="toc.viewTopicDetails(topicArray[0])")
-            span.topic-title {{topicArray[0]}} 
-            span.pull-right.total-count {{topicArray[1][0]}}
-    .col-sm-6
-      ul(ng-repeat="topicArray in toc.list track by $index")
-        a(href="#singletopic" target="_self")
-          li(ng-if ="$index >= 4 && $index < 8" ng-click="toc.viewTopicDetails(topicArray[0])")
-            span.topic-title {{topicArray[0]}} 
-            span.pull-right.total-count {{topicArray[1][0]}}
-      
-  //- a.btn(data-toggle="collapse" data-target="#viewdetails") View details &raquo;
-  
+  .container
+    .toc-header
+      a(name="popular") &nbsp;
+      .title POPULAR TOPICS
+      .subtitle Click on a topic for more details
+    .col-sm-12
+      .col-sm-6
+        ul(ng-repeat="topicArray in toc.list track by $index")
+          a(href="#singletopic" target="_self")
+            li(ng-if ="$index < 4" ng-click="toc.viewTopicDetails(topicArray[0])")
+              span.topic-title {{topicArray[0]}} 
+              span.pull-right.total-count {{topicArray[1][0]}}
+      .col-sm-6
+        ul(ng-repeat="topicArray in toc.list track by $index")
+          a(href="#singletopic" target="_self")
+            li(ng-if ="$index >= 4 && $index < 8" ng-click="toc.viewTopicDetails(topicArray[0])")
+              span.topic-title {{topicArray[0]}} 
+              span.pull-right.total-count {{topicArray[1][0]}}
+        
+    //- a.btn(data-toggle="collapse" data-target="#viewdetails") View details &raquo;
+    

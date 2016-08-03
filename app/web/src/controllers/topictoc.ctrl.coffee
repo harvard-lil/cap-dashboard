@@ -1,4 +1,4 @@
-angular.module('ftlTopics')
+angular.module('CAPmodule')
 .controller 'TopicTocCtrl', (TopicService) ->
 
   @list = TopicService.topTopics

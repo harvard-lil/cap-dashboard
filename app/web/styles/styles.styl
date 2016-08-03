@@ -31,6 +31,39 @@ $color-third-blue  = #78B6FF
 
 $color-light-gray  = #D9D9D9
 
+/* GENERAL */
+
+body
+  font-family: 'Rajdhani', sans-serif
+  font-weight     : 300
+  color           : $color-main-black
+
+hr
+  border : 1px solid $color-main-gray
+
+.col-centered
+  float: none
+  margin: 0 auto
+
+@import 'header'
+@import 'footer'
+h1
+  font        : $text-section-titles, sans-serif
+  font-weight : $font-bold
+  font-size   : 54px
+  margin      : 12px 0px -10px 0px
+
+h4
+  font          : $text-subtitles, sans-serif
+  font-weight   : $font-light
+  margin-bottom : 30px
+  margin-top    : 10px
+
+
+
+a
+  cursor: pointer
+
 .inverse-btn
   font           : 14px $font-name
   font-weight    : $font-bold
@@ -47,7 +80,6 @@ $color-light-gray  = #D9D9D9
 .general-link
   border-bottom : 1px solid
   padding-bottom : 5px
-
 
 .border-gray
   border-bottom : 1px solid $color-main-gray
@@ -69,12 +101,33 @@ $color-light-gray  = #D9D9D9
     background: url('../assets/img/icon-line-chart.png') no-repeat
   .icon-bar-chart
     background: url('../assets/img/icon-bar-chart.png') no-repeat
+  .icon-numbers
+    background: url('../assets/img/icon-numbers.png') no-repeat
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-.topic-header
+
+button:focus,
+button:active
+button:active:focus
+.btn-default:focus
+.btn-default:active
+.btn-default:active:focus
+  outline: 0
+
+.alert.alert-warning
+  background-color: red
+  padding: 20px
+  height: 100%
+  width: 100%
+  color : white
+  font-weight: $font-bold
+
+
+.topic-header,
+.header
   display : block
   text-align : center
   margin     : 14px 0 20px 0
@@ -164,35 +217,21 @@ input[type=number]::-webkit-outer-spin-button {
   position         : absolute
   border           : 1px solid $color-main-black
 
-/* GENERAL */
-
-body
-  font-family: 'Rajdhani', sans-serif
-  font-weight     : 300
-  color           : $color-main-black
-
-hr
-  border : 1px solid $color-main-gray
-
-.meta-container
-  min-height : 350px
-  clear      : both
-  display    : inline-block
-  margin-bottom : 60px
-  width : 100%
-
-@import 'header'
-@import 'footer'
 
 /* DASHBOARD */
 
 
-.dashboard-title-container
+.dashboard-title-container,
+.wordclouds-title-container,
+.topic-title-container
   position    : relative
   width       : 100%
   line-height : 32px
   text-align  : center
-  padding : 23px
+  padding     : 23px
+  padding-bottom: 100px
+  margin-bottom: 50px
+  top: 50px
 
   a.read-more:hover, a.read-more:active
     color : $color-main-blue
@@ -208,22 +247,9 @@ hr
     .ftl-logo path
       fill : $color-main-blue !important
 
-  h1
-    font        : $text-section-titles, sans-serif
-    font-weight : $font-bold
-    font-size   : 54px
-    margin      : 12px 0px -10px 0px
-
-  h4
-    font          : $text-subtitles, sans-serif
-    font-weight   : $font-light
-    margin-bottom : 30px
-    margin-top    : 10px
-
 .mountain-container
-  height        : 150px
+  height        : 125px
   overflow      : hidden
-  display       : inline
 
 img.mountains
   width : 100%
@@ -257,9 +283,75 @@ img.mountains
       margin-top : 2px
       margin-right : 10px
 
+.progressbar
+  .progressbar-active, .progressbar-inactive
+    height: 3px
+  .progressbar-active
+    background-color : $color-main-blue
+  .progressbar-inactive
+    background-color : white
+
+.progressdots
+  height: 10px
+  .dot
+    // border-radius: 30%
+    background-color: $color-main-gray
+    animation-duration: 2s
+    animation-iteration-count: infinite
+    padding: 0px 2px 0px 17px
+
+    -webkit-border-radius:8px;
+    -moz-border-radius:8px;
+    border-radius:50%;
+    width:8px;
+    height:8px;
+  span.dot-one
+    animation-name: dotone
+    margin-right: 5px
+  span.dot-two
+    animation-name: dottwo
+  span.dot-three
+    margin-left: 5px
+    animation-name: dotthree
+@keyframes dotone
+  0% {backround-color: $color-main-gray}
+  33% {background-color: $color-main-blue}
+  66% {backround-color: $color-main-gray}
+@keyframes dottwo
+  33% {backround-color: $color-main-gray}
+  66% {background-color: $color-main-blue}
+  99% {backround-color: $color-main-gray}
+@keyframes dotthree
+  66% {backround-color: $color-main-gray}
+  99% {background-color: $color-main-blue}
+  33% {backround-color: $color-main-gray}
+
+.wordcloud-images
+  margin: 5px
+  border : 1px solid $color-main-gray
+.wordcloud-item
+  margin-bottom: 10px
+.limerick-line
+  text-align: center
+  line-height: 1.6em
+  font-size: 1.5em
+
+.ngram-input
+  padding: 5px
+  margin-right: 3px
+  font-weight: $font-medium
+  text-transform: uppercase
+
+.ngram-input-container
+  margin-bottom: 10px
+
 @import 'nvd3-custom'
+@import 'container-styles'
 @import 'topic-toc-container'
 @import 'single-topic-graph'
 @import 'multi-topic-graph'
 @import 'main-toc'
 @import 'date-form'
+@import 'progress-numbers'
+@import 'progress-overview'
+@import 'map'

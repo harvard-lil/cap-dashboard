@@ -4,7 +4,7 @@ topic_totals = require "../../public/assets/data-totals-per-year"
 gdocs        = require './gdocs'
 topics_dict  = gdocs.topics_dictionary
 
-exports.findByTopic = (req, res) ->
+exports.find_by_topic = (req, res) ->
   try
     topic      = req.params.topic
     topic_num  = "#{topics_dict[topic]}"
@@ -14,7 +14,7 @@ exports.findByTopic = (req, res) ->
   catch e
     res.status(500).send e
 
-exports.findByTopics = (req, res) ->
+exports.find_by_topics = (req, res) ->
   t = JSON.parse req.query.topics
   data = {}
   try
@@ -30,7 +30,7 @@ exports.findByTopics = (req, res) ->
   catch e
     res.status(500).send e
 
-exports.listTopics = (req, res) ->
+exports.list_topics = (req, res) ->
   try
     list = Object.keys topics_dict
     data = {}
@@ -42,7 +42,7 @@ exports.listTopics = (req, res) ->
   catch e
     res.status(500).send e
 
-exports.getTotals = (req, res) ->
+exports.get_totals = (req, res) ->
   try
     totals = topic_totals
     res.status(200).send totals

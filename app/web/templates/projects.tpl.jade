@@ -1,0 +1,12 @@
+.container-generic-tan(ng-controller="DashboardCtrl as d")
+  .header 
+    | SEE SOME OF OUR EXPLORATIONS
+  .col-sm-6.col-centered.content
+    .col-sm-3
+      button.btn.btn-default(ng-click="d.gototopics()") TOPIC MODELING
+    .col-sm-3
+      button.btn.btn-default(ng-click="d.gotowordclouds()") WORDCLOUDS
+    .col-sm-3
+      button.btn.btn-default(ng-click="d.gotolimericks()") LIMERICKS
+    .col-sm-3
+      button.btn.btn-default(ng-click="d.gotongrams()") NGRAMS

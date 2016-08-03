@@ -1,38 +1,24 @@
-.dashboard-container(ng-controller="DashboardCtrl")
+.dashboard-container(ng-controller="DashboardCtrl as dashboard")
   .dashboard-title-container
     img.ftl-logo(src="./assets/img/logo-medium-blue.svg")
     h1.text-center 
-      span.blue-text FTL 
-      span TOPIC EXPLORER
+      span CASELAW ACCESS PROJECT 
     h4.text-center
-      | Explore topics and trends in California law
+      | See our progress live!
       br
       span.blue-text 
         a.read-more(
           href="http://librarylab.law.harvard.edu/projects/free-the-law"
-          target="_blank") read more...
-  //- .mountain-container
-  //-   img.mountains.img-responsive(src="../assets/img/mountains.png")
+          target="_blank") Or read more about the project...
+  .mountain-container
+    img.mountains.img-responsive(src="../assets/img/mountains.png")
       
-  //- .meta-container.col-sm-12
-  //-   include ./main-toc.tpl.jade
-  
-  //- .section-divider.col-sm-12
-  //-   .section-divider.icon-topics
-  //- 
   .meta-container.col-sm-12
-    include ./topic-toc-container.tpl.jade
-  
-  .section-divider.col-sm-12
-    .border-gray
-    .section-icon.icon-bar-chart
+    include ./progress.overview.tpl.jade
   
   .meta-container.col-sm-12
-    include ./single-topic.tpl.jade  
-  
-  .section-divider.col-sm-12
-    .border-gray
-    .section-icon.icon-line-chart
-  
+    include ./progress.numbers.tpl.jade
+
   .meta-container.col-sm-12
-    include ./multi-topics.tpl.jade
+    include ./projects.tpl.jade
+    

@@ -8,3 +8,9 @@ public/assets/original-files/*
 
 public/js/src/*.js
 npm-debug.log
+
+public/vendor/js/ui-bootstrap-custom-build/*.js
+!public/vendor/js/ui-bootstrap-custom-build/ui-bootstrap-custom-1.3.3.min.js
+
+public/vendor/css/assets/bootstrap/*
+public/vendor/js/bootstrap/bootstrap.js

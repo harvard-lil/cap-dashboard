@@ -52,16 +52,17 @@ module.exports = (grunt) ->
            'node_modules/underscore/underscore-min.js',
            'node_modules/jquery/dist/jquery.min.js',
            'node_modules/angular/angular.min.js',
-           'node_modules/bootstrap/dist/js/bootstrap.min.js',
            'node_modules/angular-ui-router/release/angular-ui-router.min.js',
            'node_modules/d3/d3.min.js',
-           'node_modules/nvd3/build/nv.d3.js'
+           'node_modules/nvd3/build/nv.d3.js',
+           'public/vendor/js/ui-bootstrap-custom-build/ui-bootstrap-custom-1.3.3.min.js',
+           'public/vendor/js/bootstrap/bootstrap.min.js',
            ]
         dest:'public/vendor/js/app-vendor.js'
       css:
         src: [
           'node_modules/nvd3/build/nv.d3.css'
-          'public/vendor/css/assets/bootstrap.css'
+          'public/vendor/css/assets/bootstrap.min.css'
         ]
         dest: 'public/vendor/css/app-vendor.css'
 

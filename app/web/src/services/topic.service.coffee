@@ -1,5 +1,5 @@
-angular.module('ftlTopics')
-.service "TopicService", ($http, $q) ->
+angular.module('CAPmodule')
+.service "TopicService", ($http, $stateParams, regionAndStateService) ->
   obj =
     currentTopic : "Breach of Contract"
     topics : []
@@ -37,12 +37,14 @@ angular.module('ftlTopics')
           return response.data
 
     getManyTopics: (topics) ->
+      statesList = regionAndStateService.getListOfStates()
       jsonTopic = JSON.stringify topics
       $http({
         method: 'GET'
         url: "/topics/"
         params:
           topics: jsonTopic
+          states: statesList
         })
       .then (response) ->
         return response.data
