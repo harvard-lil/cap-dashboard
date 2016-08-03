@@ -3,35 +3,9 @@
   .header
     a(name="popular") &nbsp;
     .title AT A GLANCE
-  .col-sm-12
-    .col-sm-1
-    .col-sm-5
-      ul
-        li
-          .progressbar.col-sm-12
-            .progressbar-active(ng-style="{'width':overview.complete.total_percent+ '%'}")
-          
-          .overview-subtitle PERCENT COMPLETE
-            span.pull-right.percent-num {{overview.complete.total_percent}}%
-        li
-          .progressbar.col-sm-12
-            .progressbar-active(ng-style="{'width':overview.complete.states_percent + '%'}")
-
-          .overview-subtitle STATES COMPLETE
-            span.pull-right.percent-num {{overview.complete.states_percent}}%
-
-    .col-sm-5
-      ul
-        li
-          .progressbar.col-sm-12
-            .progressbar-active(ng-style="{'width':overview.complete.regions_percent + '%'}")
-          
-          .overview-subtitle REGIONS COMPLETE
-            span.pull-right.percent-num {{overview.complete.regions_percent}}%
-        li
-          .progressbar.col-sm-12
-            .progressbar-active(ng-style="{'width':overview.complete.metadata_percent + '%'}")
-
-          .overview-subtitle METADATA COMPLETE
-            span.pull-right.percent-num {{overview.complete.metadata_percent}}%
-    .col-sm-1
+  .col-sm-8.col-centered
+    .progressbar.col-sm-12
+      .progressbar-active(ng-style="{'width':overview.complete.percentComplete+ '%'}")
+    
+    .overview-subtitle PERCENT COMPLETE
+      span.pull-right.percent-num {{overview.complete.percentComplete}}%

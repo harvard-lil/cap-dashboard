@@ -1,4 +1,4 @@
-angular.module('ftlTopics')
+angular.module('CAPmodule')
 .controller 'MultiTopicCtrl', ($window, TopicService, GraphService) ->
   # all topics, with selection status
   @topics        = {}
@@ -8,7 +8,7 @@ angular.module('ftlTopics')
 
   topicsExist    = false
 
-  @graph         = GraphService.lineGraph
+  @graph         = GraphService.lineGraph()
   defaults       = GraphService.defaults
   @time          = angular.copy GraphService.defaults.time
 

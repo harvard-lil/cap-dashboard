@@ -5,27 +5,28 @@ angular.module('CAPmodule')
   @numbers.date = "01/01/17"
 
   numbersToRequest = [
-    'total_percent',
-    'pages',
-    'volumes',
-    'cases',
-    'metadata',
-    'metadata_change'
-    'volumes_change'
-    'pages_change'
+    'percentComplete'
+    'pagesProcessed'
+    'volumesProcessed'
+    'metadataComplete'
+    'metadataCompleteChange'
+    'volumesProcessedChange'
+    'pagesProcessedChange'
   ]
 
   self = @
-  getNumbers = ->
-    for num in numbersToRequest
-      progressService.getNumber(num)
-        .then (res) ->
-          self.numbers[res.name] = res.total
 
-  setInterval ->
-    getNumbers()
-  , 60000
+  getNum = (num) ->
+    progressService.getNumber(num)
+    .then (res) ->
+      self.numbers[res.name] = res.total
+
+  getNumbers = -> getNum(num) for num in numbersToRequest
+
+  setInterval(( ->  getNumbers()), 6000)
+  setInterval(( -> getNum('casesProcessed')), 3000)
 
   getNumbers()
+  getNum('casesProcessed')
 
   return

@@ -14,8 +14,8 @@ if process.env.NODE_ENV is 'development'
     MYSQL_PASSWORD : ""
     MYSQL_DATABASE : ""
     NGRAM_DIR      : keys.NGRAM_DIR_LOCAL
-    PROGRESS_STATS : "http://localhost:8001/fake-number/"
-    PROGRESS_API   : "http://localhost:8001/fake-number/"
+    PROGRESS_STATS : keys.PROGRESS_STATS
+    PROGRESS_API   : keys.PROGRESS_STATS
 
 else
   config.keys = keys

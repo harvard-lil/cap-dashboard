@@ -73,22 +73,17 @@ angular.module('CAPmodule')
       count_per_year = {}
       tmp_results = {}
       all_words = []
-
-      for word,word_val of data
-        for state,state_val of word_val
-          for year,val of state_val
-            year_num = parseInt(year)
-            count_per_year[year_num] = if !count_per_year[year_num] then val else count_per_year[year_num] + val
-
-        tmp_results[word] = count_per_year
-        count_per_year = {}
-
-      for word,word_stats of tmp_results
+      
+      for word,val of data
+        if word == 'ERROR'
+          all_words['ERROR'] = val
+          continue
+        totals = val['total_country']
         single_word_result = newLineDataObj(word)
-        for year,val of word_stats
-          single_word_result.values.push {x:parseInt(year), y:val}
-        all_words.push single_word_result
+        for year,count of totals
+          single_word_result.values.push {x:parseInt(year), y:count}
 
+        all_words.push single_word_result
       return all_words
 
     parseLineChartData: (data, timeRange) ->

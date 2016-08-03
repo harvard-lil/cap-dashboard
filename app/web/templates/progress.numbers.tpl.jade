@@ -9,12 +9,12 @@
         .col-sm-10.col-centered
         .small-subtitle
           | PERCENT COMPLETE
-        .progressdots(ng-show="!pnc.numbers.total_percent")
+        .progressdots(ng-show="!pnc.numbers.percentComplete")
           span.dot.dot-one
           span.dot.dot-two
           span.dot.dot-three
 
-        .number.big-text {{ pnc.numbers.total_percent }}%
+        .number.big-text {{ pnc.numbers.percentComplete }}%
       .col-sm-4
         .col-sm-10.col-centered
         .small-subtitle
@@ -24,50 +24,46 @@
         .col-sm-10.col-centered
         .small-subtitle
           | METADATA COMPLETE
-        .progressdots(ng-show="!pnc.numbers.metadata")
-          span.dot.dot-one
-          span.dot.dot-two
-          span.dot.dot-three
-
-        .number {{ pnc.numbers.metadata |  number : fractionSize }}
+        dotdotdot.progressdots(ng-show="!pnc.numbers.metadataComplete")
+        .number {{ pnc.numbers.metadataComplete |  number : fractionSize }}
         .small-green-number 
           span
-            img.up-arrow(ng-show="pnc.numbers.metadata_change")
-          span {{ pnc.numbers.metadata_change | number : fractionSize }}
-
+            img.up-arrow(ng-show="pnc.numbers.metadataChange")
+          span {{ pnc.numbers.metadataChange | number : fractionSize }}
+ 
   .col-centered-small
     .col-sm-12.col-centered
       .col-sm-4
         .col-sm-10.col-centered
         .small-subtitle
           | TOTAL PAGES PROCESSED
-        .progressdots(ng-show="!pnc.numbers.pages")
+        .progressdots(ng-show="!pnc.numbers.pagesProcessed")
           span.dot.dot-one
           span.dot.dot-two
           span.dot.dot-three
-        .number {{ pnc.numbers.pages | number : fractionSize }}
+        .number {{ pnc.numbers.pagesProcessed | number : fractionSize }}
         .small-green-number 
           span
-            img.up-arrow(ng-show="pnc.numbers.pages_change")
-          span {{ pnc.numbers.pages_change | number : fractionSize }}
+            img.up-arrow(ng-show="pnc.numbers.pagesProcessedChange")
+          span {{ pnc.numbers.pagesProcessedChange | number : fractionSize }}
 
       .col-sm-4
         .col-sm-10.col-centered
         .small-subtitle
           | TOTAL VOLUMES PROCESSED
-        .progressdots(ng-show="!pnc.numbers.volumes")
+        .progressdots(ng-show="!pnc.numbers.volumesProcessed")
           span.dot.dot-one
           span.dot.dot-two
           span.dot.dot-three
         
-        .number {{ pnc.numbers.volumes |  number : fractionSize }}
+        .number {{ pnc.numbers.volumesProcessed |  number : fractionSize }}
         .small-green-number 
           span
-            img.up-arrow(ng-show="pnc.numbers.volumes_change")
-          span {{ pnc.numbers.volumes_change | number : fractionSize }}
+            img.up-arrow(ng-show="pnc.numbers.volumesProcessedChange")
+          span {{ pnc.numbers.volumesProcessedChange | number : fractionSize }}
 
       .col-sm-4
         .col-sm-10.col-centered
         .small-subtitle
           | TOTAL CASES PROCESSED
-        .number {{ pnc.numbers.cases |  number : fractionSize }}
+        .number {{ pnc.numbers.casesProcessed |  number : fractionSize }}

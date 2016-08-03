@@ -4,8 +4,13 @@ angular.module('CAPmodule')
   @gototopics = ->
     $state.go 'topics'
     return
+
   @gotowordclouds = ->
     $state.go 'wordclouds'
+    return
+
+  @gotolimericks = ->
+    $state.go 'limericks'
     return
 
   @gotongrams = ->

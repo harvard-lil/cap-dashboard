@@ -1,6 +1,6 @@
 .wordclouds-container(ng-controller="WordcloudsCtrl as wc")
-  .wordclouds-title-container(style="background-color:#F6F6F1;")
-    a(href="/")
+  .container-generic-tan
+    a.container-title-logo(href="/")
       img.ftl-logo(src="./assets/img/logo-medium-blue.svg")
     h1.text-center 
       span CASELAW ACCESS PROJECT 
@@ -12,19 +12,23 @@
           href="http://librarylab.law.harvard.edu/projects/free-the-law"
           target="_blank") read more...
   
-  .container
-    .col-sm-12
-      .topic-header {{wc.currentState.toUpperCase()}} WORDCLOUDS
-    
-    .col-sm-12.col-centered
+  .container-generic
+    .col-sm-4
       .btn-group.col-centered(style="margin-bottom: 30px; position: relative;")
-        button.btn.btn-default.dropdown-toggle(
-          type="button"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false")
-          | SELECT A DIFFERENT STATE
-    
+        span(ng-if="wc.currentState", data-toggle="dropdown")
+          button.btn.btn-default.dropdown-toggle(
+            type="button"
+            aria-haspopup="true"
+            aria-expanded="false")
+            | {{wc.currentState.toUpperCase()}} WORDCLOUDS
+        span(ng-if="!wc.currentState", data-toggle="dropdown")
+          button.btn.btn-default.dropdown-toggle(
+            type="button"
+            
+            aria-haspopup="true"
+            aria-expanded="false")
+            | SELECT A STATE
+
         ul.dropdown-menu
           li(ng-repeat="state in wc.states") 
             a(ng-click="wc.selectState(state)") {{state}}
@@ -33,6 +37,7 @@
       
       ul
         li.col-sm-4.wordcloud-item(ng-repeat="image in wc.images")
-          label.col-sm-12 {{image.substr(image.length - 8)}}
+          label.col-sm-12(ng-if="image.indexOf('totals') > -1") {{image.substr(image.length - 10)}}
+          label.col-sm-12(ng-if="image.indexOf('totals') < 0") {{image.substr(image.length - 8)}}
           a.col-sm-12(href="{{image}}")
             img.col-sm-12.wordcloud-images(src="{{image}}")

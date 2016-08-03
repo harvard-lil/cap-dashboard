@@ -13,13 +13,15 @@ exports.get_state = (req, res) ->
 
     image_urls = []
     for i in data.Contents
-      if (i.Key.indexOf('.png') > -1) && (i.Key.indexOf('totals') < 0)
+      if i.Key.indexOf('.png') > -1
         image_urls.push "#{config.keys.AWS_ADDRESS}/#{config.keys.AWS_BUCKET}/#{i.Key}"
     res.status(200).send {images: image_urls}
 
 exports.list_states = (req, res) ->
-  s3.getObject {Bucket: config.keys.AWS_BUCKET, Key: 'wordclouds/states.txt'}, (err, data) ->
-    if err
-      res.status(500).send {Error: err.stack}
-    states = data.Body.toString().split('\n')
-    res.status(200).send {states:states}
+  try
+    list = s3.sync.getObject({Bucket: config.keys.AWS_BUCKET, Key: 'wordclouds/states.txt'})
+  catch e
+    res.status(500).send {Error: err.stack}
+
+  states = list.Body.toString().split('\n')
+  res.status(200).send {states:states}

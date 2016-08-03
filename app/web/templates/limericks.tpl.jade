@@ -12,13 +12,12 @@
           href="http://librarylab.law.harvard.edu/projects/free-the-law"
           target="_blank") read more...
   
-  .container
+  .container-generic.limerick-container
     .col-sm-12.col-centered
       button.btn.btn-default(ng-click="lc.generate()") 
         | RANDOM LIMERICK GENERATOR
     
-  .container
-    ul.col-centered.col-sm-4(ng-if="lc.limerick")
-      li(ng-repeat="line in lc.limerick") 
+    ul.col-centered.col-sm-6(ng-if="lc.limerick")
+      li.limerick-line(ng-repeat="line in lc.limerick") 
         | {{line}}
       

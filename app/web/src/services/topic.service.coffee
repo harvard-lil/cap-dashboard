@@ -1,9 +1,8 @@
-.service "TopicService", ($http, $stateParams) ->
 angular.module('CAPmodule')
+.service "TopicService", ($http, $stateParams, regionAndStateService) ->
   obj =
     currentTopic : "Breach of Contract"
     topics : []
-    state : 'United States'
     init : ->
       @getList()
         .then (list) =>
@@ -38,12 +37,14 @@ angular.module('CAPmodule')
           return response.data
 
     getManyTopics: (topics) ->
+      statesList = regionAndStateService.getListOfStates()
       jsonTopic = JSON.stringify topics
       $http({
         method: 'GET'
         url: "/topics/"
         params:
           topics: jsonTopic
+          states: statesList
         })
       .then (response) ->
         return response.data

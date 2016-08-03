@@ -14,6 +14,10 @@ angular.module('CAPmodule')
 
   @generateChart = (data) =>
     ngrams = GraphService.parseNgramData(data)
+    if ngrams['ERROR']
+      @error = ngrams['ERROR']
+    else
+      delete @error
     return if !ngrams
     @graph.data = ngrams
     @graph.api?.refresh()
