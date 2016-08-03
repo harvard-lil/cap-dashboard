@@ -25,3 +25,6 @@ angular.module("CAPmodule", [
     .state "ngrams",
       url: "/ngrams"
       templateUrl: "#{templates_path}ngrams.tpl.jade"
+    .state "limericks",
+      url: "/limericks"
+      templateUrl: "#{templates_path}limericks.tpl.jade"

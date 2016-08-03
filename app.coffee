@@ -7,6 +7,8 @@ config          = require './config'
 topic_routes    = require './app/api/topic_routes'
 ngrams          = require './app/api/ngrams_routes'
 progress_routes = require './app/api/progress_routes'
+wordclouds = require './app/api/wordclouds_routes'
+limericks = require './app/api/limericks_routes'
 reqeustToken    = null
 
 client = null
@@ -31,6 +33,13 @@ app.get '/progress/*', progress_routes.get_numbers
 
 
 app.get '/ngrams', ngrams.get_words
+
+
+app.get '/wordclouds/list-states', wordclouds.list_states
+app.get '/wordclouds/:state', wordclouds.get_state
+
+app.get '/limerick/all', limericks.get_list
+app.get '/limerick', limericks.get_random
 
 port = process.env.PORT || 8001
 server = app.listen port, ->
