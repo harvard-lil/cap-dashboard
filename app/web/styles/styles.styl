@@ -31,6 +31,9 @@ $color-third-blue  = #78B6FF
 
 $color-light-gray  = #D9D9D9
 
+a
+  cursor: pointer
+
 .inverse-btn
   font           : 14px $font-name
   font-weight    : $font-bold
@@ -68,12 +71,15 @@ $color-light-gray  = #D9D9D9
     background: url('../assets/img/icon-line-chart.png') no-repeat
   .icon-bar-chart
     background: url('../assets/img/icon-bar-chart.png') no-repeat
+  .icon-numbers
+    background: url('../assets/img/icon-numbers.png') no-repeat
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-.topic-header
+.topic-header,
+.header
   display : block
   text-align : center
   margin     : 14px 0 20px 0
@@ -178,6 +184,7 @@ hr
   display    : inline-block
   margin-bottom : 60px
   width : 100%
+  padding: 0px
 
 .col-centered
   float: none
@@ -189,12 +196,17 @@ hr
 /* DASHBOARD */
 
 
-.dashboard-title-container
+.dashboard-title-container,
+.wordclouds-title-container,
+.topic-title-container
   position    : relative
   width       : 100%
   line-height : 32px
   text-align  : center
-  padding : 23px
+  padding     : 23px
+  padding-bottom: 100px
+  margin-bottom: 50px
+  top: 50px
 
   a.read-more:hover, a.read-more:active
     color : $color-main-blue
@@ -265,6 +277,41 @@ img.mountains
     background-color : $color-main-blue
   .progressbar-inactive
     background-color : white
+
+.progressdots
+  height: 10px
+  .dot
+    border-radius: 30%
+    background-color: $color-main-gray
+    animation-duration: 2s
+    animation-iteration-count: infinite
+    padding: 0 7px
+  span.dot-one
+    animation-name: dotone
+    margin-right: 5px
+  span.dot-two
+    animation-name: dottwo
+  span.dot-three
+    margin-left: 5px
+    animation-name: dotthree
+@keyframes dotone
+  0% {backround-color: $color-main-gray}
+  33% {background-color: $color-main-blue}
+  66% {backround-color: $color-main-gray}
+@keyframes dottwo
+  33% {backround-color: $color-main-gray}
+  66% {background-color: $color-main-blue}
+  99% {backround-color: $color-main-gray}
+@keyframes dotthree
+  66% {backround-color: $color-main-gray}
+  99% {background-color: $color-main-blue}
+  33% {backround-color: $color-main-gray}
+
+.wordcloud-images
+  margin: 5px
+  border : 1px solid $color-main-gray
+.wordcloud-item
+  margin-bottom: 10px
 @import 'nvd3-custom'
 @import 'container-styles'
 @import 'topic-toc-container'
