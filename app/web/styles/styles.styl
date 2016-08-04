@@ -63,7 +63,9 @@ h4
 
 a
   cursor: pointer
-
+  &.no-underline
+    &:hover, &:focus, &:active
+      text-decoration: none
 .inverse-btn
   font           : 14px $font-name
   font-weight    : $font-bold
@@ -108,6 +110,26 @@ input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
+
+.header
+  text-align:       center
+  font-size:        24px
+  margin:           14px 0 52px 0
+.title
+  font-weight:    $font-bold
+  letter-spacing: 2px
+  padding-bottom: 10px
+  text-transform: uppercase
+.subtitle
+  font-size:      24px
+  font-weight  : $font-regular
+  text-transform: uppercase
+
+.small-subtitle
+  font-weight:    $font-regular
+  font-size: 10px
+
 
 button:focus,
 button:active
@@ -254,7 +276,35 @@ button:active:focus
 img.mountains
   width : 100%
 
+.button-round-blue
+  width: 127px
+  height: 127px
+  border: 3px solid $color-main-blue
+  border-radius: 50%
+  font-weight: $font-bold
+  color : $color-main-blue
+  font-size: 14px
+  padding-top: 48px
+  &:hover, &:focus, &:active
+    background-color:$color-second-blue
 
+@media only screen and (max-width: 768px)
+  .mountain-container
+    height:     130px
+    margin-top: -80px
+@media only screen and (max-width: 850px)
+  .mountain-container
+    height:     150px
+    margin-top: -100px
+@media only screen and (min-width: 850px)
+  .mountain-container
+    height:     180px
+    margin-top: -80px
+
+@media only screen and (max-width: 500px)
+  .mountain-container
+    height:       100px
+    margin-top:   -10px
 
 .topic-legend-container
   margin : 10px 0px

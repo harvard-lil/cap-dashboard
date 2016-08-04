@@ -2,7 +2,7 @@ angular.module('CAPmodule')
 .controller 'ProgressNumbersCtrl', (progressService) ->
   @numbers = {}
   d = new Date('2018')
-  @numbers.date = "01/01/17"
+  @numbers.date = "03/01/17"
 
   numbersToRequest = [
     'percentComplete'
