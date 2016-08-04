@@ -9,12 +9,12 @@
         .col-sm-10.col-centered
         .small-subtitle
           | PERCENT COMPLETE
-        .progressdots(ng-show="!pnc.numbers.percentComplete")
+        .progressdots(ng-show="!pnc.numbers.percentScanned")
           span.dot.dot-one
           span.dot.dot-two
           span.dot.dot-three
 
-        .number.big-text {{ pnc.numbers.percentComplete }}%
+        .number.big-text {{ pnc.numbers.percentScanned }}%
       .col-sm-4
         .col-sm-10.col-centered
         .small-subtitle

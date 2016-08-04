@@ -3,7 +3,7 @@ angular.module('CAPmodule')
   self = @
   @complete = {}
   numbersToRequest = [
-    'percentComplete' ]
+    'percentScanned' ]
 
   getNumbers = ->
     for num in numbersToRequest

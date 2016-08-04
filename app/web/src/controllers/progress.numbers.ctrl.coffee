@@ -5,7 +5,7 @@ angular.module('CAPmodule')
   @numbers.date = "03/01/17"
 
   numbersToRequest = [
-    'percentComplete'
+    'percentScanned'
     'pagesProcessed'
     'volumesProcessed'
     'metadataComplete'
