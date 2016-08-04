@@ -1,5 +1,5 @@
 .wordclouds-container(ng-controller="NgramsCtrl as nc")
-  .container-generic-tan
+  .wordclouds-title-container.container-generic-tan
     a(href="/")
       img.ftl-logo(src="./assets/img/logo-medium-blue.svg")
     h1.text-center 
@@ -11,28 +11,33 @@
         a.read-more(
           href="http://librarylab.law.harvard.edu/projects/caselaw-access-project"
           target="_blank") read more...
+  .container.alert.alert-warning(ng-if="nc.error")
+    ul.col-sm-8.col-centered
+      li(style="float: left;" ng-repeat="error in nc.error track by $index")
+        | "{{error.toUpperCase()}}" &nbsp;
+        span(ng-if="($index > -1) && ($index < nc.error.length - 1)") AND &nbsp; 
+      span(style="float:left;" ng-if="nc.error.length > 1") WERE NOT FOUND
+      span(style="float:left;" ng-if="nc.error.length == 1") WAS NOT FOUND
 
   .container-generic
-    .container.alert.alert-warning(ng-if="nc.error")
-      ul.col-sm-8.col-centered
-        li(style="float: left;" ng-repeat="error in nc.error track by $index")
-          | "{{error.toUpperCase()}}" &nbsp;
-          span(ng-if="($index > -1) && ($index < nc.error.length - 1)") AND &nbsp; 
-        span(ng-if="nc.error.length > 1") WERE NOT FOUND
-        span(ng-if="nc.error.length == 1") WAS NOT FOUND
-    .ngram-input-container.col-sm-10.col-centered
-      input.ngram-input.col-sm-10(ng-model="nc.words")
-      button.ngram-button.btn-default.btn(ng-click="nc.findWords()") SEARCH
+    form.ngram-input-container.col-sm-10.col-centered
+      input.ngram-input.col-sm-10(
+        ng-submit="nc.findWords()"
+        ng-model="nc.words")
+      .col-sm-2
+        button.ngram-button.btn-default.btn(ng-click="nc.findWords()") SEARCH
+      .nrgams-instructions.col-sm-12
+        | We don't store common words or ones shorter than three characters
     //- rzslider.slider(
     //-   rz-slider-model="slider.value"
     //-   rz-slider-options="slider.options")
     
     
-    .col-sm-10.col-centered
-      //- GRAPH
-      nvd3.single-topic-graph(
-        ng-if="nc.graph.data"
-        options="nc.graph.options"
-        data="nc.graph.data"
-        config="nc.graph.config"
-        api="nc.graph.api")
+    .container
+      .col-sm-10.col-centered(ng-if="nc.graph.data.length")
+        //- GRAPH
+        nvd3.ngram.single-topic-graph(
+          options="nc.graph.options"
+          data="nc.graph.data"
+          config="nc.graph.config"
+          api="nc.graph.api")

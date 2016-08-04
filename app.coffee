@@ -31,15 +31,13 @@ app.get '/topics', topic_routes.find_by_topics
 
 app.get '/progress/*', progress_routes.get_numbers
 
-
-app.get '/ngrams', ngrams.get_words
-
-
 app.get '/wordclouds/list-states', wordclouds.list_states
 app.get '/wordclouds/:state', wordclouds.get_state
 
 app.get '/limerick/all', limericks.get_list
 app.get '/limerick', limericks.get_random
+
+app.get '/ngrams', ngrams.get_words
 
 port = process.env.PORT || 8001
 server = app.listen port, ->

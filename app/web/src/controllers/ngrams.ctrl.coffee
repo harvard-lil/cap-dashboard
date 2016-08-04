@@ -5,6 +5,7 @@ angular.module('CAPmodule')
   @graph.options.chart.yAxis.tickFormat = d3.format '1'
 
   @findWords = ->
+    return if !@words
     words = @words.split(/[ ,]+/)
     NgramsService
       .getWords(words)

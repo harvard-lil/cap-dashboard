@@ -140,12 +140,12 @@ button:active:focus
   outline: 0
 
 .alert.alert-warning
-  background-color: red
+  background-color: #FF5722
   padding: 20px
   height: 100%
   width: 100%
   color : white
-  font-weight: $font-bold
+  font-weight: $font-regular
 
 
 .topic-header,
@@ -392,18 +392,30 @@ img.mountains
   font-size: 1.5em
 
 .ngram-input
+  border: 2px solid $color-main-blue
   padding: 5px
-  margin-right: 3px
   font-weight: $font-medium
   text-transform: uppercase
+  color: $color-main-blue
+
+.ngram-button
+  padding: 11px 20px
+  border: 2px solid $color-main-blue
+  height: 100%
+  font-weight: $font-medium
+  color: $color-main-blue
+
+  .ngram.single-topic-graph > svg
+  border  : 0px
+  padding : 0px
 
 .ngram-input-container
   margin-bottom: 10px
-
-.col {
+  z-index: 1
+.col
   width: 160px;
   float: left;
-}
+
 button.big-push-button
   border: 3px solid $color-main-blue
   color: $color-main-blue
