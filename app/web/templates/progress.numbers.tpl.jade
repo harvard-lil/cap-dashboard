@@ -26,9 +26,9 @@
           | METADATA COMPLETE
         dotdotdot.progressdots(ng-show="!pnc.numbers.metadataComplete")
         .number {{ pnc.numbers.metadataComplete |  number : fractionSize }}
-        .small-green-number.col-sm-3.col-centered
-          .up-arrow(ng-show="pnc.numbers.metadataChange")
-          span {{ pnc.numbers.metadataChange | number : fractionSize }}
+        //- .small-green-number.col-sm-3.col-centered
+        //-   .up-arrow(ng-show="pnc.numbers.metadataChange")
+        //-   span {{ pnc.numbers.metadataChange | number : fractionSize }}
  
   .col-centered-small
     .col-sm-12.col-centered
@@ -41,9 +41,9 @@
           span.dot.dot-two
           span.dot.dot-three
         .number {{ pnc.numbers.pagesProcessed | number : fractionSize }}
-        .small-green-number.col-centered.col-sm-5
-          .up-arrow(ng-show="pnc.numbers.pagesProcessedChange")
-          span {{ pnc.numbers.pagesProcessedChange | number : fractionSize }}
+        //- .small-green-number.col-centered.col-sm-5
+        //-   .up-arrow(ng-show="pnc.numbers.pagesProcessedChange")
+        //-   span {{ pnc.numbers.pagesProcessedChange | number : fractionSize }}
 
       .col-sm-4
         .col-sm-10.col-centered
@@ -55,9 +55,9 @@
           span.dot.dot-three
         
         .number {{ pnc.numbers.volumesProcessed |  number : fractionSize }}
-        .small-green-number.col-sm-3.col-centered 
-          .up-arrow(ng-show="pnc.numbers.volumesProcessedChange")
-          span {{ pnc.numbers.volumesProcessedChange | number : fractionSize }}
+        //- .small-green-number.col-sm-3.col-centered 
+        //-   .up-arrow(ng-show="pnc.numbers.volumesProcessedChange")
+        //-   span {{ pnc.numbers.volumesProcessedChange | number : fractionSize }}
 
       .col-sm-4
         .col-sm-10.col-centered
