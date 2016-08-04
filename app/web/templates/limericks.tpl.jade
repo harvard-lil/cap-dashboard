@@ -13,11 +13,11 @@
           target="_blank") read more...
   
   .container-generic.limerick-container
-    .col-sm-12.col-centered
-      button.btn.btn-default(ng-click="lc.generate()") 
-        | RANDOM LIMERICK GENERATOR
+    .container
+      .col.col-centered
+        button.big-push-button(style="margin-top: 10px;" ng-click="lc.generate()")
+          | GENERATE ANOTHER!
     
-    ul.col-centered.col-sm-6(ng-if="lc.limerick")
-      li.limerick-line(ng-repeat="line in lc.limerick") 
-        | {{line}}
-      
+      ul.content.col-centered.col-sm-6(ng-if="lc.limerick")
+        li.limerick-line(ng-repeat="line in lc.limerick") 
+          | {{line}}

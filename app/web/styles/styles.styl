@@ -276,17 +276,22 @@ button:active:focus
 img.mountains
   width : 100%
 
-.button-round-blue
+.button-round
   width: 127px
   height: 127px
-  border: 3px solid $color-main-blue
   border-radius: 50%
   font-weight: $font-bold
-  color : $color-main-blue
   font-size: 14px
   padding-top: 48px
-  &:hover, &:focus, &:active
-    background-color:$color-second-blue
+  &.button-round-blue
+    border: 3px solid $color-main-blue
+    color : $color-main-blue
+    &:hover, &:focus, &:active
+      background-color:$color-second-blue
+  &.button-round-white
+    font-weight: $font-medium
+    border: 3px solid white
+    color : white
 
 @media only screen and (max-width: 768px)
   .mountain-container
@@ -394,6 +399,55 @@ img.mountains
 
 .ngram-input-container
   margin-bottom: 10px
+
+.col {
+  width: 160px;
+  float: left;
+}
+button.big-push-button
+  border: 3px solid $color-main-blue
+  color: $color-main-blue
+  padding: 8px 14px;
+  font-weight: $font-bold
+  line-height: 1.2em
+  font-size: 18px;
+  background-color: transparent;
+  text-decoration: none;
+  display: inline-block
+  position: relative
+  box-shadow: 1px 0px $color-second-blue, 0px 1px $color-third-blue,
+              2px 1px $color-second-blue, 1px 2px $color-third-blue,
+              3px 2px $color-second-blue, 2px 3px $color-third-blue,
+              4px 3px $color-second-blue, 3px 4px $color-third-blue,
+              5px 4px $color-second-blue, 4px 5px $color-third-blue,
+              6px 5px $color-second-blue, 5px 6px $color-third-blue;
+  &:hover, &:focus,
+  &.hover, &.focus
+    transform: translate(2px, 2px);
+    box-shadow: 1px 0px $color-second-blue, 0px 1px $color-third-blue,
+              2px 1px $color-second-blue, 1px 2px $color-third-blue,
+              3px 2px $color-second-blue, 2px 3px $color-third-blue,
+              4px 3px $color-second-blue, 3px 4px $color-third-blue;
+    background-color: #252525
+    color: #03a9f4
+    border: 3px solid #03a9f4
+  &:active,
+  &.active
+     transform: translate(4px, 4px);
+     box-shadow: 1px 0px red, 0px 1px #4a4a4a,
+              2px 1px red, 1px 2px #4a4a4a;
+
+.generate-tweet-button
+  background-color:red;
+  min-width: 100px
+  padding: 20px
+  color: white
+  text-align : center
+  font-weight: $font-bold
+  font-size: 20px
+  cursor: pointer
+  &:hover
+    background-color: $color-main-green
 
 @import 'nvd3-custom'
 @import 'container-styles'
