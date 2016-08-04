@@ -1,8 +1,8 @@
 config = {}
 config.keys = {}
-keys = require './keys'
 
 if process.env.NODE_ENV is 'development'
+  keys = require './keys'
   config.keys =
     NODE_ENV       : process.env.NODE_ENV
     AWS_AKID       : keys.AWS_AKID
@@ -18,6 +18,6 @@ if process.env.NODE_ENV is 'development'
     PROGRESS_API   : keys.PROGRESS_STATS
 
 else
-  config.keys = keys
+  config.keys = process.env
 
 module.exports = config

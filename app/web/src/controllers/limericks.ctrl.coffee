@@ -5,4 +5,6 @@ angular.module('CAPmodule')
     LimerickService.getLimerick()
       .then (res) =>
         @limerick = res.limerick
+
+  @generate()
   return

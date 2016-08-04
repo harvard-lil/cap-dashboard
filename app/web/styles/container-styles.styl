@@ -3,6 +3,11 @@
   display    : inline-block
   width : 100%
   padding: 0px
+  &.black-container
+    color: white
+    background-color: $color-main-black
+  &.tan-container
+    background-color: #F6F6F1
 
 .container-generic
   padding:            3px 3px 30px 3px
@@ -25,21 +30,8 @@
     .ftl-logo path
       fill : $color-main-blue !important
 
-  .header
-    text-align:       center
-    font-size:        24px
-    margin:           14px 0 52px 0
-    .title
-      font-weight:    $font-bold
-      letter-spacing: 2px
-      padding-bottom: 10px
-    .subtitle
-      font-size:      24px
-
-    .small-subtitle
-      font-weight:    $font-regular
-      font-size: 10px
   .content
+    padding-top: 40px
     padding-bottom:   40px
 
   // .container-title-logo
@@ -107,16 +99,10 @@
 .topic-title-container,
 .container-generic,
 .container-generic-tan
-  position    : relative
   width       : 100%
   line-height : 32px
   text-align  : center
   padding     : 23px
-  padding-bottom: 100px
-  margin-bottom: 50px
   a.read-more:hover, a.read-more:active
     color : $color-main-blue
     text-decoration : none
-
-    @import 'header'
-    @import 'footer'

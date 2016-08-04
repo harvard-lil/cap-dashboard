@@ -1,12 +1,27 @@
-.container-generic-tan(ng-controller="DashboardCtrl as d")
-  .header 
-    | SEE SOME OF OUR EXPLORATIONS
-  .col-sm-6.col-centered.content
-    .col-sm-3
-      button.btn.btn-default(ng-click="d.gototopics()") TOPIC MODELING
-    .col-sm-3
-      button.btn.btn-default(ng-click="d.gotowordclouds()") WORDCLOUDS
-    .col-sm-3
-      button.btn.btn-default(ng-click="d.gotolimericks()") LIMERICKS
-    .col-sm-3
-      button.btn.btn-default(ng-click="d.gotongrams()") NGRAMS
+.container-generic(ng-controller="DashboardCtrl as d")
+  .header.blue-text
+    .title
+      | DATA EXPLORATIONS
+    .subtitle.blue-text
+      | TAKE A LOOK AT SOME OF THE THINGS  YOU CAN DO WITH THE DATA
+  .row(style="padding:0px 0px 80px;")
+    .col-sm-6.col-centered.content
+      .col-sm-3
+        a.no-underline(ng-click="d.gotowordclouds()") 
+          .button-round.button-round-blue
+            | WORD CLOUDS
+    
+      .col-sm-3
+        a.no-underline(ng-click="d.gototopics()") 
+          .button-round.button-round-blue
+            | TOPIC MAPPER
+
+      .col-sm-3
+        a.no-underline(ng-click="d.gotolimericks()") 
+          .button-round.button-round-blue
+            | LIMERICKS
+
+      .col-sm-3
+        a.no-underline(ng-click="d.gotongrams()")
+          .button-round.button-round-blue
+            | WORD FREQUENCY
