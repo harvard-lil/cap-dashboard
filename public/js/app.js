@@ -93,7 +93,11 @@
 
 (function() {
   angular.module('CAPmodule').controller('LimericksCtrl', function(LimerickService) {
-    LimerickService.getList();
+    LimerickService.getList().then((function(_this) {
+      return function() {
+        return _this.generate();
+      };
+    })(this));
     this.generate = function() {
       return LimerickService.getLimerick().then((function(_this) {
         return function(res) {
@@ -101,7 +105,6 @@
         };
       })(this));
     };
-    this.generate();
   });
 
 }).call(this);
