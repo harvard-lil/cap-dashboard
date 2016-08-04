@@ -13,3 +13,5 @@ angular.module('CAPmodule')
     time:
       min : 1850
       max : 2014
+
+  return obj

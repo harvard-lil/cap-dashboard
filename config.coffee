@@ -13,7 +13,7 @@ if process.env.NODE_ENV is 'development'
     MYSQL_USER     : ""
     MYSQL_PASSWORD : ""
     MYSQL_DATABASE : ""
-    NGRAM_DIR      : keys.NGRAM_DIR_LOCAL
+    NGRAM_DIR      : keys.NGRAM_DIR
     PROGRESS_STATS : keys.PROGRESS_STATS
     PROGRESS_API   : keys.PROGRESS_STATS
 

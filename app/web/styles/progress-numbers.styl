@@ -2,7 +2,7 @@
   .col-sm-12
     display: table
     padding-bottom: 20px
-    height: 100px
+    min-height: 150px
   .col-sm-4
     text-align : center
     padding: 0px 30px
@@ -14,6 +14,7 @@
     padding: 0px 100px
 
   .small-subtitle
+    line-height: 21px
     font-size: 12px
     letter-spacing: 1px
   .number
@@ -22,15 +23,21 @@
     font-size: 34px
     margin-top: 10px
     &.big-text
-      margin-top:0px
-      font-size: 50px
+      font-size: 60px
+      line-height: 50px
   .small-green-number
     font-size: 14px
     color: $color-main-green
     font-weight: $font-bold
-  img.up-arrow
-    background : url(../assets/img/up-arrow.png)
-    width: 10px
-    height: 10px
-    background-repeat: no-repeat
-    background-size: contain
+    text-align: center
+    span
+      float: left
+    .up-arrow
+      margin-top: 10px
+      float: left
+      border-style:none
+      background : url(../assets/img/up-arrow.png)
+      width: 10px
+      height: 10px
+      background-repeat: no-repeat
+      background-size: contain
