@@ -383,7 +383,8 @@ img.mountains
 
 .wordcloud-images
   margin: 5px
-  border : 1px solid $color-main-gray
+  border : 1px solid $color-main-blue
+
 .wordcloud-item
   margin-bottom: 10px
 .limerick-line
@@ -405,7 +406,7 @@ img.mountains
   font-weight: $font-medium
   color: $color-main-blue
 
-  .ngram.single-topic-graph > svg
+.ngram.single-topic-graph > svg
   border  : 0px
   padding : 0px
 
@@ -449,18 +450,25 @@ button.big-push-button
      box-shadow: 1px 0px red, 0px 1px #4a4a4a,
               2px 1px red, 1px 2px #4a4a4a;
 
-.generate-tweet-button
-  background-color:red;
-  min-width: 100px
-  padding: 20px
-  color: white
-  text-align : center
-  font-weight: $font-bold
-  font-size: 20px
-  cursor: pointer
-  &:hover
-    background-color: $color-main-green
+.blue-button
+  border: 1px solid $color-main-blue
+  background-color: white
+  font-weight: $font-medium
+  color: $color-main-blue
 
+.dropdown-menu
+  width : 100%
+  border: 1px solid $color-main-blue
+  height: 300px
+  overflow: scroll
+  li, li > a
+    color : $color-main-blue
+    text-transform: uppercase
+    line-height : 2em
+    border-bottom: 1px
+    &:hover
+      background-color: $color-main-green
+      color : white
 @import 'nvd3-custom'
 @import 'container-styles'
 @import 'topic-toc-container'

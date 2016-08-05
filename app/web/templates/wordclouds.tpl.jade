@@ -1,5 +1,5 @@
 .wordclouds-container(ng-controller="WordcloudsCtrl as wc")
-  .container-generic-tan
+  .container-generic-tan.wordclouds-title-container
     a.container-title-logo(href="/")
       img.ftl-logo(src="./assets/img/logo-medium-blue.svg")
     h1.text-center 
@@ -16,7 +16,7 @@
     .col-sm-4
       .btn-group.col-centered(style="margin-bottom: 30px; position: relative;")
         span(ng-if="wc.currentState", data-toggle="dropdown")
-          button.btn.btn-default.dropdown-toggle(
+          button.blue-button.dropdown-toggle(
             type="button"
             aria-haspopup="true"
             aria-expanded="false")
@@ -32,7 +32,7 @@
         ul.dropdown-menu
           li(ng-repeat="state in wc.states") 
             a(ng-click="wc.selectState(state)") {{state}}
-  
+    .col-sm-8
     .col-sm-12
       
       ul
