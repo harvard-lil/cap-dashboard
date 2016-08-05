@@ -6,7 +6,7 @@ angular.module('CAPmodule')
 
   @findWords = ->
     return if !@words
-    words = @words.split(/[ ,]+/)
+    words = @words.toLowerCase().split(/[ ,]+/)
     NgramsService
       .getWords(words)
       .then (response) =>
