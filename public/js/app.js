@@ -285,7 +285,7 @@
       if (!this.words) {
         return;
       }
-      words = this.words.split(/[ ,]+/);
+      words = this.words.toLowerCase().split(/[ ,]+/);
       return NgramsService.getWords(words).then((function(_this) {
         return function(response) {
           _this.data = response.result;
